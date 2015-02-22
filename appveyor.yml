@@ -17,6 +17,9 @@ environment:
   COVERALLS_REPO_TOKEN:
     secure: S45Gg5pKn0LcC70m7IjzcmPVcuqsdK+Uiq8kUorOfQDM1OM+7pjlcaD0eomEJrqz
 
+before_build:
+  - nuget restore
+	
 build:
   project: SemanticReleaseNotesParser.sln
   verbosity: minimal
