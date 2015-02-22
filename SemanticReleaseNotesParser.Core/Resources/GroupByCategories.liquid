@@ -1,0 +1,12 @@
+﻿{{ release_notes.summary }}
+{%- for item in items_without_categories -%}
+ {% if item.priority > 0 -%} {{ item.priority }}. {%- else -%} - {%- endif %} {{ item.summary }} {%- if item.task_id %} [{{ item.task_id }}]({{ item.task_link }}) {%- endif -%}
+
+{%- endfor -%}
+{%- for category in categories -%}
+# {{ category.name }}
+{%- for item in category.items -%}
+ {% if item.priority > 0 -%} {{ item.priority }}. {%- else -%} - {%- endif %} {{ item.summary }} {%- if item.task_id %} [{{ item.task_id }}]({{ item.task_link }}) {%- endif -%}
+
+{%- endfor -%}
+{%- endfor -%}

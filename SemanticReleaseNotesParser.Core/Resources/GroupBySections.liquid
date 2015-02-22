@@ -1,0 +1,12 @@
+﻿{{ release_notes.summary }}
+{%- for item in release_notes.items -%}
+ {% if item.priority > 0 -%} {{ item.priority }}. {%- else -%} - {%- endif %} {% if item.category -%}{{ lcb }}{{ item.category }}{{ rcb }} {% endif %}{{ item.summary }} {%- if item.task_id %} [{{ item.task_id }}]({{ item.task_link }}) {%- endif -%}
+
+{%- endfor -%}
+{%- for section in release_notes.sections -%}
+# {{ section.name }}
+{%- for item in section.items -%}
+ {% if item.priority > 0 -%} {{ item.priority }}. {%- else -%} - {%- endif %} {% if item.category -%}{{ lcb }}{{ item.category }}{{ rcb }} {% endif %}{{ item.summary }} {%- if item.task_id %} [{{ item.task_id }}]({{ item.task_link }}) {%- endif -%}
+
+{%- endfor -%}
+{%- endfor -%}
