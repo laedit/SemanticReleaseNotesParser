@@ -85,7 +85,7 @@ namespace SemanticReleaseNotesParser.Core
             {
                 throw new InvalidOperationException("The priorities for items are not supported currently for Html output.");
             }
-            return CommonMarkConverter.Convert(result, DefaultCommonMarkSettings);
+            return string.Format("<html><body>{0}</body></html>", CommonMarkConverter.Convert(result, DefaultCommonMarkSettings));
         }
 
         private static void ProcessCategories(Dictionary<string, List<Item>> categories, List<Item> items)

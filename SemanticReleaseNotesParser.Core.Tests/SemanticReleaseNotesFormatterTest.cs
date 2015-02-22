@@ -268,13 +268,15 @@ namespace SemanticReleaseNotesParser.Core.Tests
             };
         }
 
-        private const string ExampleAHtml = @"<p>Incremental release designed to provide an update to some of the core plugins.</p>
+        private const string ExampleAHtml = @"<html><body><p>Incremental release designed to provide an update to some of the core plugins.</p>
 <ul>
 <li>{New} Release Checker: Now gives you a breakdown of exactly what you are missing.</li>
 <li>{New} Structured Layout: An alternative layout engine that allows developers to control layout.</li>
 <li>{Changed} Timeline: Comes with an additional grid view to show the same data.</li>
 <li>{Fix} Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement.</li>
-</ul>";
+</ul>
+
+</body></html>";
 
         private const string ExampleAMarkdown = @"Incremental release designed to provide an update to some of the core plugins.
  - {New} Release Checker: Now gives you a breakdown of exactly what you are missing.
@@ -282,7 +284,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
  - {Changed} Timeline: Comes with an additional grid view to show the same data.
  - {Fix} Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement.";
 
-        private const string ExampleAHtmlCategories = @"<p>Incremental release designed to provide an update to some of the core plugins.</p>
+        private const string ExampleAHtmlCategories = @"<html><body><p>Incremental release designed to provide an update to some of the core plugins.</p>
 <h1>New</h1>
 <ul>
 <li>Release Checker: Now gives you a breakdown of exactly what you are missing.</li>
@@ -295,7 +297,9 @@ namespace SemanticReleaseNotesParser.Core.Tests
 <h1>Fix</h1>
 <ul>
 <li>Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement.</li>
-</ul>";
+</ul>
+
+</body></html>";
 
         private const string ExampleAMarkdownCategories = @"Incremental release designed to provide an update to some of the core plugins.
 # New
@@ -306,7 +310,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
 # Fix
  - Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement.";
 
-        private const string ExampleBHtml = @"<p>Incremental release designed to provide an update to some of the core plugins.</p>
+        private const string ExampleBHtml = @"<html><body><p>Incremental release designed to provide an update to some of the core plugins.</p>
 <h1>System</h1>
 <ul>
 <li>{New} <em>Release Checker</em>: Now gives you a breakdown of exactly what you are missing.</li>
@@ -316,7 +320,9 @@ namespace SemanticReleaseNotesParser.Core.Tests
 <ul>
 <li>{Changed} <em>Timeline</em>: Comes with an additional grid view to show the same data.</li>
 <li>{Fix} <em>Ajax</em>: Fix that crashed poll in Chrome and IE due to log/trace statement.</li>
-</ul>";
+</ul>
+
+</body></html>";
 
         private const string ExampleBMarkdown = @"Incremental release designed to provide an update to some of the core plugins.
 # System
@@ -336,7 +342,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
 
 {{ release_notes.summary }}";
 
-        private const string CustomLiquidTemplateHtml = @"<h1>New</h1>
+        private const string CustomLiquidTemplateHtml = @"<html><body><h1>New</h1>
 <ul>
 <li>Release Checker: Now gives you a breakdown of exactly what you are missing.</li>
 <li>Structured Layout: An alternative layout engine that allows developers to control layout.</li>
@@ -349,7 +355,9 @@ namespace SemanticReleaseNotesParser.Core.Tests
 <ul>
 <li>Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement.</li>
 </ul>
-<p>Incremental release designed to provide an update to some of the core plugins.</p>";
+<p>Incremental release designed to provide an update to some of the core plugins.</p>
+
+</body></html>";
 
         private const string CustomLiquidTemplateMarkdown = @"# New
  - Release Checker: Now gives you a breakdown of exactly what you are missing.
@@ -361,7 +369,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
 
 Incremental release designed to provide an update to some of the core plugins.";
 
-        private const string ExampleCHtml = @"<p>Incremental release designed to provide an update to some of the core plugins.</p>
+        private const string ExampleCHtml = @"<html><body><p>Incremental release designed to provide an update to some of the core plugins.</p>
 <ul>
 <li><em>Example</em>: You can have global issues that aren't grouped to a section</li>
 </ul>
@@ -374,7 +382,9 @@ Incremental release designed to provide an update to some of the core plugins.";
 <ul>
 <li>{Changed} <em>Timeline</em>: Comes with an additional grid view to show the same data.</li>
 <li>{Fix} <em>Ajax</em>: Fix that crashed poll in Chrome and IE due to log/trace statement. <a href=""http://getglimpse.com"">i1234</a></li>
-</ul>";
+</ul>
+
+</body></html>";
 
         private const string ExampleCMarkdown = @"Incremental release designed to provide an update to some of the core plugins.
  - *Example*: You can have global issues that aren't grouped to a section
@@ -385,7 +395,7 @@ Incremental release designed to provide an update to some of the core plugins.";
  - {Changed} *Timeline*: Comes with an additional grid view to show the same data.
  - {Fix} *Ajax*: Fix that crashed poll in Chrome and IE due to log/trace statement. [i1234](http://getglimpse.com)";
 
-        private const string ExampleCHtmlCategories = @"<p>Incremental release designed to provide an update to some of the core plugins.</p>
+        private const string ExampleCHtmlCategories = @"<html><body><p>Incremental release designed to provide an update to some of the core plugins.</p>
 <ul>
 <li><em>Example</em>: You can have global issues that aren't grouped to a section</li>
 </ul>
@@ -401,7 +411,9 @@ Incremental release designed to provide an update to some of the core plugins.";
 <h1>Fix</h1>
 <ul>
 <li><em>Ajax</em>: Fix that crashed poll in Chrome and IE due to log/trace statement. <a href=""http://getglimpse.com"">i1234</a></li>
-</ul>";
+</ul>
+
+</body></html>";
 
         private const string ExampleCMarkdownCategories = @"Incremental release designed to provide an update to some of the core plugins.
  - *Example*: You can have global issues that aren't grouped to a section
@@ -413,7 +425,7 @@ Incremental release designed to provide an update to some of the core plugins.";
 # Fix
  - *Ajax*: Fix that crashed poll in Chrome and IE due to log/trace statement. [i1234](http://getglimpse.com)";
 
-        private const string ExampleDHtml = @"<p>Incremental release designed to provide an update to some of the core plugins.</p>
+        private const string ExampleDHtml = @"<html><body><p>Incremental release designed to provide an update to some of the core plugins.</p>
 <ul class=""srn_priority"">
 <li data-content=""1""><em>Example</em>: You can have global issues that aren't grouped to a section</li>
 </ul>
@@ -426,7 +438,9 @@ Incremental release designed to provide an update to some of the core plugins.";
 <ul class=""srn_priority"">
 <li data-content=""1"">{Changed} <em>Timeline</em>: Comes with an additional grid view to show the same data.</li>
 <li data-content=""1"">{Fix} <em>Ajax</em>: Fix that crashed poll in Chrome and IE due to log/trace statement. <a href=""http://getglimpse.com"">i1234</a></li>
-</ul>";
+</ul>
+
+</body></html>";
 
         private const string ExampleDMarkdown = @"Incremental release designed to provide an update to some of the core plugins.
  1. *Example*: You can have global issues that aren't grouped to a section

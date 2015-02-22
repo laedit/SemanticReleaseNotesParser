@@ -276,12 +276,14 @@ namespace SemanticReleaseNotesParser.Tests
  - This is the **second** __list__ item. +new
  - This is the `third` list item. +fix";
 
-        private const string ExpectedHtml = @"<p>A little summary</p>
+        private const string ExpectedHtml = @"<html><body><p>A little summary</p>
 <h1>System</h1>
 <ul>
 <li>{new} This is the <strong>second</strong> <strong>list</strong> item.</li>
 <li>{fix} This is the <code>third</code> list item.</li>
-</ul>";
+</ul>
+
+</body></html>";
 
         private const string ExpectedMarkdow = @"A little summary
 # System
@@ -298,20 +300,22 @@ namespace SemanticReleaseNotesParser.Tests
 
 {{ release_notes.summary }}";
 
-        private const string ExpectedCustomHtml = @"<h1>System</h1>
+        private const string ExpectedCustomHtml = @"<html><body><h1>System</h1>
 <ul>
 <li>{new} This is the <strong>second</strong> <strong>list</strong> item.</li>
 <li>{fix} This is the <code>third</code> list item.</li>
 </ul>
-<p>A little summary</p>";
+<p>A little summary</p>
 
-        private const string ExpectedAppVeyorData = @"{ ""name"": ""SemanticReleaseNotes"", ""value"": ""<p>A little summary</p>
+</body></html>";
+
+        private const string ExpectedAppVeyorData = @"{ ""name"": ""SemanticReleaseNotes"", ""value"": ""<html><body><p>A little summary</p>
 <h1>System</h1>
 <ul>
 <li>{new} This is the <strong>second</strong> <strong>list</strong> item.</li>
 <li>{fix} This is the <code>third</code> list item.</li>
 </ul>
 
-"" }";
+</body></html>"" }";
     }
 }
