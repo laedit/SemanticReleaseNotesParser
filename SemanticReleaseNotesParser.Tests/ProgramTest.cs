@@ -271,16 +271,51 @@ namespace SemanticReleaseNotesParser.Tests
             Logger.Reset();
         }
 
-        private const string DefaultMarkdown = "A little summary\r\n# System\r\n - This is the **second** __list__ item. +new\r\n - This is the `third` list item. +fix";
+        private const string DefaultMarkdown = @"A little summary
+# System
+ - This is the **second** __list__ item. +new
+ - This is the `third` list item. +fix";
 
-        private const string ExpectedHtml = "<html><body><p>A little summary</p>\r\n<h1>System</h1>\r\n<ul>\r\n<li>{new} This is the <strong>second</strong> <strong>list</strong> item.</li>\r\n<li>{fix} This is the <code>third</code> list item.</li>\r\n</ul>\r\n\r\n</body></html>";
+        private const string ExpectedHtml = @"<html><body><p>A little summary</p>
+<h1>System</h1>
+<ul>
+<li>{new} This is the <strong>second</strong> <strong>list</strong> item.</li>
+<li>{fix} This is the <code>third</code> list item.</li>
+</ul>
 
-        private const string ExpectedMarkdow = "A little summary\r\n# System\r\n - {new} This is the **second** __list__ item.\r\n - {fix} This is the `third` list item.";
+</body></html>";
 
-        private const string CustomTemplate = "{%- for section in release_notes.sections -%}\r\n# {{ section.name }}\r\n{%- for item in section.items -%}\r\n - {% if item.category -%}{{ lcb }}{{ item.category }}{{ rcb }} {% endif %}{{ item.summary }} {%- if item.task_id %} [{{ item.task_id }}]({{ item.task_link }}) {%- endif -%}\r\n\r\n{%- endfor -%}\r\n{%- endfor -%}\r\n\r\n{{ release_notes.summary }}";
+        private const string ExpectedMarkdow = @"A little summary
+# System
+ - {new} This is the **second** __list__ item.
+ - {fix} This is the `third` list item.";
 
-        private const string ExpectedCustomHtml = "<html><body><h1>System</h1>\r\n<ul>\r\n<li>{new} This is the <strong>second</strong> <strong>list</strong> item.</li>\r\n<li>{fix} This is the <code>third</code> list item.</li>\r\n</ul>\r\n<p>A little summary</p>\r\n\r\n</body></html>";
+        private const string CustomTemplate = @"{%- for section in release_notes.sections -%}
+# {{ section.name }}
+{%- for item in section.items -%}
+ - {% if item.category -%}{{ lcb }}{{ item.category }}{{ rcb }} {% endif %}{{ item.summary }} {%- if item.task_id %} [{{ item.task_id }}]({{ item.task_link }}) {%- endif -%}
 
-        private const string ExpectedAppVeyorData = "{ \"name\": \"SemanticReleaseNotes\", \"value\": \"<html><body><p>A little summary</p>\r\n<h1>System</h1>\r\n<ul>\r\n<li>{new} This is the <strong>second</strong> <strong>list</strong> item.</li>\r\n<li>{fix} This is the <code>third</code> list item.</li>\r\n</ul>\r\n\r\n</body></html>\" }";
+{%- endfor -%}
+{%- endfor -%}
+
+{{ release_notes.summary }}";
+
+        private const string ExpectedCustomHtml = @"<html><body><h1>System</h1>
+<ul>
+<li>{new} This is the <strong>second</strong> <strong>list</strong> item.</li>
+<li>{fix} This is the <code>third</code> list item.</li>
+</ul>
+<p>A little summary</p>
+
+</body></html>";
+
+        private const string ExpectedAppVeyorData = @"{ ""name"": ""SemanticReleaseNotes"", ""value"": ""<html><body><p>A little summary</p>
+<h1>System</h1>
+<ul>
+<li>{new} This is the <strong>second</strong> <strong>list</strong> item.</li>
+<li>{fix} This is the <code>third</code> list item.</li>
+</ul>
+
+</body></html>"" }";
     }
 }
