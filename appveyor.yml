@@ -1,5 +1,8 @@
 configuration: Release
 
+init:
+  - git config --global core.autocrlf true
+  
 install:
 - GitVersion /output buildserver /UpdateAssemblyInfo true
 - choco install opencover -source https://nuget.org/api/v2/
