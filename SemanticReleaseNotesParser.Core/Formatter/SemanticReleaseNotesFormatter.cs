@@ -13,6 +13,12 @@ namespace SemanticReleaseNotesParser.Core
     /// </summary>
     public sealed class SemanticReleaseNotesFormatter
     {
+        private const string HtmlEnvelope = @"<html>
+<body>
+{0}
+</body>
+</html>";
+
         private static CommonMarkSettings DefaultCommonMarkSettings = new CommonMarkSettings
         {
             AdditionalFeatures = CommonMarkAdditionalFeatures.StrikethroughTilde,
@@ -32,7 +38,7 @@ namespace SemanticReleaseNotesParser.Core
                 throw new ArgumentNullException("writer");
             }
 
-            writer.Write(Format(releaseNotes));
+            writer.Write(Format(releaseNotes, settings));
         }
 
         /// <summary>
@@ -73,7 +79,7 @@ namespace SemanticReleaseNotesParser.Core
             var itemsWithoutCategory = new List<Item>(releaseNotes.Items.Where(i => string.IsNullOrEmpty(i.Category)));
             releaseNotes.Sections.ForEach(s => itemsWithoutCategory.AddRange(s.Items.Where(i => string.IsNullOrEmpty(i.Category))));
 
-            string result = liquidTemplate.Render(Hash.FromAnonymousObject(new { release_notes = releaseNotes, lcb = "{", rcb = "}", categories = processedCategories, items_without_categories = itemsWithoutCategory }));
+            string result = liquidTemplate.Render(Hash.FromAnonymousObject(new { release_notes = releaseNotes, lcb = "{", rcb = "}", categories = processedCategories, items_without_categories = itemsWithoutCategory })).Trim();
 
             if (settings.OutputFormat == OutputFormat.Markdown)
             {
@@ -85,7 +91,7 @@ namespace SemanticReleaseNotesParser.Core
             {
                 throw new InvalidOperationException("The priorities for items are not supported currently for Html output.");
             }
-            return string.Format("<html><body>{0}</body></html>", CommonMarkConverter.Convert(result, DefaultCommonMarkSettings));
+            return string.Format(HtmlEnvelope, CommonMarkConverter.Convert(result, DefaultCommonMarkSettings).Trim());
         }
 
         private static void ProcessCategories(Dictionary<string, List<Item>> categories, List<Item> items)

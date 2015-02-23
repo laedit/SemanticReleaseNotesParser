@@ -83,6 +83,7 @@ namespace SemanticReleaseNotesParser
                 {
                     Logger.Debug("File output");
                     FileSystem.File.WriteAllText(arguments.ResultFilePath, formattedReleaseNotes);
+                    Logger.Info("File '{0}' generated", arguments.ResultFilePath);
                 }
                 else if (arguments.OutputType == OutputType.Environment)
                 {
