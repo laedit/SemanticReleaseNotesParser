@@ -306,24 +306,96 @@ Commits: [19556f025b...0203ea9a43](https://github.com/laedit/vika/compare/19556f
             return new StringReader(input);
         }
 
-        private const string Syntax_Summaries = "This is a _project_ summary with two paragraphs.\r\nLorem ipsum dolor sit amet consectetuer **adipiscing** elit.\r\nAliquam hendreritmi posuere lectus.\r\n\r\nVestibulum `enim wisi` viverra nec fringilla in laoreet\r\nvitae risus. Donec sit amet nisl. Aliquam [semper](?) ipsum\r\nsit amet velit.";
+        private const string Syntax_Summaries = @"This is a _project_ summary with two paragraphs.
+Lorem ipsum dolor sit amet consectetuer **adipiscing** elit.
+Aliquam hendreritmi posuere lectus.
 
-        private const string Syntax_Items = " - This is the _first_ *list* item.\r\n - This is the **second** __list__ item.\r\n - This is the `third` list item.\r\n - This is the [forth](?) list item.";
+Vestibulum `enim wisi` viverra nec fringilla in laoreet
+vitae risus. Donec sit amet nisl. Aliquam [semper](?) ipsum
+sit amet velit.";
 
-        private const string Syntax_Sections = "# Section\r\nThis is the summary for Section.\r\n - This is a Section scoped first list item.\r\n - This is a Section scoped second list item.\r\n\r\n\r\n# Other Section\r\nThis is the summary for Other Section.\r\n - This is a Other Section scoped first list item.\r\n - This is a Other Section scoped second list item.\r\n       ";
+        private const string Syntax_Items = @" - This is the _first_ *list* item.
+ - This is the **second** __list__ item.
+ - This is the `third` list item.
+ - This is the [forth](?) list item.";
 
-        private const string Syntax_Priority = " 1. This is a High priority list item.\r\n 1. This is a High priority list item.\r\n 2. This is a Normal priority list item.\r\n 1. This is a High priority list item.\r\n 2. This is a Normal priority list item.\r\n 3. This is a Minor priority list item.\r\n 3. This is a Minor priority list item.\r\n  ";
+        private const string Syntax_Sections = @"# Section
+This is the summary for Section.
+ - This is a Section scoped first list item.
+ - This is a Section scoped second list item.
 
-        private const string Syntax_Category = " - This is a +New list item.\r\n - This is a +Fix list item.\r\n - This is a +Change list item.\r\n - +New features are everyone's favorites.\r\n - This is a list item for a +Developer.\r\n - This is a +Super-Special custom list item.\r\n - This is a +o ne letter category.\r\n         ";
+# Other Section
+This is the summary for Other Section.
+ - This is a Other Section scoped first list item.
+ - This is a Other Section scoped second list item.
+       ";
 
-        private const string ExampleA = "Incremental release designed to provide an update to some of the core plugins.\r\n\r\n - Release Checker: Now gives you a breakdown of exactly what you are missing. +New\r\n - Structured Layout: An alternative layout engine that allows developers to control layout. +New\r\n - Timeline: Comes with an additional grid view to show the same data. +Changed\r\n - Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement. +Fix";
+        private const string Syntax_Priority = @" 1. This is a High priority list item.
+ 1. This is a High priority list item.
+ 2. This is a Normal priority list item.
+ 1. This is a High priority list item.
+ 2. This is a Normal priority list item.
+ 3. This is a Minor priority list item.
+ 3. This is a Minor priority list item.
+  ";
 
-        private const string ExampleB = "Incremental release designed to provide an update to some of the core plugins.\r\n\r\n# System\r\n - *Release Checker*: Now gives you a breakdown of exactly what you are missing. +New\r\n - *Structured Layout*: An alternative layout engine that allows developers to control layout. +New\r\n\r\n# Plugin\r\n - *Timeline*: Comes with an additional grid view to show the same data. +Changed\r\n - *Ajax*: Fix that crashed poll in Chrome and IE due to log/trace statement. +Fix";
+        private const string Syntax_Category = @" - This is a +New list item.
+ - This is a +Fix list item.
+ - This is a +Change list item.
+ - +New features are everyone's favorites.
+ - This is a list item for a +Developer.
+ - This is a +Super-Special custom list item.
+ - This is a +o ne letter category.
+         ";
 
-        private const string ExampleC = "Incremental release designed to provide an update to some of the core plugins.\r\n - *Example*: You can have global issues that aren't grouped to a section\r\n\r\n# System\r\nThis description is specific to system section.\r\n - *Release Checker*: Now gives you a +new breakdown of exactly what you are missing.\r\n - *Structured Layout*: A +new alternative layout engine that allows developers to control layout.\r\n\r\n# Plugin\r\nThis description is specific to plugin section.\r\n - *Timeline*: Comes with an additional grid view to show the same data. +Changed\r\n - *Ajax*: +Fix that crashed poll in Chrome and IE due to log/trace statement. [[i1234][http://getglimpse.com]]";
+        private const string ExampleA = @"Incremental release designed to provide an update to some of the core plugins.
 
-        private const string ExampleD = "Incremental release designed to provide an update to some of the core plugins.\r\n 1. *Example*: You can have global issues that aren't grouped to a section\r\n\r\n# System [[icon][http://getglimpse.com/release/icon/core.png]]\r\nThis description is specific to system section.\r\n3. *Release Checker*: Now gives you a breakdown of exactly what you are missing. +New\r\n 2. *Structured Layout*: An alternative layout engine that allows developers to control layout. +New\r\n\r\n# Plugin [[icon][http://getglimpse.com/release/icon/mvc.png]]\r\nThis description is specific to plugin section.\r\n 1. *Timeline*: Comes with an additional grid view to show the same data. +Changed\r\n 1. *Ajax*: Fix that crashed poll in Chrome and IE due to log/trace statement. +Fix [[i1234][http://getglimpse.com]]";
+ - Release Checker: Now gives you a breakdown of exactly what you are missing. +New
+ - Structured Layout: An alternative layout engine that allows developers to control layout. +New
+ - Timeline: Comes with an additional grid view to show the same data. +Changed
+ - Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement. +Fix";
 
-        private const string NVikaReleaseNotes = " - [#9](https://github.com/laedit/vika/issues/9) - Handle multiple report files +enhancement\r\n - [#2](https://github.com/laedit/vika/issues/2) - Support AppVeyor +enhancement\r\n - [#1](https://github.com/laedit/vika/issues/1) - Support InspectCode +enhancement\r\n\r\nCommits: [19556f025b...0203ea9a43](https://github.com/laedit/vika/compare/19556f025b...0203ea9a43)\r\n";
+        private const string ExampleB = @"Incremental release designed to provide an update to some of the core plugins.
+
+# System
+ - *Release Checker*: Now gives you a breakdown of exactly what you are missing. +New
+ - *Structured Layout*: An alternative layout engine that allows developers to control layout. +New
+
+# Plugin
+ - *Timeline*: Comes with an additional grid view to show the same data. +Changed
+ - *Ajax*: Fix that crashed poll in Chrome and IE due to log/trace statement. +Fix";
+
+        private const string ExampleC = @"Incremental release designed to provide an update to some of the core plugins.
+ - *Example*: You can have global issues that aren't grouped to a section
+
+# System
+This description is specific to system section.
+ - *Release Checker*: Now gives you a +new breakdown of exactly what you are missing.
+ - *Structured Layout*: A +new alternative layout engine that allows developers to control layout.
+
+# Plugin
+This description is specific to plugin section.
+ - *Timeline*: Comes with an additional grid view to show the same data. +Changed
+ - *Ajax*: +Fix that crashed poll in Chrome and IE due to log/trace statement. [[i1234][http://getglimpse.com]]";
+
+        private const string ExampleD = @"Incremental release designed to provide an update to some of the core plugins.
+ 1. *Example*: You can have global issues that aren't grouped to a section
+
+# System [[icon][http://getglimpse.com/release/icon/core.png]]
+This description is specific to system section.
+ 3. *Release Checker*: Now gives you a breakdown of exactly what you are missing. +New
+ 2. *Structured Layout*: An alternative layout engine that allows developers to control layout. +New
+
+# Plugin [[icon][http://getglimpse.com/release/icon/mvc.png]]
+This description is specific to plugin section.
+ 1. *Timeline*: Comes with an additional grid view to show the same data. +Changed
+ 1. *Ajax*: Fix that crashed poll in Chrome and IE due to log/trace statement. +Fix [[i1234][http://getglimpse.com]]";
+
+        private const string NVikaReleaseNotes = @" - [#9](https://github.com/laedit/vika/issues/9) - Handle multiple report files +enhancement
+ - [#2](https://github.com/laedit/vika/issues/2) - Support AppVeyor +enhancement
+ - [#1](https://github.com/laedit/vika/issues/1) - Support InspectCode +enhancement
+
+Commits: [19556f025b...0203ea9a43](https://github.com/laedit/vika/compare/19556f025b...0203ea9a43)
+";
     }
 }
