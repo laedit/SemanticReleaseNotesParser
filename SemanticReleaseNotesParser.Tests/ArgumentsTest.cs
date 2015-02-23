@@ -1,5 +1,6 @@
 ﻿using SemanticReleaseNotesParser.Core;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -11,7 +12,7 @@ namespace SemanticReleaseNotesParser.Tests
         public void WriteHelp_All()
         {
             // arrange
-            var arguments = new Arguments();
+            var arguments = Arguments.ParseArguments(Enumerable.Empty<string>());
             var output = new StringBuilder();
             var writer = new StringWriter(output);
 

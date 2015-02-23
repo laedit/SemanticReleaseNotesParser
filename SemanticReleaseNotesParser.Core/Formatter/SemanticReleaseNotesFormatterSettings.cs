@@ -5,7 +5,7 @@
     /// </summary>
     public sealed class SemanticReleaseNotesFormatterSettings
     {
-        private static SemanticReleaseNotesFormatterSettings _default = new SemanticReleaseNotesFormatterSettings();
+        private readonly static SemanticReleaseNotesFormatterSettings _default = new SemanticReleaseNotesFormatterSettings();
 
         /// <summary>
         /// Defines the output format

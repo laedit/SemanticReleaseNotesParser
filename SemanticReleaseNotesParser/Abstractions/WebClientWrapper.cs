@@ -8,9 +8,9 @@ namespace SemanticReleaseNotesParser.Abstractions
     {
         public WebClientWrapper(string baseAddress)
         {
-            this.BaseAddress = baseAddress;
-            this.Headers["Accept"] = "application/json";
-            this.Headers["Content-type"] = "application/json";
+            BaseAddress = baseAddress;
+            Headers["Accept"] = "application/json";
+            Headers["Content-type"] = "application/json";
         }
     }
 }

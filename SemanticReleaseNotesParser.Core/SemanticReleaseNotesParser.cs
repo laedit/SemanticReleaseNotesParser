@@ -8,7 +8,7 @@ namespace SemanticReleaseNotesParser.Core
     /// <summary>
     /// Semantic Release Notes Parser
     /// </summary>
-    public sealed class SemanticReleaseNotesParser
+    public static class SemanticReleaseNotesParser
     {
         private static readonly Regex LinkRegex = new Regex(@"\[\[(\S+)\]\[(\S+)\]\]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex SectionRegex = new Regex(@"^# ([\w\s*]*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -50,7 +50,7 @@ namespace SemanticReleaseNotesParser.Core
             for (int i = 0; i < rawLines.Length; i++)
             {
                 var rawLine = rawLines[i];
-                var matched = false;
+                bool matched;
 
                 // Process the line
                 matched = ProcessSection(rawLine, releaseNotes);
@@ -147,8 +147,10 @@ namespace SemanticReleaseNotesParser.Core
             var match = SectionRegex.Match(input);
             if (match.Success)
             {
-                var section = new Section();
-                section.Name = match.Groups[1].Value;
+                var section = new Section
+                {
+                    Name = match.Groups[1].Value
+                };
 
                 var link = GetLink(input);
                 if (!string.IsNullOrEmpty(link.Item1) && link.Item1.Equals("icon", StringComparison.OrdinalIgnoreCase))
@@ -159,6 +161,7 @@ namespace SemanticReleaseNotesParser.Core
                 releaseNotes.Sections.Add(section);
                 return true;
             }
+
             return false;
         }
 

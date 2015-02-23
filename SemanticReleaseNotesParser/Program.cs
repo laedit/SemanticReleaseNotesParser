@@ -69,10 +69,8 @@ namespace SemanticReleaseNotesParser
                         Logger.Error("Template file '{0}' does not exists", arguments.TemplatePath);
                         return 1;
                     }
-                    else
-                    {
-                        template = FileSystem.File.ReadAllText(arguments.TemplatePath);
-                    }
+
+                    template = FileSystem.File.ReadAllText(arguments.TemplatePath);
                 }
 
                 var formatterSettings = new SemanticReleaseNotesFormatterSettings { OutputFormat = arguments.OutputFormat, LiquidTemplate = template };

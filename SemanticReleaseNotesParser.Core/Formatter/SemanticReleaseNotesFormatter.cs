@@ -11,7 +11,7 @@ namespace SemanticReleaseNotesParser.Core
     /// <summary>
     /// Semantic release notes formatter
     /// </summary>
-    public sealed class SemanticReleaseNotesFormatter
+    public static class SemanticReleaseNotesFormatter
     {
         private const string HtmlEnvelope = @"<html>
 <body>
@@ -19,7 +19,7 @@ namespace SemanticReleaseNotesParser.Core
 </body>
 </html>";
 
-        private static CommonMarkSettings DefaultCommonMarkSettings = new CommonMarkSettings
+        private readonly static CommonMarkSettings DefaultCommonMarkSettings = new CommonMarkSettings
         {
             AdditionalFeatures = CommonMarkAdditionalFeatures.StrikethroughTilde,
             OutputFormat = CommonMark.OutputFormat.Html
@@ -94,7 +94,7 @@ namespace SemanticReleaseNotesParser.Core
             return string.Format(HtmlEnvelope, CommonMarkConverter.Convert(result, DefaultCommonMarkSettings).Trim());
         }
 
-        private static void ProcessCategories(Dictionary<string, List<Item>> categories, List<Item> items)
+        private static void ProcessCategories(Dictionary<string, List<Item>> categories, IEnumerable<Item> items)
         {
             foreach (var item in items)
             {

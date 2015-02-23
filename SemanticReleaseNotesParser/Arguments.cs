@@ -1,5 +1,6 @@
 ﻿using NDesk.Options;
 using SemanticReleaseNotesParser.Core;
+using System.Collections.Generic;
 
 namespace SemanticReleaseNotesParser
 {
@@ -21,7 +22,7 @@ namespace SemanticReleaseNotesParser
 
         public OutputFormat OutputFormat { get; private set; }
 
-        public Arguments()
+        private Arguments()
         {
             Add("r|releasenotes=", "Release notes file path to parse (default: ReleaseNotes.md)", r => ReleaseNotesPath = r);
             Add("o|outputfile=", "Path of the resulting file (default: ReleaseNotes.html", o => ResultFilePath = o);
@@ -35,7 +36,7 @@ namespace SemanticReleaseNotesParser
             ResultFilePath = "ReleaseNotes.html";
         }
 
-        public static Arguments ParseArguments(string[] args)
+        public static Arguments ParseArguments(IEnumerable<string> args)
         {
             var arguments = new Arguments();
             var additionalArguments = arguments.Parse(args);
