@@ -8,6 +8,7 @@ install:
 - choco install opencover -source https://nuget.org/api/v2/
 - choco install coveralls.io -source https://nuget.org/api/v2/
 - choco install resharper-clt
+- choco install ilrepack -source https://api.nuget.org/v2/
 
 #cache:
 #- packages -> **\packages.config
@@ -29,7 +30,8 @@ build:
 
 after_build:
 - inspectcode /o="inspectcodereport.xml" "SemanticReleaseNotesParser.sln"
-#- NVika\bin\Release\NVika buildserver "inspectcodereport.xml" --debug --includesource
+#- NVika buildserver "inspectcodereport.xml" --debug --includesource
+- ilrepack /internalize /parallel /wildcards /out:SemanticReleaseNotesParser.exe SemanticReleaseNotesParser/bin/Release/SemanticReleaseNotesParser.exe SemanticReleaseNotesParser/bin/Release/*.dll
 
 test_script:
 - OpenCover.Console.exe -register:user -filter:"+[SemanticReleaseNotesParser.Core]*" -excludebyattribute:*.ExcludeFromCodeCoverage* -target:"xunit.console.clr4.exe" -targetargs:"""SemanticReleaseNotesParser.Core.Tests\bin\Release\SemanticReleaseNotesParser.Core.Tests.dll"" /noshadow /appveyor" -output:coverage.xml -returntargetcode
@@ -40,7 +42,8 @@ test_script:
 artifacts:
 - path: inspectcodereport.xml
 - path: coverage.xml
-- path: NVika\bin\Release\SemanticReleaseNotesParser.exe.CodeAnalysisLog.xml
+- path: SemanticReleaseNotesParser\bin\Release\SemanticReleaseNotesParser.exe.CodeAnalysisLog.xml
   name: SemanticReleaseNotesParser.exe.CodeAnalysisLog.xml
-- path: NVika\bin\Release\SemanticReleaseNotesParser.Core..dll.CodeAnalysisLog.xml
+- path: SemanticReleaseNotesParser.Core\bin\Release\SemanticReleaseNotesParser.Core.dll.CodeAnalysisLog.xml
   name: SemanticReleaseNotesParser.Core.dll.CodeAnalysisLog.xml
+- path: SemanticReleaseNotesParser.exe
