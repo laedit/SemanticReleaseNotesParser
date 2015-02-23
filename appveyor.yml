@@ -35,8 +35,7 @@ after_build:
 
 test_script:
 - OpenCover.Console.exe -register:user -filter:"+[SemanticReleaseNotesParser.Core]*" -excludebyattribute:*.ExcludeFromCodeCoverage* -target:"xunit.console.clr4.exe" -targetargs:"""SemanticReleaseNotesParser.Core.Tests\bin\Release\SemanticReleaseNotesParser.Core.Tests.dll"" /noshadow /appveyor" -output:coverage.xml -returntargetcode
-- coveralls.net --opencover coverage.xml
-- OpenCover.Console.exe -register:user -filter:"+[SemanticReleaseNotesParser]*" -excludebyattribute:*.ExcludeFromCodeCoverage* -target:"xunit.console.clr4.exe" -targetargs:"""SemanticReleaseNotesParser.Tests\bin\Release\SemanticReleaseNotesParser.Tests.dll"" /noshadow /appveyor" -output:coverage.xml -returntargetcode
+- OpenCover.Console.exe -register:user -filter:"+[SemanticReleaseNotesParser]*" -excludebyattribute:*.ExcludeFromCodeCoverage* -target:"xunit.console.clr4.exe" -targetargs:"""SemanticReleaseNotesParser.Tests\bin\Release\SemanticReleaseNotesParser.Tests.dll"" /noshadow /appveyor" -output:coverage.xml -returntargetcode -mergeoutput
 - coveralls.net --opencover coverage.xml
 
 artifacts:
