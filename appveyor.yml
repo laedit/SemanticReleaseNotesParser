@@ -35,11 +35,11 @@ after_build:
 - SemanticReleaseNotesParser.exe -g Categories
 # build chocolatey package
 - ps: (gc PackagingAssets\chocolatey\tools\chocolateyInstall.ps1).replace('{{version}}', $env:GitVersion_NuGetVersion).replace('{{tag}}',$env:appveyor_repo_tag_name)|sc PackagingAssets\chocolatey\tools\chocolateyInstall.ps1
-- nuget pack PackagingAssets\chocolatey\SemanticReleaseNotesParser.nuspec -Version %GitVersion_NuGetVersion% -NoPackageAnalysis -NonInteractive
+- nuget pack PackagingAssets\chocolatey\SemanticReleaseNotesParser.nuspec -Version %GitVersion_NuGetVersion% -NoPackageAnalysis -NonInteractive -OutputDirectory %appveyor_build_folder%\PackagingAssets\chocolatey\
 # build nuget package -> made in SemanticReleaseNotesParser.Core.csproj
 # zip for github package
-- 7z a SemanticReleaseNotesParser.$(GitVersion_NuGetVersion).zip $(appveyor_build_folder)\SemanticReleaseNotesParser.exe
-- 7z a SemanticReleaseNotesParser.$(env:GitVersion_NuGetVersion).zip ReleaseNotes.html
+- 7z a SemanticReleaseNotesParser.%GitVersion_NuGetVersion%.zip %appveyor_build_folder%\SemanticReleaseNotesParser.exe
+- 7z a SemanticReleaseNotesParser.%GitVersion_NuGetVersion%.zip ReleaseNotes.html
 
 test_script:
 - OpenCover.Console.exe -register:user -filter:"+[SemanticReleaseNotesParser.Core]*" -excludebyattribute:*.ExcludeFromCodeCoverage* -target:"xunit.console.clr4.exe" -targetargs:"""SemanticReleaseNotesParser.Core.Tests\bin\Release\SemanticReleaseNotesParser.Core.Tests.dll"" /noshadow /appveyor" -output:coverage.xml -returntargetcode
