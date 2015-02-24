@@ -27,6 +27,7 @@ namespace SemanticReleaseNotesParser.Tests
             Assert.Contains("--debug", output.ToString());
             Assert.Contains("-h, -?, --help", output.ToString());
             Assert.Contains("-f, --outputformat=VALUE", output.ToString());
+            Assert.Contains("-g, --groupby=VALUE", output.ToString());
         }
 
         [Fact]
@@ -183,6 +184,26 @@ namespace SemanticReleaseNotesParser.Tests
 
             // assert
             Assert.Equal("myReleases.md", arguments.ReleaseNotesPath);
+        }
+
+        [Fact]
+        public void ParseArguments_GroupBy_g()
+        {
+            // act
+            var arguments = Arguments.ParseArguments(new[] { "-g=Categories" });
+
+            // assert
+            Assert.Equal(GroupBy.Categories, arguments.GroupBy);
+        }
+
+        [Fact]
+        public void ParseArguments_GroupBy_groupby()
+        {
+            // act
+            var arguments = Arguments.ParseArguments(new[] { "--groupby=Categories" });
+
+            // assert
+            Assert.Equal(GroupBy.Categories, arguments.GroupBy);
         }
     }
 }
