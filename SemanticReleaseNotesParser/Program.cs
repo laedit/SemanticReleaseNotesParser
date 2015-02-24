@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO.Abstractions;
 using System.Linq;
+using System.Reflection;
 
 namespace SemanticReleaseNotesParser
 {
@@ -36,6 +37,8 @@ namespace SemanticReleaseNotesParser
 
                 var output = Console.Out;
                 Logger.SetWriter(output);
+
+                Logger.Info("SemanticReleaseNotesParser V{0}", Assembly.GetExecutingAssembly().GetName().Version);
 
                 // Arguments parsing
                 var arguments = Arguments.ParseArguments(args);
