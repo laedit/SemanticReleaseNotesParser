@@ -32,7 +32,7 @@ after_build:
 - inspectcode /o="inspectcodereport.xml" "SemanticReleaseNotesParser.sln"
 #- NVika buildserver "inspectcodereport.xml" --debug --includesource
 - ilrepack /internalize /parallel /wildcards /out:SemanticReleaseNotesParser.exe SemanticReleaseNotesParser/bin/Release/SemanticReleaseNotesParser.exe SemanticReleaseNotesParser/bin/Release/*.dll
-- SemanticReleaseNotesParser.exe -g Categories -t FileAndEnvironment
+- SemanticReleaseNotesParser.exe -g Categories -t FileAndEnvironment --debug
 # build chocolatey package
 - ps: (gc PackagingAssets\chocolatey\tools\chocolateyInstall.ps1).replace('{{version}}', $env:GitVersion_NuGetVersion).replace('{{tag}}',$env:appveyor_repo_tag_name)|sc PackagingAssets\chocolatey\tools\chocolateyInstall.ps1
 - nuget pack PackagingAssets\chocolatey\SemanticReleaseNotesParser.nuspec -Version %GitVersion_NuGetVersion% -NoPackageAnalysis -NonInteractive -OutputDirectory %appveyor_build_folder%\PackagingAssets\chocolatey\

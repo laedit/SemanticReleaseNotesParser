@@ -25,6 +25,9 @@ namespace SemanticReleaseNotesParser.BuildServers
 
         public void SetEnvironmentVariable(string variable, string value)
         {
+            Logger.Debug("AppVeyor API Url: {0}", _appVeyorApiUrl);
+            Logger.Debug("Variable value: {0}", value);
+
             using (var webClient = _webClientFactory.Create(_appVeyorApiUrl))
             {
                 webClient.UploadData("api/build/variables", "POST", Encoding.UTF8.GetBytes(string.Format(SetEnvironmentVariableRequest, variable, value)));
