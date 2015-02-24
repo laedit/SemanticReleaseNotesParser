@@ -22,7 +22,7 @@ Parameters:
  - `-t=[file|environment]`: Type of output (default: file)
  - `-f=[Html|Markdown]`: Format of the resulting file [(default: Html)
  - `-g=[Sections|Categories]`: Defines the grouping of items (default: Sections)
- - `--template`: Path of the liquid template file to format the result ; Overrides type and format of output
+ - `--template`: Path of the liquid template file to format the result ; Overrides type, format and groupby of output
  - `--debug`: add debug messages
  - `-h`: help
 
