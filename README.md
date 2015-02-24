@@ -30,4 +30,4 @@ Parameters:
 - `SemanticReleaseNotesParser` class parse a file and produces a `ReleaseNotes`
 - `SemanticReleaseNotesFormatter` class format a `ReleaseNotes`
 
-Icon: [Article]([http://thenounproject.com/term/article/16591/](http://thenounproject.com/term/article/16591/)) designed by [Stefan Parnarov]([http://thenounproject.com/sapi/](http://thenounproject.com/sapi/)) from The Noun Project.
+Icon: [Article](http://thenounproject.com/term/article/16591/) designed by [Stefan Parnarov](http://thenounproject.com/sapi/) from The Noun Project.
