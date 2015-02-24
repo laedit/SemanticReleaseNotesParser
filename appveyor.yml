@@ -38,7 +38,7 @@ after_build:
 - nuget pack PackagingAssets\chocolatey\SemanticReleaseNotesParser.nuspec -Version %GitVersion_NuGetVersion% -NoPackageAnalysis -NonInteractive -OutputDirectory %appveyor_build_folder%\PackagingAssets\chocolatey\
 # build nuget package
 - mkdir PackagingAssets\nuget\
-- nuget pack SemanticReleaseNotesParser.Core/SemanticReleaseNotesParser.Core.nuspec -Version %GitVersion_NuGetVersion% -OutputDirectory %appveyor_build_folder%\PackagingAssets\nuget\
+- nuget pack SemanticReleaseNotesParser.Core\SemanticReleaseNotesParser.Core.csproj -Version %GitVersion_NuGetVersion% -OutputDirectory %appveyor_build_folder%\PackagingAssets\nuget\
 # zip for github package
 - 7z a SemanticReleaseNotesParser.%GitVersion_NuGetVersion%.zip %appveyor_build_folder%\SemanticReleaseNotesParser.exe
 - 7z a SemanticReleaseNotesParser.%GitVersion_NuGetVersion%.zip ReleaseNotes.html
