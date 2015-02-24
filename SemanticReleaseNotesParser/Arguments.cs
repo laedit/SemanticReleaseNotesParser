@@ -37,6 +37,7 @@ namespace SemanticReleaseNotesParser
 
             ReleaseNotesPath = DefaultReleaseNotesPath;
             ResultFilePath = "ReleaseNotes.html";
+            OutputType = OutputType.File;
         }
 
         public static Arguments ParseArguments(IEnumerable<string> args)

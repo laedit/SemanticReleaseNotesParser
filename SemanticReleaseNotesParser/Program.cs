@@ -80,13 +80,14 @@ namespace SemanticReleaseNotesParser
                 string formattedReleaseNotes = SemanticReleaseNotesFormatter.Format(releaseNotes, formatterSettings);
 
                 // Select output
-                if (arguments.OutputType == OutputType.File)
+                if (arguments.OutputType.HasFlag(OutputType.File))
                 {
                     Logger.Debug("File output");
                     FileSystem.File.WriteAllText(arguments.ResultFilePath, formattedReleaseNotes);
                     Logger.Info("File '{0}' generated", arguments.ResultFilePath);
                 }
-                else if (arguments.OutputType == OutputType.Environment)
+
+                if (arguments.OutputType.HasFlag(OutputType.Environment))
                 {
                     Logger.Debug("Environment output");
                     var buildServer = GetApplicableBuildServer();

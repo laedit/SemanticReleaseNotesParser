@@ -182,6 +182,23 @@ namespace SemanticReleaseNotesParser.Tests
         }
 
         [Fact]
+        public void Run_FileAndEnvironment()
+        {
+            // arrange
+            Program.FileSystem = GetFileSystem();
+            Program.Environment = GetEnvironment();
+            Program.WebClientFactory = GetWebClientFactory();
+
+            // act
+            Program.Main(new[] { "-t=fileandenvironment" });
+
+            // assert
+            Assert.Equal(0, _exitCode);
+            Assert.Equal(ExpectedHtml, Program.FileSystem.File.ReadAllText("ReleaseNotes.html").Trim());
+            Assert.Equal(ExpectedHtml, _environmentVariables["SemanticReleaseNotes"].Trim());
+        }
+
+        [Fact]
         public void Run_Environment_AppVeyor()
         {
             // arrange

@@ -1,8 +1,12 @@
-﻿namespace SemanticReleaseNotesParser
+﻿using System;
+
+namespace SemanticReleaseNotesParser
 {
+    [Flags]
     internal enum OutputType
     {
-        File,
-        Environment
+        File = 1,
+        Environment = 2,
+        FileAndEnvironment = File | Environment
     }
 }
