@@ -8,6 +8,11 @@ namespace SemanticReleaseNotesParser.Tests
     public class LoggerTest : IDisposable
     {
         private StringBuilder _logs;
+        
+        public LoggerTest()
+        {
+            Logger.Reset();
+        }
 
         [Fact]
         public void Info_TextWriter_Null_ThrowException()
