@@ -11,7 +11,7 @@
     <AssemblyName>SemanticReleaseNotesParser.Core</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>e79e6be6</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>95d19728</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -67,13 +67,6 @@
     <EmbeddedResource Include="Resources\GroupByCategories.liquid" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\PepitaPackage.1.21.4\build\PepitaPackage.targets" Condition="Exists('..\packages\PepitaPackage.1.21.4\build\PepitaPackage.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\PepitaPackage.1.21.4\build\PepitaPackage.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PepitaPackage.1.21.4\build\PepitaPackage.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -81,19 +74,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
-    <Target Name="CleanNuget">
-        <ItemGroup>
-            <RefFilesToDelete Include="$(SolutionDir)PackagingAssets\nuget\Lib\*.*" />
-        </ItemGroup>
-        <Delete Files="@(RefFilesToDelete)" />
-    </Target>
-    <Target Name="AfterBuild" DependsOnTargets="CleanNuget">
-        <!-- NugetBuild -->
-        <MakeDir Directories="$(SolutionDir)PackagingAssets\nuget" />
-        <Copy SourceFiles="$(OutputPath)SemanticReleaseNotesParser.Core.dll" DestinationFolder="$(SolutionDir)PackagingAssets\nuget\Lib\Net40" />
-        <Copy SourceFiles="$(OutputPath)SemanticReleaseNotesParser.Core.pdb" DestinationFolder="$(SolutionDir)PackagingAssets\nuget\Lib\Net40" />
-        <Copy SourceFiles="$(OutputPath)SemanticReleaseNotesParser.Core.xml" DestinationFolder="$(SolutionDir)PackagingAssets\nuget\Lib\Net40" />
-        <PepitaPackage.CreatePackageTask NuGetBuildDirectory="$(SolutionDir)PackagingAssets\nuget" MetadataAssembly="$(OutputPath)SemanticReleaseNotesParser.Core.dll" Version="$(GitVersion_NuGetVersion)" />
-    </Target>
 </Project>
