@@ -35,7 +35,7 @@ after_build:
 - SemanticReleaseNotesParser.exe -g Categories
 # build chocolatey package
 - ps: (gc PackagingAssets\chocolatey\tools\chocolateyInstall.ps1).replace('{{version}}',$version).replace('{{tag}}',$tag)|sc PackagingAssets\chocolatey\tools\chocolateyInstall.ps1
-- choco pack PackagingAssets\chocolatey\SemanticReleaseNotesParser.nuspec --version=$env:GitVersion_NuGetVersion
+- choco pack PackagingAssets\chocolatey\SemanticReleaseNotesParser.nuspec -Version=$env:GitVersion_NuGetVersion
 # build nuget package -> made in SemanticReleaseNotesParser.Core.csproj
 # zip for github package
 - 7z a SemanticReleaseNotesParser.$version.zip $env:appveyor_build_folder\SemanticReleaseNotesParser.exe
