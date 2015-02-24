@@ -21,6 +21,7 @@ Parameters:
  - `-o=[filename]`: Path of the resulting file (default: ReleaseNotes.html
  - `-t=[file|environment]`: Type of output (default: file)
  - `-f=[Html|Markdown]`: Format of the resulting file [(default: Html)
+ - `-g=[Sections|Categories]`: Defines the grouping of items (default: Sections)
  - `--template`: Path of the liquid template file to format the result ; Overrides type and format of output
  - `--debug`: add debug messages
  - `-h`: help

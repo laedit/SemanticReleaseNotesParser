@@ -73,7 +73,7 @@ namespace SemanticReleaseNotesParser
                     template = FileSystem.File.ReadAllText(arguments.TemplatePath);
                 }
 
-                var formatterSettings = new SemanticReleaseNotesFormatterSettings { OutputFormat = arguments.OutputFormat, LiquidTemplate = template };
+                var formatterSettings = new SemanticReleaseNotesFormatterSettings { OutputFormat = arguments.OutputFormat, LiquidTemplate = template, GroupBy = arguments.GroupBy };
                 string formattedReleaseNotes = SemanticReleaseNotesFormatter.Format(releaseNotes, formatterSettings);
 
                 // Select output

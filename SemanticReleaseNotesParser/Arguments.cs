@@ -22,12 +22,15 @@ namespace SemanticReleaseNotesParser
 
         public OutputFormat OutputFormat { get; private set; }
 
+        public GroupBy GroupBy { get; set; }
+
         private Arguments()
         {
             Add("r|releasenotes=", "Release notes file path to parse (default: ReleaseNotes.md)", r => ReleaseNotesPath = r);
             Add("o|outputfile=", "Path of the resulting file (default: ReleaseNotes.html", o => ResultFilePath = o);
             Add<OutputType>("t|outputtype=", "Type of output [file|environment] (default: file)", t => OutputType = t);
             Add<OutputFormat>("f|outputformat=", "Format of the resulting file [Html|Markdown] (default: Html)", f => OutputFormat = f);
+            Add<GroupBy>("g|groupby=", "Defines the grouping of items [Sections|Categories] (default: Sections)", g => GroupBy = g);
             Add("template=", "Path of the liquid template file to format the result", t => TemplatePath = t);
             Add("debug", "Debug mode, more messages are logged", d => Debug = true);
             Add("h|?|help", "Help", h => Help = true);
