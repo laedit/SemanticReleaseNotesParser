@@ -27,7 +27,7 @@ namespace SemanticReleaseNotesParser.BuildServers
         {
             Logger.Debug("AppVeyor API Url: {0}", _appVeyorApiUrl);
             var request = string.Format(SetEnvironmentVariableRequest, variable, EscapeStringValue(value));
-            Logger.Debug("Request body: {0}", value);
+            Logger.Debug("Request body: {0}", request);
 
             using (var webClient = _webClientFactory.Create(_appVeyorApiUrl))
             {
