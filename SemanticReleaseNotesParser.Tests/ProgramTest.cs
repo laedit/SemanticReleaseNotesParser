@@ -332,15 +332,6 @@ namespace SemanticReleaseNotesParser.Tests
 </body>
 </html>";
 
-        private const string ExpectedAppVeyorData = @"{ ""name"": ""SemanticReleaseNotes"", ""value"": ""<html>
-<body>
-<p>A little summary<\/p>
-<h1>System<\/h1>
-<ul>
-<li>{new} This is the <strong>second<\/strong> <strong>list<\/strong> item.<\/li>
-<li>{fix} This is the <code>third<\/code> list item.<\/li>
-<\/ul>
-<\/body>
-<\/html>"" }";
+        private const string ExpectedAppVeyorData = "{ \"name\": \"SemanticReleaseNotes\", \"value\": \"<html>\n<body>\n<p>A little summary<\\/p>\n<h1>System<\\/h1>\n<ul>\n<li>{new} This is the <strong>second<\\/strong> <strong>list<\\/strong> item.<\\/li>\n<li>{fix} This is the <code>third<\\/code> list item.<\\/li>\n<\\/ul>\n<\\/body>\n<\\/html>\" }";
     }
 }

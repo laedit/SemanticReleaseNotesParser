@@ -43,13 +43,13 @@ namespace SemanticReleaseNotesParser.Tests.BuildServers
             var buildServer = new AppVeyor(GetEnvironment(), GetWebClientFactory());
 
             // act
-            buildServer.SetEnvironmentVariable("name", "value");
+            buildServer.SetEnvironmentVariable("name", "value\r\n\"value2\" \\o/");
 
             // assert
             Assert.False(_environmentVariables.ContainsKey("name"));
             Assert.Equal("api/build/variables", _address);
             Assert.Equal("POST", _method);
-            Assert.Equal("{ \"name\": \"name\", \"value\": \"value\" }", _uploadedData);
+            Assert.Equal("{ \"name\": \"name\", \"value\": \"value\n\\\"value2\\\" \\\\o\\/\" }", _uploadedData);
             Assert.Equal("Adding AppVeyor environment variable: name.", _logs.ToString().Trim());
         }
 
