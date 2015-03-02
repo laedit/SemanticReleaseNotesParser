@@ -47,7 +47,7 @@ namespace SemanticReleaseNotesParser.Core
 
             var releaseNotes = new ReleaseNotes();
 
-            var rawLines = rawReleaseNotes.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+            var rawLines = rawReleaseNotes.Replace("\r", string.Empty).Split('\n');
 
             for (int i = 0; i < rawLines.Length; i++)
             {

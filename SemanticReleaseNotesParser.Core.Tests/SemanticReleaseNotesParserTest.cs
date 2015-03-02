@@ -301,6 +301,28 @@ Commits: [19556f025b...0203ea9a43](https://github.com/laedit/vika/compare/19556f
             Assert.Equal("[#1](https://github.com/laedit/vika/issues/1) - Support InspectCode", releaseNote.Items[2].Summary);
         }
 
+        [Fact]
+        public void Parse_Example_A_WithOnlyLF()
+        {
+            // act
+            var releaseNote = SemanticReleaseNotesParser.Parse(ExampleAWithOnlyLF);
+
+            // assert
+            Assert.Equal("Incremental release designed to provide an update to some of the core plugins.", releaseNote.Summary);
+            Assert.Equal(4, releaseNote.Items.Count);
+            Assert.Equal("Release Checker: Now gives you a breakdown of exactly what you are missing.", releaseNote.Items[0].Summary);
+            Assert.Equal("New", releaseNote.Items[0].Category);
+
+            Assert.Equal("Structured Layout: An alternative layout engine that allows developers to control layout.", releaseNote.Items[1].Summary);
+            Assert.Equal("New", releaseNote.Items[1].Category);
+
+            Assert.Equal("Timeline: Comes with an additional grid view to show the same data.", releaseNote.Items[2].Summary);
+            Assert.Equal("Changed", releaseNote.Items[2].Category);
+
+            Assert.Equal("Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement.", releaseNote.Items[3].Summary);
+            Assert.Equal("Fix", releaseNote.Items[3].Category);
+        }
+
         private TextReader GetTextReader(string input)
         {
             return new StringReader(input);
@@ -354,6 +376,8 @@ This is the summary for Other Section.
  - Structured Layout: An alternative layout engine that allows developers to control layout. +New
  - Timeline: Comes with an additional grid view to show the same data. +Changed
  - Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement. +Fix";
+
+        private const string ExampleAWithOnlyLF = "Incremental release designed to provide an update to some of the core plugins.\n\n - Release Checker: Now gives you a breakdown of exactly what you are missing. +New\n - Structured Layout: An alternative layout engine that allows developers to control layout. +New\n - Timeline: Comes with an additional grid view to show the same data. +Changed\n - Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement. +Fix";
 
         private const string ExampleB = @"Incremental release designed to provide an update to some of the core plugins.
 
