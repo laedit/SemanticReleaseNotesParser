@@ -60,12 +60,7 @@ namespace SemanticReleaseNotesParser
                     return 1;
                 }
 
-                // Parsing
-                Logger.Debug("Parsing release notes '{0}'", arguments.ReleaseNotesPath);
-
-                var releaseNotes = SemanticReleaseNotesConverter.Parse(FileSystem.File.OpenText(arguments.ReleaseNotesPath));
-
-                // Formatting
+                // Settings
                 string template = null;
                 if (!string.IsNullOrEmpty(arguments.TemplatePath))
                 {
@@ -78,8 +73,21 @@ namespace SemanticReleaseNotesParser
                     template = FileSystem.File.ReadAllText(arguments.TemplatePath);
                 }
 
-                var formatterSettings = new SemanticReleaseNotesConverterSettings { OutputFormat = arguments.OutputFormat, LiquidTemplate = template, GroupBy = arguments.GroupBy };
-                string formattedReleaseNotes = SemanticReleaseNotesConverter.Format(releaseNotes, formatterSettings);
+                var settings = new SemanticReleaseNotesConverterSettings
+                {
+                    OutputFormat = arguments.OutputFormat,
+                    LiquidTemplate = template,
+                    GroupBy = arguments.GroupBy,
+                    PluralizeCategoriesTitle = arguments.PluralizeCategoriesTitle
+                };
+
+                // Parsing
+                Logger.Debug("Parsing release notes '{0}'", arguments.ReleaseNotesPath);
+
+                var releaseNotes = SemanticReleaseNotesConverter.Parse(FileSystem.File.OpenText(arguments.ReleaseNotesPath), settings);
+
+                // Formatting
+                string formattedReleaseNotes = SemanticReleaseNotesConverter.Format(releaseNotes, settings);
 
                 Logger.Debug("Formatted release notes: {0}", formattedReleaseNotes);
 

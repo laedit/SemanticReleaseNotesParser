@@ -28,6 +28,7 @@ namespace SemanticReleaseNotesParser.Tests
             Assert.Contains("-h, -?, --help", output.ToString());
             Assert.Contains("-f, --outputformat=VALUE", output.ToString());
             Assert.Contains("-g, --groupby=VALUE", output.ToString());
+            Assert.Contains("--pluralizecategoriestitle", output.ToString());
         }
 
         [Fact]
@@ -44,6 +45,7 @@ namespace SemanticReleaseNotesParser.Tests
             Assert.Equal("ReleaseNotes.md", arguments.ReleaseNotesPath);
             Assert.Equal("ReleaseNotes.html", arguments.ResultFilePath);
             Assert.Null(arguments.TemplatePath);
+            Assert.False(arguments.PluralizeCategoriesTitle);
         }
 
         [Fact]
@@ -127,7 +129,7 @@ namespace SemanticReleaseNotesParser.Tests
         }
 
         [Fact]
-        public void ParseArguments_OutputTypeh_t()
+        public void ParseArguments_OutputType_t()
         {
             // act
             var arguments = Arguments.ParseArguments(new[] { "-t=environment" });
@@ -144,6 +146,26 @@ namespace SemanticReleaseNotesParser.Tests
 
             // assert
             Assert.Equal(OutputType.Environment, arguments.OutputType);
+        }
+
+        [Fact]
+        public void ParseArguments_OutputType_t_fileandenvironment()
+        {
+            // act
+            var arguments = Arguments.ParseArguments(new[] { "-t=fileandenvironment" });
+
+            // assert
+            Assert.Equal(OutputType.FileAndEnvironment, arguments.OutputType);
+        }
+
+        [Fact]
+        public void ParseArguments_OutputType_outputfile_fileandenvironment()
+        {
+            // act
+            var arguments = Arguments.ParseArguments(new[] { "--outputtype=fileandenvironment" });
+
+            // assert
+            Assert.Equal(OutputType.FileAndEnvironment, arguments.OutputType);
         }
 
         [Fact]
@@ -204,6 +226,16 @@ namespace SemanticReleaseNotesParser.Tests
 
             // assert
             Assert.Equal(GroupBy.Categories, arguments.GroupBy);
+        }
+
+        [Fact]
+        public void ParseArguments_PluralizeCategoriesTitle()
+        {
+            // act
+            var arguments = Arguments.ParseArguments(new[] { "--pluralizecategoriestitle" });
+
+            // assert
+            Assert.True(arguments.PluralizeCategoriesTitle);
         }
     }
 }

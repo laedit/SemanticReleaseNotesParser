@@ -29,6 +29,7 @@ Parameters:
  - `-f=[Html|Markdown]`: Format of the resulting file (default: `Html`)
  - `-g=[Sections|Categories]`: Defines the grouping of items (default: `Sections`)
  - `--template`: Path of the [liquid template](https://github.com/laedit/SemanticReleaseNotesParser/wiki/Format-templating) file to format the result ; Overrides type, format and groupby of output
+ - `--pluralizecategoriestitle`: Pluralize categories title
  - `--debug`: add debug messages
  - `-h`: help
 
@@ -38,5 +39,6 @@ Parameters:
 ## Third party libraries
  - [DotLiquid](https://github.com/dotliquid/dotliquid) is used to process the liquid templates
  - [CommonMark.NET](https://github.com/Knagis/CommonMark.NET) is used to process the markdown
+ - [Humanizer](https://github.com/MehdiK/Humanizer) is used to titleize and pluralize categories title
 
 Icon: [Article](http://thenounproject.com/term/article/16591/) designed by [Stefan Parnarov](http://thenounproject.com/sapi/) from The Noun Project.

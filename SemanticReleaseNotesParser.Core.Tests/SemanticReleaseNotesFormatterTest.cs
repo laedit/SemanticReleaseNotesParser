@@ -201,6 +201,26 @@ namespace SemanticReleaseNotesParser.Core.Tests
             Assert.Equal(ExampleDMarkdown, resultHtml.Trim());
         }
 
+        [Fact]
+        public void Format_ExampleA_Output_Html_PluralizeCategoriesTitle()
+        {
+            // act
+            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExempleABisReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html, GroupBy = GroupBy.Categories, PluralizeCategoriesTitle = true });
+
+            // assert
+            Assert.Equal(ExampleABisHtmlCategories, resultHtml.Trim());
+        }
+
+        [Fact]
+        public void Format_ExampleA_Output_Markdown_PluralizeCategoriesTitle()
+        {
+            // act
+            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExempleABisReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Markdown, GroupBy = GroupBy.Categories, PluralizeCategoriesTitle = true });
+
+            // assert
+            Assert.Equal(ExampleABisMarkdownCategories, resultHtml.Trim());
+        }
+
         private ReleaseNotes GetExempleAReleaseNotes()
         {
             return new ReleaseNotes
@@ -281,6 +301,21 @@ namespace SemanticReleaseNotesParser.Core.Tests
             };
         }
 
+        private ReleaseNotes GetExempleABisReleaseNotes()
+        {
+            return new ReleaseNotes
+            {
+                Summary = "Incremental release designed to provide an update to some of the core plugins.",
+                Items = new List<Item>
+                 {
+                     new Item { Category = "enhancement", Summary = "Release Checker: Now gives you a breakdown of exactly what you are missing." },
+                     new Item { Category = "enhancement", Summary = "Structured Layout: An alternative layout engine that allows developers to control layout." },
+                     new Item { Category = "Breaking change", Summary = "Timeline: Comes with an additional grid view to show the same data." },
+                     new Item { Category = "Fix", Summary = "Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement." }
+                 }
+            };
+        }
+
         private const string ExampleAHtml = @"<html>
 <body>
 <p>Incremental release designed to provide an update to some of the core plugins.</p>
@@ -329,6 +364,37 @@ namespace SemanticReleaseNotesParser.Core.Tests
  - Timeline: Comes with an additional grid view to show the same data.
 
 # Fix
+ - Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement.";
+
+        private const string ExampleABisHtmlCategories = @"<html>
+<body>
+<p>Incremental release designed to provide an update to some of the core plugins.</p>
+<h1>Enhancements</h1>
+<ul>
+<li>Release Checker: Now gives you a breakdown of exactly what you are missing.</li>
+<li>Structured Layout: An alternative layout engine that allows developers to control layout.</li>
+</ul>
+<h1>Breaking Changes</h1>
+<ul>
+<li>Timeline: Comes with an additional grid view to show the same data.</li>
+</ul>
+<h1>Fixes</h1>
+<ul>
+<li>Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement.</li>
+</ul>
+</body>
+</html>";
+
+        private const string ExampleABisMarkdownCategories = @"Incremental release designed to provide an update to some of the core plugins.
+
+# Enhancements
+ - Release Checker: Now gives you a breakdown of exactly what you are missing.
+ - Structured Layout: An alternative layout engine that allows developers to control layout.
+
+# Breaking Changes
+ - Timeline: Comes with an additional grid view to show the same data.
+
+# Fixes
  - Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement.";
 
         private const string ExampleBHtml = @"<html>

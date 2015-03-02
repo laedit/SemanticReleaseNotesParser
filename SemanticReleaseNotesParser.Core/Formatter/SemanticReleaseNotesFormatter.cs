@@ -1,5 +1,6 @@
 ﻿using CommonMark;
 using DotLiquid;
+using Humanizer;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -66,15 +67,7 @@ namespace SemanticReleaseNotesParser.Core
             var liquidTemplate = Template.Parse(template);
 
             // process categories
-            var categories = new Dictionary<string, List<Item>>();
-            ProcessCategories(categories, releaseNotes.Items);
-
-            foreach (var section in releaseNotes.Sections)
-            {
-                ProcessCategories(categories, section.Items);
-            }
-
-            var processedCategories = categories.Select(x => new Category { Name = x.Key, Items = x.Value }).ToList();
+            List<Category> processedCategories = GetCategories(releaseNotes, settings);
 
             var itemsWithoutCategory = new List<Item>(releaseNotes.Items.Where(i => string.IsNullOrEmpty(i.Category)));
             releaseNotes.Sections.ForEach(s => itemsWithoutCategory.AddRange(s.Items.Where(i => string.IsNullOrEmpty(i.Category))));
@@ -94,13 +87,31 @@ namespace SemanticReleaseNotesParser.Core
             return string.Format(HtmlEnvelope, CommonMarkConverter.Convert(result, DefaultCommonMarkSettings).Trim());
         }
 
-        private static void ProcessCategories(Dictionary<string, List<Item>> categories, IEnumerable<Item> items)
+        private static List<Category> GetCategories(ReleaseNotes releaseNotes, SemanticReleaseNotesConverterSettings settings)
+        {
+            var categories = new Dictionary<string, List<Item>>();
+            ProcessCategories(categories, releaseNotes.Items, settings);
+
+            foreach (var section in releaseNotes.Sections)
+            {
+                ProcessCategories(categories, section.Items, settings);
+            }
+
+            return categories.Select(x => new Category { Name = x.Key, Items = x.Value }).ToList();
+        }
+
+        private static void ProcessCategories(Dictionary<string, List<Item>> categories, IEnumerable<Item> items, SemanticReleaseNotesConverterSettings settings)
         {
             foreach (var item in items)
             {
                 if (!string.IsNullOrEmpty(item.Category))
                 {
-                    var categoryName = FirstLetterToUpper(item.Category);
+                    var categoryName = item.Category.Titleize();
+                    if (settings.PluralizeCategoriesTitle)
+                    {
+                        categoryName = categoryName.Pluralize(false);
+                    }
+
                     if (!categories.ContainsKey(categoryName))
                     {
                         categories.Add(categoryName, new List<Item>());
@@ -108,11 +119,6 @@ namespace SemanticReleaseNotesParser.Core
                     categories[categoryName].Add(item);
                 }
             }
-        }
-
-        private static string FirstLetterToUpper(string str)
-        {
-            return char.ToUpper(str[0]) + str.Substring(1);
         }
 
         private static string GetLiquidTemplate(SemanticReleaseNotesConverterSettings settings)

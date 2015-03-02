@@ -22,6 +22,11 @@
         /// </summary>
         public string LiquidTemplate { get; set; }
 
+        /// <summary>
+        /// True to pluralize categories title
+        /// </summary>
+        public bool PluralizeCategoriesTitle { get; set; }
+
         internal static SemanticReleaseNotesConverterSettings Default
         {
             get { return _default; }

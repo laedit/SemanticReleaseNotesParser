@@ -216,6 +216,23 @@ namespace SemanticReleaseNotesParser.Tests
             Assert.Equal(ExpectedAppVeyorData, _uploadedData);
         }
 
+        [Fact]
+        public void Run_PluralizeCategoriesTitle()
+        {
+            // arrange
+            Program.FileSystem = GetFileSystem();
+            Program.Environment = GetEnvironment(true);
+            Program.WebClientFactory = GetWebClientFactory();
+
+            // act
+            Program.Main(new[] { "--pluralizecategoriestitle", "-g=categories" });
+
+            // assert
+            Assert.Equal(0, _exitCode);
+            Assert.True(Program.FileSystem.File.Exists("ReleaseNotes.html"));
+            Assert.Equal(ExpectedHtmlCategories, Program.FileSystem.File.ReadAllText("ReleaseNotes.html"));
+        }
+
         private StringBuilder _output;
 
         public ProgramTest()
@@ -333,5 +350,19 @@ namespace SemanticReleaseNotesParser.Tests
 </html>";
 
         private const string ExpectedAppVeyorData = "{ \"name\": \"SemanticReleaseNotes\", \"value\": \"<html>\n<body>\n<p>A little summary<\\/p>\n<h1>System<\\/h1>\n<ul>\n<li>{new} This is the <strong>second<\\/strong> <strong>list<\\/strong> item.<\\/li>\n<li>{fix} This is the <code>third<\\/code> list item.<\\/li>\n<\\/ul>\n<\\/body>\n<\\/html>\" }";
+
+        private const string ExpectedHtmlCategories = @"<html>
+<body>
+<p>A little summary</p>
+<h1>News</h1>
+<ul>
+<li>This is the <strong>second</strong> <strong>list</strong> item.</li>
+</ul>
+<h1>Fixes</h1>
+<ul>
+<li>This is the <code>third</code> list item.</li>
+</ul>
+</body>
+</html>";
     }
 }
