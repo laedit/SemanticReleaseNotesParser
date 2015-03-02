@@ -61,6 +61,8 @@ namespace SemanticReleaseNotesParser
                 }
 
                 // Parsing
+                Logger.Debug("Parsing release notes '{0}'", arguments.ReleaseNotesPath);
+
                 var releaseNotes = SemanticReleaseNotesConverter.Parse(FileSystem.File.OpenText(arguments.ReleaseNotesPath));
 
                 // Formatting
@@ -78,6 +80,8 @@ namespace SemanticReleaseNotesParser
 
                 var formatterSettings = new SemanticReleaseNotesConverterSettings { OutputFormat = arguments.OutputFormat, LiquidTemplate = template, GroupBy = arguments.GroupBy };
                 string formattedReleaseNotes = SemanticReleaseNotesConverter.Format(releaseNotes, formatterSettings);
+
+                Logger.Debug("Formatted release notes: {0}", formattedReleaseNotes);
 
                 // Select output
                 if (arguments.OutputType.HasFlag(OutputType.File))
