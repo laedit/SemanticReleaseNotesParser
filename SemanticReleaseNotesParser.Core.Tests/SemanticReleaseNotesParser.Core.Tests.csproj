@@ -48,6 +48,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SemanticReleaseNotesConverterTest.cs" />
     <Compile Include="SemanticReleaseNotesFormatterTest.cs" />
     <Compile Include="SemanticReleaseNotesParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

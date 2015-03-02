@@ -61,7 +61,7 @@ namespace SemanticReleaseNotesParser
                 }
 
                 // Parsing
-                var releaseNotes = Core.SemanticReleaseNotesParser.Parse(FileSystem.File.OpenText(arguments.ReleaseNotesPath));
+                var releaseNotes = SemanticReleaseNotesConverter.Parse(FileSystem.File.OpenText(arguments.ReleaseNotesPath));
 
                 // Formatting
                 string template = null;
@@ -76,8 +76,8 @@ namespace SemanticReleaseNotesParser
                     template = FileSystem.File.ReadAllText(arguments.TemplatePath);
                 }
 
-                var formatterSettings = new SemanticReleaseNotesFormatterSettings { OutputFormat = arguments.OutputFormat, LiquidTemplate = template, GroupBy = arguments.GroupBy };
-                string formattedReleaseNotes = SemanticReleaseNotesFormatter.Format(releaseNotes, formatterSettings);
+                var formatterSettings = new SemanticReleaseNotesConverterSettings { OutputFormat = arguments.OutputFormat, LiquidTemplate = template, GroupBy = arguments.GroupBy };
+                string formattedReleaseNotes = SemanticReleaseNotesConverter.Format(releaseNotes, formatterSettings);
 
                 // Select output
                 if (arguments.OutputType.HasFlag(OutputType.File))

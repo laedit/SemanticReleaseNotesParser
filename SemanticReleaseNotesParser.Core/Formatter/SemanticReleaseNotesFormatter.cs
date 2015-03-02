@@ -11,7 +11,7 @@ namespace SemanticReleaseNotesParser.Core
     /// <summary>
     /// Semantic release notes formatter
     /// </summary>
-    public static class SemanticReleaseNotesFormatter
+    internal static class SemanticReleaseNotesFormatter
     {
         private const string HtmlEnvelope = @"<html>
 <body>
@@ -31,7 +31,7 @@ namespace SemanticReleaseNotesParser.Core
         /// <param name="writer">TextWriter which will be used to writes the formatted release notes</param>
         /// <param name="releaseNotes">Release notes to format</param>
         /// <param name="settings">Settings used for formatting</param>
-        public static void Format(TextWriter writer, ReleaseNotes releaseNotes, SemanticReleaseNotesFormatterSettings settings = null)
+        public static void Format(TextWriter writer, ReleaseNotes releaseNotes, SemanticReleaseNotesConverterSettings settings = null)
         {
             if (writer == null)
             {
@@ -47,7 +47,7 @@ namespace SemanticReleaseNotesParser.Core
         /// <param name="releaseNotes">Release notes to format</param>
         /// <param name="settings">Settings used for formatting</param>
         /// <returns>Formatted release notes</returns>
-        public static string Format(ReleaseNotes releaseNotes, SemanticReleaseNotesFormatterSettings settings = null)
+        public static string Format(ReleaseNotes releaseNotes, SemanticReleaseNotesConverterSettings settings = null)
         {
             if (releaseNotes == null)
             {
@@ -56,7 +56,7 @@ namespace SemanticReleaseNotesParser.Core
 
             if (settings == null)
             {
-                settings = SemanticReleaseNotesFormatterSettings.Default;
+                settings = SemanticReleaseNotesConverterSettings.Default;
             }
 
             // template selection
@@ -115,7 +115,7 @@ namespace SemanticReleaseNotesParser.Core
             return char.ToUpper(str[0]) + str.Substring(1);
         }
 
-        private static string GetLiquidTemplate(SemanticReleaseNotesFormatterSettings settings)
+        private static string GetLiquidTemplate(SemanticReleaseNotesConverterSettings settings)
         {
             string templateName = "SemanticReleaseNotesParser.Core.Resources.GroupBySections.liquid";
             if (settings.GroupBy == GroupBy.Categories)

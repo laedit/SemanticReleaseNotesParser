@@ -1,11 +1,11 @@
 ﻿namespace SemanticReleaseNotesParser.Core
 {
     /// <summary>
-    /// Settings for semantic release notes formatter
+    /// Settings for Semantic Release Notes Converter
     /// </summary>
-    public sealed class SemanticReleaseNotesFormatterSettings
+    public sealed class SemanticReleaseNotesConverterSettings
     {
-        private readonly static SemanticReleaseNotesFormatterSettings _default = new SemanticReleaseNotesFormatterSettings();
+        private readonly static SemanticReleaseNotesConverterSettings _default = new SemanticReleaseNotesConverterSettings();
 
         /// <summary>
         /// Defines the output format
@@ -22,7 +22,7 @@
         /// </summary>
         public string LiquidTemplate { get; set; }
 
-        internal static SemanticReleaseNotesFormatterSettings Default
+        internal static SemanticReleaseNotesConverterSettings Default
         {
             get { return _default; }
         }

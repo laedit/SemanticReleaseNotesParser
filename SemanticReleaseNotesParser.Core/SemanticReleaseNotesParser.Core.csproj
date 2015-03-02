@@ -58,7 +58,8 @@
     <Compile Include="ReleaseNotes.cs" />
     <Compile Include="Section.cs" />
     <Compile Include="Formatter\SemanticReleaseNotesFormatter.cs" />
-    <Compile Include="Formatter\SemanticReleaseNotesFormatterSettings.cs" />
+    <Compile Include="SemanticReleaseNotesConverter.cs" />
+    <Compile Include="SemanticReleaseNotesConverterSettings.cs" />
     <Compile Include="SemanticReleaseNotesParser.cs" />
   </ItemGroup>
   <ItemGroup>

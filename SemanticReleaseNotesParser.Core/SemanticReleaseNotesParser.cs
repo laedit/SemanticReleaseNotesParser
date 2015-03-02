@@ -8,7 +8,7 @@ namespace SemanticReleaseNotesParser.Core
     /// <summary>
     /// Semantic Release Notes Parser
     /// </summary>
-    public static class SemanticReleaseNotesParser
+    internal static class SemanticReleaseNotesParser
     {
         private static readonly Regex LinkRegex = new Regex(@"\[\[(\S+)\]\[(\S+)\]\]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex SectionRegex = new Regex(@"^# ([\w\s*]*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
