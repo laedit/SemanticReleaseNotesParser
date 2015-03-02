@@ -20,8 +20,9 @@ namespace SemanticReleaseNotesParser.Core
         /// Parse a release notes from a stream
         /// </summary>
         /// <param name="reader">Reader of release notes</param>
+        /// <param name="settings">Settings used for converting</param>
         /// <returns>A parsed release notes</returns>
-        public static ReleaseNotes Parse(TextReader reader)
+        public static ReleaseNotes Parse(TextReader reader, SemanticReleaseNotesConverterSettings settings = null)
         {
             if (reader == null)
             {
@@ -35,8 +36,9 @@ namespace SemanticReleaseNotesParser.Core
         /// Parse a release notes
         /// </summary>
         /// <param name="rawReleaseNotes">Raw release notes</param>
+        /// <param name="settings">Settings used for converting</param>
         /// <returns>A parsed release notes</returns>
-        public static ReleaseNotes Parse(string rawReleaseNotes)
+        public static ReleaseNotes Parse(string rawReleaseNotes, SemanticReleaseNotesConverterSettings settings = null)
         {
             if (string.IsNullOrEmpty(rawReleaseNotes))
             {

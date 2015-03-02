@@ -15,7 +15,7 @@ namespace SemanticReleaseNotesParser.Core
         /// <returns>A formatted release notes</returns>
         public static string Convert(string rawReleaseNotes, SemanticReleaseNotesConverterSettings settings = null)
         {
-            return SemanticReleaseNotesFormatter.Format(SemanticReleaseNotesParser.Parse(rawReleaseNotes), settings);
+            return SemanticReleaseNotesFormatter.Format(SemanticReleaseNotesParser.Parse(rawReleaseNotes, settings), settings);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace SemanticReleaseNotesParser.Core
         /// <returns>A formatted release notes</returns>
         public static void Convert(TextReader reader, TextWriter writer, SemanticReleaseNotesConverterSettings settings = null)
         {
-            SemanticReleaseNotesFormatter.Format(writer, SemanticReleaseNotesParser.Parse(reader), settings);
+            SemanticReleaseNotesFormatter.Format(writer, SemanticReleaseNotesParser.Parse(reader, settings), settings);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace SemanticReleaseNotesParser.Core
         /// <returns>A parsed release notes</returns>
         public static ReleaseNotes Parse(TextReader reader, SemanticReleaseNotesConverterSettings settings = null)
         {
-            return SemanticReleaseNotesParser.Parse(reader);
+            return SemanticReleaseNotesParser.Parse(reader, settings);
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace SemanticReleaseNotesParser.Core
         /// <returns>A parsed release notes</returns>
         public static ReleaseNotes Parse(string rawReleaseNotes, SemanticReleaseNotesConverterSettings settings = null)
         {
-            return SemanticReleaseNotesParser.Parse(rawReleaseNotes);
+            return SemanticReleaseNotesParser.Parse(rawReleaseNotes, settings);
         }
 
         /// <summary>
