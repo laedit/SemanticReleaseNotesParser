@@ -33,8 +33,7 @@ Parameters:
  - `-h`: help
 
 ### Library
-- `SemanticReleaseNotesParser` class parse a file and produces a `ReleaseNotes`
-- `SemanticReleaseNotesFormatter` class format a `ReleaseNotes`
+- `SemanticReleaseNotesConverter` class help to parse, format or convert a `ReleaseNotes`
 
 ## Third party libraries
  - [DotLiquid](https://github.com/dotliquid/dotliquid) is used to process the liquid templates
