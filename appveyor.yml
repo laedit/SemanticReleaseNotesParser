@@ -31,7 +31,7 @@ build:
 after_build:
 - inspectcode /o="inspectcodereport.xml" "SemanticReleaseNotesParser.sln"
 #- NVika buildserver "inspectcodereport.xml" --debug --includesource
-- ilrepack /internalize /parallel /wildcards /out:SemanticReleaseNotesParser.exe SemanticReleaseNotesParser/bin/Release/SemanticReleaseNotesParser.exe SemanticReleaseNotesParser/bin/Release/*.dll
+- ilrepack /internalize /parallel /wildcards /lib:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETPortable\v4.0" /out:SemanticReleaseNotesParser.exe SemanticReleaseNotesParser/bin/Release/SemanticReleaseNotesParser.exe SemanticReleaseNotesParser/bin/Release/*.dll
 - SemanticReleaseNotesParser.exe -g Categories -t File --debug
 - SemanticReleaseNotesParser.exe -g Categories -t Environment -f Markdown --debug
 # build chocolatey package
