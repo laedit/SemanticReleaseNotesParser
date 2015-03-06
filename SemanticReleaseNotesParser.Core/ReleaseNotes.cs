@@ -24,12 +24,18 @@ namespace SemanticReleaseNotesParser.Core
         public List<Item> Items { get; set; }
 
         /// <summary>
+        /// Metadata of the release notes
+        /// </summary>
+        public List<Metadata> Metadata { get; set; }
+
+        /// <summary>
         /// Instantiates a new ReleaseNotes
         /// </summary>
         public ReleaseNotes()
         {
             Sections = new List<Section>();
             Items = new List<Item>();
+            Metadata = new List<Metadata>();
         }
     }
 }

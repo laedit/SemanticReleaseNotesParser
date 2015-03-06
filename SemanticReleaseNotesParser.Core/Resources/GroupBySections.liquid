@@ -1,12 +1,12 @@
 ﻿{{ release_notes.summary }}
-{%- if release_notes.items.size > 0 -%}
+{%- if release_notes.items != empty -%}
 
 {%- endif -%}
 {%- for item in release_notes.items -%}
  {% if item.priority > 0 -%} {{ item.priority }}. {%- else -%} - {%- endif %} {% if item.categories != empty -%}{{ lcb }}{%- for category in item.categories -%}{%- if forloop.first == false -%}, {% endif -%}{{ category }}{%- endfor -%}{{ rcb }} {% endif %}{{ item.summary }} {%- if item.task_id %} [{{ item.task_id }}]({{ item.task_link }}) {%- endif -%}
 
 {%- endfor -%}
-{%- if release_notes.sections.size > 0 -%}
+{%- if release_notes.sections != empty -%}
 
 {%- endif -%}
 {%- for section in release_notes.sections -%}
@@ -15,5 +15,9 @@
  {% if item.priority > 0 -%} {{ item.priority }}. {%- else -%} - {%- endif %} {% if item.categories != empty -%}{{ lcb }}{%- for category in item.categories -%}{%- if forloop.first == false -%}, {% endif -%}{{ category }}{%- endfor -%}{{ rcb }} {% endif %}{{ item.summary }} {%- if item.task_id %} [{{ item.task_id }}]({{ item.task_link }}) {%- endif -%}
 
 {%- endfor -%}
+
+{%- endfor -%}
+{%- for metadata in release_notes.metadata -%}
+{{ metadata.name }}: {{ metadata.value }}
 
 {%- endfor -%}

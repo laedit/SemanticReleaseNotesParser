@@ -1,12 +1,12 @@
 ﻿{{ release_notes.summary }}
-{%- if items_without_categories.size > 0 -%}
+{%- if items_without_categories != empty -%}
 
 {%- endif -%}
 {%- for item in items_without_categories -%}
  {% if item.priority > 0 -%} {{ item.priority }}. {%- else -%} - {%- endif %} {{ item.summary }} {%- if item.task_id %} [{{ item.task_id }}]({{ item.task_link }}) {%- endif -%}
 
 {%- endfor -%}
-{%- if categories.size > 0 -%}
+{%- if categories != empty -%}
 
 {%- endif -%}
 {%- for category in categories -%}
@@ -15,5 +15,9 @@
  {% if item.priority > 0 -%} {{ item.priority }}. {%- else -%} - {%- endif %} {{ item.summary }} {%- if item.task_id %} [{{ item.task_id }}]({{ item.task_link }}) {%- endif -%}
 
 {%- endfor -%}
+
+{%- endfor -%}
+{%- for metadata in release_notes.metadata -%}
+{{ metadata.name }}: {{ metadata.value }}
 
 {%- endfor -%}

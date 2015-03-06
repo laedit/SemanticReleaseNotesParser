@@ -1,5 +1,6 @@
 ﻿using Humanizer;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -16,6 +17,15 @@ namespace SemanticReleaseNotesParser.Core
         private static readonly Regex PriorityRegex = new Regex(@"^ [\-\+\*]|([123])\. ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex CategoryRegex = new Regex(@"\+([\w-]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex SummaryRegex = new Regex(@"^[a-zA-Z0-9]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+        private static readonly List<MetadataDefinition> MetadataDefinitions = new List<MetadataDefinition>
+        {
+            { new MetadataDefinition {
+                 Name = "Commits",
+                Regex = new Regex(@"^(?:commits:)?[ ]*(?:([0-9a-f]{5,40}\.{3}[0-9a-f]{5,40})|(\[[0-9a-f]{5,40}\.{3}[0-9a-f]{5,40}\]\(https?:\/\/\S+\)))$", RegexOptions.Compiled | RegexOptions.IgnoreCase),
+                GetValue = match => match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value
+            } }
+        };
 
         /// <summary>
         /// Parse a release notes from a stream
@@ -65,6 +75,11 @@ namespace SemanticReleaseNotesParser.Core
 
                 if (!matched)
                 {
+                    matched = ProcessMetadata(rawLine, releaseNotes);
+                }
+
+                if (!matched)
+                {
                     string nextInput = string.Empty;
                     if (i + 1 < rawLines.Length)
                     {
@@ -75,6 +90,20 @@ namespace SemanticReleaseNotesParser.Core
             }
 
             return releaseNotes;
+        }
+
+        private static bool ProcessMetadata(string input, ReleaseNotes releaseNotes)
+        {
+            foreach (var metadataDefinition in MetadataDefinitions)
+            {
+                var match = metadataDefinition.Regex.Match(input);
+                if (match.Success)
+                {
+                    releaseNotes.Metadata.Add(new Metadata { Name = metadataDefinition.Name, Value = metadataDefinition.GetValue(match) });
+                    return true;
+                }
+            }
+            return false;
         }
 
         private static void ProcessPrimary(string input, ReleaseNotes releaseNotes, string nextInput)

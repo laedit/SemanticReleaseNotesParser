@@ -290,9 +290,10 @@ namespace SemanticReleaseNotesParser.Core.Tests
             var releaseNote = SemanticReleaseNotesParser.Parse(NVikaReleaseNotes);
 
             // assert
-            Assert.Equal(@"
+            Assert.Equal(1, releaseNote.Metadata.Count);
+            Assert.Equal("Commits", releaseNote.Metadata[0].Name);
+            Assert.Equal("[19556f025b...0203ea9a43](https://github.com/laedit/vika/compare/19556f025b...0203ea9a43)", releaseNote.Metadata[0].Value);
 
-Commits: [19556f025b...0203ea9a43](https://github.com/laedit/vika/compare/19556f025b...0203ea9a43)", releaseNote.Summary);
             Assert.Equal(3, releaseNote.Items.Count);
 
             Assert.Equal("Enhancement", releaseNote.Items[0].Categories[0]);
@@ -325,6 +326,21 @@ Commits: [19556f025b...0203ea9a43](https://github.com/laedit/vika/compare/19556f
 
             Assert.Equal("Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement.", releaseNote.Items[3].Summary);
             Assert.Equal("Fix", releaseNote.Items[3].Categories[0]);
+        }
+
+        [Fact]
+        public void Parse_Syntax_Metadata_Commits()
+        {
+            // act
+            var releaseNote = SemanticReleaseNotesParser.Parse(Syntax_Metadata_Commits);
+
+            // assert
+            Assert.Equal(2, releaseNote.Metadata.Count);
+
+            Assert.Equal("Commits", releaseNote.Metadata[0].Name);
+            Assert.Equal("56af25a...d3fead4", releaseNote.Metadata[0].Value);
+            Assert.Equal("Commits", releaseNote.Metadata[1].Name);
+            Assert.Equal("[56af25a...d3fead4](https://github.com/Glimpse/Semantic-Release-Notes/compare/56af25a...d3fead4)", releaseNote.Metadata[1].Value);
         }
 
         private TextReader GetTextReader(string input)
@@ -426,5 +442,8 @@ This description is specific to plugin section.
 
 Commits: [19556f025b...0203ea9a43](https://github.com/laedit/vika/compare/19556f025b...0203ea9a43)
 ";
+
+        private const string Syntax_Metadata_Commits = @"56af25a...d3fead4
+Commits: [56af25a...d3fead4](https://github.com/Glimpse/Semantic-Release-Notes/compare/56af25a...d3fead4)";
     }
 }
