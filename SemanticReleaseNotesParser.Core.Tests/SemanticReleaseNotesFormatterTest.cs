@@ -228,10 +228,10 @@ namespace SemanticReleaseNotesParser.Core.Tests
                 Summary = "Incremental release designed to provide an update to some of the core plugins.",
                 Items = new List<Item>
                  {
-                     new Item { Category = "New", Summary = "Release Checker: Now gives you a breakdown of exactly what you are missing." },
-                     new Item { Category = "New", Summary = "Structured Layout: An alternative layout engine that allows developers to control layout." },
-                     new Item { Category = "Changed", Summary = "Timeline: Comes with an additional grid view to show the same data." },
-                     new Item { Category = "Fix", Summary = "Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement." }
+                     new Item { Categories = { { "New" } }, Summary = "Release Checker: Now gives you a breakdown of exactly what you are missing." },
+                     new Item { Categories = { { "New" } }, Summary = "Structured Layout: An alternative layout engine that allows developers to control layout." },
+                     new Item { Categories = { { "Changed" } }, Summary = "Timeline: Comes with an additional grid view to show the same data." },
+                     new Item { Categories = { { "Fix" } }, Summary = "Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement." }
                  }
             };
         }
@@ -245,13 +245,13 @@ namespace SemanticReleaseNotesParser.Core.Tests
                 {
                     new Section { Name  = "System", Items = new List<Item>
                     {
-                        new Item { Category = "New", Summary = "*Release Checker*: Now gives you a breakdown of exactly what you are missing." },
-                        new Item { Category = "New", Summary = "*Structured Layout*: An alternative layout engine that allows developers to control layout." }
+                        new Item { Categories = { { "New" } }, Summary = "*Release Checker*: Now gives you a breakdown of exactly what you are missing." },
+                        new Item { Categories = { { "New" } }, Summary = "*Structured Layout*: An alternative layout engine that allows developers to control layout." }
                     } },
                     new Section { Name  = "Plugin", Items = new List<Item>
                     {
-                        new Item { Category = "Changed", Summary = "*Timeline*: Comes with an additional grid view to show the same data." },
-                        new Item { Category = "Fix", Summary = "*Ajax*: Fix that crashed poll in Chrome and IE due to log/trace statement." }
+                        new Item { Categories = { { "Changed" } }, Summary = "*Timeline*: Comes with an additional grid view to show the same data." },
+                        new Item { Categories = { { "Fix" } }, Summary = "*Ajax*: Fix that crashed poll in Chrome and IE due to log/trace statement." }
                     } }
                 }
             };
@@ -267,13 +267,13 @@ namespace SemanticReleaseNotesParser.Core.Tests
                 {
                     new Section { Name  = "System", Summary = "This description is specific to system section.", Items = new List<Item>
                     {
-                        new Item { Category = "new", Summary = "*Release Checker*: Now gives you a breakdown of exactly what you are missing." },
-                        new Item { Category = "new", Summary = "*Structured Layout*: An alternative layout engine that allows developers to control layout." }
+                        new Item { Categories = { { "New" } }, Summary = "*Release Checker*: Now gives you a breakdown of exactly what you are missing." },
+                        new Item { Categories = { { "New" } }, Summary = "*Structured Layout*: An alternative layout engine that allows developers to control layout." }
                     } },
                     new Section { Name  = "Plugin", Summary = "This description is specific to plugin section.", Items = new List<Item>
                     {
-                        new Item { Category = "Changed", Summary = "*Timeline*: Comes with an additional grid view to show the same data." },
-                        new Item { Category = "Fix", Summary = "*Ajax*: Fix that crashed poll in Chrome and IE due to log/trace statement.", TaskId = "i1234", TaskLink = "http://getglimpse.com" }
+                        new Item { Categories = { { "Changed" } }, Summary = "*Timeline*: Comes with an additional grid view to show the same data." },
+                        new Item { Categories = { { "Fix" } }, Summary = "*Ajax*: Fix that crashed poll in Chrome and IE due to log/trace statement.", TaskId = "i1234", TaskLink = "http://getglimpse.com" }
                     } }
                 }
             };
@@ -289,13 +289,13 @@ namespace SemanticReleaseNotesParser.Core.Tests
                 {
                     new Section { Name  = "System", Summary = "This description is specific to system section.", Icon = "http://getglimpse.com/release/icon/core.png", Items = new List<Item>
                     {
-                        new Item { Priority = 3, Category = "new", Summary = "*Release Checker*: Now gives you a breakdown of exactly what you are missing." },
-                        new Item { Priority = 2, Category = "new", Summary = "*Structured Layout*: An alternative layout engine that allows developers to control layout." }
+                        new Item { Priority = 3, Categories = { { "New" } }, Summary = "*Release Checker*: Now gives you a breakdown of exactly what you are missing." },
+                        new Item { Priority = 2, Categories = { { "New" } }, Summary = "*Structured Layout*: An alternative layout engine that allows developers to control layout." }
                     } },
                     new Section { Name  = "Plugin", Summary = "This description is specific to plugin section.", Icon= "http://getglimpse.com/release/icon/mvc.png", Items = new List<Item>
                     {
-                        new Item { Priority = 1, Category = "Changed", Summary = "*Timeline*: Comes with an additional grid view to show the same data." },
-                        new Item { Priority = 1, Category = "Fix", Summary = "*Ajax*: Fix that crashed poll in Chrome and IE due to log/trace statement.", TaskId = "i1234", TaskLink = "http://getglimpse.com" }
+                        new Item { Priority = 1, Categories = { { "Changed" } }, Summary = "*Timeline*: Comes with an additional grid view to show the same data." },
+                        new Item { Priority = 1, Categories = { { "Fix" } }, Summary = "*Ajax*: Fix that crashed poll in Chrome and IE due to log/trace statement.", TaskId = "i1234", TaskLink = "http://getglimpse.com" }
                     } }
                 }
             };
@@ -308,10 +308,10 @@ namespace SemanticReleaseNotesParser.Core.Tests
                 Summary = "Incremental release designed to provide an update to some of the core plugins.",
                 Items = new List<Item>
                  {
-                     new Item { Category = "enhancement", Summary = "Release Checker: Now gives you a breakdown of exactly what you are missing." },
-                     new Item { Category = "enhancement", Summary = "Structured Layout: An alternative layout engine that allows developers to control layout." },
-                     new Item { Category = "Breaking change", Summary = "Timeline: Comes with an additional grid view to show the same data." },
-                     new Item { Category = "Fix", Summary = "Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement." }
+                     new Item { Categories = { { "Enhancement" } }, Summary = "Release Checker: Now gives you a breakdown of exactly what you are missing." },
+                     new Item { Categories = { { "Enhancement" } }, Summary = "Structured Layout: An alternative layout engine that allows developers to control layout." },
+                     new Item { Categories = { { "Breaking Change" } }, Summary = "Timeline: Comes with an additional grid view to show the same data." },
+                     new Item { Categories = { { "Fix" } }, Summary = "Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement." }
                  }
             };
         }
@@ -470,8 +470,8 @@ Incremental release designed to provide an update to some of the core plugins.";
 </ul>
 <h1>System</h1>
 <ul>
-<li>{new} <em>Release Checker</em>: Now gives you a breakdown of exactly what you are missing.</li>
-<li>{new} <em>Structured Layout</em>: An alternative layout engine that allows developers to control layout.</li>
+<li>{New} <em>Release Checker</em>: Now gives you a breakdown of exactly what you are missing.</li>
+<li>{New} <em>Structured Layout</em>: An alternative layout engine that allows developers to control layout.</li>
 </ul>
 <h1>Plugin</h1>
 <ul>
@@ -486,8 +486,8 @@ Incremental release designed to provide an update to some of the core plugins.";
  - *Example*: You can have global issues that aren't grouped to a section
 
 # System
- - {new} *Release Checker*: Now gives you a breakdown of exactly what you are missing.
- - {new} *Structured Layout*: An alternative layout engine that allows developers to control layout.
+ - {New} *Release Checker*: Now gives you a breakdown of exactly what you are missing.
+ - {New} *Structured Layout*: An alternative layout engine that allows developers to control layout.
 
 # Plugin
  - {Changed} *Timeline*: Comes with an additional grid view to show the same data.
@@ -536,14 +536,14 @@ Incremental release designed to provide an update to some of the core plugins.";
 <li data-content=""1""><em>Example</em>: You can have global issues that aren't grouped to a section</li>
 </ul>
 <h1>System</h1>
-<ul class=""srn_priority"">
-<li data-content=""3"">{new} <em>Release Checker</em>: Now gives you a breakdown of exactly what you are missing.</li>
-<li data-content=""2"">{new} <em>Structured Layout</em>: An alternative layout engine that allows developers to control layout.</li>
+<ul class=""srn-priorities"">
+<li srn-priority=""3"">{New} <em>Release Checker</em>: Now gives you a breakdown of exactly what you are missing.</li>
+<li srn-priority=""2"">{New} <em>Structured Layout</em>: An alternative layout engine that allows developers to control layout.</li>
 </ul>
 <h1>Plugin</h1>
-<ul class=""srn_priority"">
-<li data-content=""1"">{Changed} <em>Timeline</em>: Comes with an additional grid view to show the same data.</li>
-<li data-content=""1"">{Fix} <em>Ajax</em>: Fix that crashed poll in Chrome and IE due to log/trace statement. <a href=""http://getglimpse.com"">i1234</a></li>
+<ul class=""srn_priorities"">
+<li srn-priority=""1"">{Changed} <em>Timeline</em>: Comes with an additional grid view to show the same data.</li>
+<li srn-priority=""1"">{Fix} <em>Ajax</em>: Fix that crashed poll in Chrome and IE due to log/trace statement. <a href=""http://getglimpse.com"">i1234</a></li>
 </ul>
 </body>
 </html>";
@@ -553,8 +553,8 @@ Incremental release designed to provide an update to some of the core plugins.";
  1. *Example*: You can have global issues that aren't grouped to a section
 
 # System
- 3. {new} *Release Checker*: Now gives you a breakdown of exactly what you are missing.
- 2. {new} *Structured Layout*: An alternative layout engine that allows developers to control layout.
+ 3. {New} *Release Checker*: Now gives you a breakdown of exactly what you are missing.
+ 2. {New} *Structured Layout*: An alternative layout engine that allows developers to control layout.
 
 # Plugin
  1. {Changed} *Timeline*: Comes with an additional grid view to show the same data.

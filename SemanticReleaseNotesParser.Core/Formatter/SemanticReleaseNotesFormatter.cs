@@ -69,8 +69,8 @@ namespace SemanticReleaseNotesParser.Core
             // process categories
             List<Category> processedCategories = GetCategories(releaseNotes, settings);
 
-            var itemsWithoutCategory = new List<Item>(releaseNotes.Items.Where(i => string.IsNullOrEmpty(i.Category)));
-            releaseNotes.Sections.ForEach(s => itemsWithoutCategory.AddRange(s.Items.Where(i => string.IsNullOrEmpty(i.Category))));
+            var itemsWithoutCategory = new List<Item>(releaseNotes.Items.Where(i => !i.Categories.Any()));
+            releaseNotes.Sections.ForEach(s => itemsWithoutCategory.AddRange(s.Items.Where(i => !i.Categories.Any())));
 
             string result = liquidTemplate.Render(Hash.FromAnonymousObject(new { release_notes = releaseNotes, lcb = "{", rcb = "}", categories = processedCategories, items_without_categories = itemsWithoutCategory })).Trim();
 
@@ -104,19 +104,22 @@ namespace SemanticReleaseNotesParser.Core
         {
             foreach (var item in items)
             {
-                if (!string.IsNullOrEmpty(item.Category))
+                if (item.Categories.Any())
                 {
-                    var categoryName = item.Category.Titleize();
-                    if (settings.PluralizeCategoriesTitle)
+                    foreach (var category in item.Categories)
                     {
-                        categoryName = categoryName.Pluralize(false);
-                    }
+                        var categoryName = category;
+                        if (settings.PluralizeCategoriesTitle)
+                        {
+                            categoryName = categoryName.Pluralize(false);
+                        }
 
-                    if (!categories.ContainsKey(categoryName))
-                    {
-                        categories.Add(categoryName, new List<Item>());
+                        if (!categories.ContainsKey(categoryName))
+                        {
+                            categories.Add(categoryName, new List<Item>());
+                        }
+                        categories[categoryName].Add(item);
                     }
-                    categories[categoryName].Add(item);
                 }
             }
         }

@@ -86,10 +86,10 @@ namespace SemanticReleaseNotesParser.Core.Tests
                 Summary = "Incremental release designed to provide an update to some of the core plugins.",
                 Items = new List<Item>
                  {
-                     new Item { Category = "New", Summary = "Release Checker: Now gives you a breakdown of exactly what you are missing." },
-                     new Item { Category = "New", Summary = "Structured Layout: An alternative layout engine that allows developers to control layout." },
-                     new Item { Category = "Changed", Summary = "Timeline: Comes with an additional grid view to show the same data." },
-                     new Item { Category = "Fix", Summary = "Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement." }
+                     new Item { Categories = { { "New" } }, Summary = "Release Checker: Now gives you a breakdown of exactly what you are missing." },
+                     new Item { Categories = { { "New" } }, Summary = "Structured Layout: An alternative layout engine that allows developers to control layout." },
+                     new Item { Categories = { { "Changed" } }, Summary = "Timeline: Comes with an additional grid view to show the same data." },
+                     new Item { Categories = { { "Fix" } }, Summary = "Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement." }
                  }
             };
         }

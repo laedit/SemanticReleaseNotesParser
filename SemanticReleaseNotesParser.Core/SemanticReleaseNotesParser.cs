@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Humanizer;
+using System;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -13,7 +14,7 @@ namespace SemanticReleaseNotesParser.Core
         private static readonly Regex LinkRegex = new Regex(@"\[\[(\S+)\]\[(\S+)\]\]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex SectionRegex = new Regex(@"^# ([\w\s*]*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex PriorityRegex = new Regex(@"^ [\-\+\*]|([123])\. ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        private static readonly Regex CategoryRegex = new Regex(@"\+([^\s]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex CategoryRegex = new Regex(@"\+([\w-]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex SummaryRegex = new Regex(@"^[a-zA-Z0-9]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         /// <summary>
@@ -110,21 +111,33 @@ namespace SemanticReleaseNotesParser.Core
                 }
                 input = PriorityRegex.Replace(input, string.Empty);
 
-                // category
-                var category = CategoryRegex.Match(input);
-                if (category.Success && !string.IsNullOrEmpty(category.Groups[1].Value))
-                {
-                    item.Category = category.Groups[1].Value;
-                    input = CategoryRegex.Replace(input, string.Empty);
-                }
-
                 // link
                 var link = GetLink(input);
                 if (!string.IsNullOrEmpty(link.Item1))
                 {
                     item.TaskId = link.Item1;
                     item.TaskLink = link.Item2;
-                    input = LinkRegex.Replace(input, string.Empty);
+                    input = LinkRegex.Replace(input, string.Empty).Trim();
+                }
+
+                // category
+                var categories = CategoryRegex.Matches(input);
+                foreach (Match category in categories)
+                {
+                    if (category.Success && !string.IsNullOrEmpty(category.Groups[1].Value))
+                    {
+                        var categoryName = category.Groups[1].Value.ToLowerInvariant().Titleize();
+                        if (!item.Categories.Contains(categoryName))
+                        {
+                            item.Categories.Add(categoryName);
+                        }
+                        var replacement = category.Groups[1].Value;
+                        if (input.EndsWith(category.Groups[1].Value))
+                        {
+                            replacement = string.Empty;
+                        }
+                        input = input.Replace(category.Groups[0].Value, replacement);
+                    }
                 }
 
                 // summary

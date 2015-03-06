@@ -3,7 +3,7 @@
 
 {%- endif -%}
 {%- for item in release_notes.items -%}
- {% if item.priority > 0 -%} {{ item.priority }}. {%- else -%} - {%- endif %} {% if item.category -%}{{ lcb }}{{ item.category }}{{ rcb }} {% endif %}{{ item.summary }} {%- if item.task_id %} [{{ item.task_id }}]({{ item.task_link }}) {%- endif -%}
+ {% if item.priority > 0 -%} {{ item.priority }}. {%- else -%} - {%- endif %} {% if item.categories != empty -%}{{ lcb }}{%- for category in item.categories -%}{%- if forloop.first == false -%}, {% endif -%}{{ category }}{%- endfor -%}{{ rcb }} {% endif %}{{ item.summary }} {%- if item.task_id %} [{{ item.task_id }}]({{ item.task_link }}) {%- endif -%}
 
 {%- endfor -%}
 {%- if release_notes.sections.size > 0 -%}
@@ -12,7 +12,7 @@
 {%- for section in release_notes.sections -%}
 # {{ section.name }}
 {%- for item in section.items -%}
- {% if item.priority > 0 -%} {{ item.priority }}. {%- else -%} - {%- endif %} {% if item.category -%}{{ lcb }}{{ item.category }}{{ rcb }} {% endif %}{{ item.summary }} {%- if item.task_id %} [{{ item.task_id }}]({{ item.task_link }}) {%- endif -%}
+ {% if item.priority > 0 -%} {{ item.priority }}. {%- else -%} - {%- endif %} {% if item.categories != empty -%}{{ lcb }}{%- for category in item.categories -%}{%- if forloop.first == false -%}, {% endif -%}{{ category }}{%- endfor -%}{{ rcb }} {% endif %}{{ item.summary }} {%- if item.task_id %} [{{ item.task_id }}]({{ item.task_link }}) {%- endif -%}
 
 {%- endfor -%}
 

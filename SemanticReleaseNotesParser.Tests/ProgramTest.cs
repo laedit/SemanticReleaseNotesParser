@@ -316,8 +316,8 @@ namespace SemanticReleaseNotesParser.Tests
 <p>A little summary</p>
 <h1>System</h1>
 <ul>
-<li>{new} This is the <strong>second</strong> <strong>list</strong> item.</li>
-<li>{fix} This is the <code>third</code> list item.</li>
+<li>{New} This is the <strong>second</strong> <strong>list</strong> item.</li>
+<li>{Fix} This is the <code>third</code> list item.</li>
 </ul>
 </body>
 </html>";
@@ -325,13 +325,13 @@ namespace SemanticReleaseNotesParser.Tests
         private const string ExpectedMarkdow = @"A little summary
 
 # System
- - {new} This is the **second** __list__ item.
- - {fix} This is the `third` list item.";
+ - {New} This is the **second** __list__ item.
+ - {Fix} This is the `third` list item.";
 
         private const string CustomTemplate = @"{%- for section in release_notes.sections -%}
 # {{ section.name }}
 {%- for item in section.items -%}
- - {% if item.category -%}{{ lcb }}{{ item.category }}{{ rcb }} {% endif %}{{ item.summary }} {%- if item.task_id %} [{{ item.task_id }}]({{ item.task_link }}) {%- endif -%}
+ - {% if item.categories -%}{{ lcb }}{{ item.categories[0] }}{{ rcb }} {% endif %}{{ item.summary }} {%- if item.task_id %} [{{ item.task_id }}]({{ item.task_link }}) {%- endif -%}
 
 {%- endfor -%}
 {%- endfor -%}
@@ -342,14 +342,14 @@ namespace SemanticReleaseNotesParser.Tests
 <body>
 <h1>System</h1>
 <ul>
-<li>{new} This is the <strong>second</strong> <strong>list</strong> item.</li>
-<li>{fix} This is the <code>third</code> list item.</li>
+<li>{New} This is the <strong>second</strong> <strong>list</strong> item.</li>
+<li>{Fix} This is the <code>third</code> list item.</li>
 </ul>
 <p>A little summary</p>
 </body>
 </html>";
 
-        private const string ExpectedAppVeyorData = "{ \"name\": \"SemanticReleaseNotes\", \"value\": \"<html>\n<body>\n<p>A little summary<\\/p>\n<h1>System<\\/h1>\n<ul>\n<li>{new} This is the <strong>second<\\/strong> <strong>list<\\/strong> item.<\\/li>\n<li>{fix} This is the <code>third<\\/code> list item.<\\/li>\n<\\/ul>\n<\\/body>\n<\\/html>\" }";
+        private const string ExpectedAppVeyorData = "{ \"name\": \"SemanticReleaseNotes\", \"value\": \"<html>\n<body>\n<p>A little summary<\\/p>\n<h1>System<\\/h1>\n<ul>\n<li>{New} This is the <strong>second<\\/strong> <strong>list<\\/strong> item.<\\/li>\n<li>{Fix} This is the <code>third<\\/code> list item.<\\/li>\n<\\/ul>\n<\\/body>\n<\\/html>\" }";
 
         private const string ExpectedHtmlCategories = @"<html>
 <body>

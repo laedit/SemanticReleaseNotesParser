@@ -1,4 +1,5 @@
 ﻿using DotLiquid;
+using System.Collections.Generic;
 
 namespace SemanticReleaseNotesParser.Core
 {
@@ -20,7 +21,7 @@ namespace SemanticReleaseNotesParser.Core
         /// <summary>
         /// Category
         /// </summary>
-        public string Category { get; set; }
+        public List<string> Categories { get; set; }
 
         /// <summary>
         /// Priority
@@ -31,5 +32,13 @@ namespace SemanticReleaseNotesParser.Core
         /// Summary
         /// </summary>
         public string Summary { get; set; }
+
+        /// <summary>
+        /// Instantiates a new Item
+        /// </summary>
+        public Item()
+        {
+            Categories = new List<string>();
+        }
     }
 }
