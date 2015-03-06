@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SemanticReleaseNotesParser.Core.Formatter;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -593,6 +594,7 @@ Incremental release designed to provide an update to some of the core plugins.";
  1. {Fix} *Ajax*: Fix that crashed poll in Chrome and IE due to log/trace statement. [i1234](http://getglimpse.com)";
 
         private const string SyntaxMetadataCommitsMarkdown = @"Commits: 56af25a...d3fead4
+
 Commits: [56af25a...d3fead4](https://github.com/Glimpse/Semantic-Release-Notes/compare/56af25a...d3fead4)";
 
         private const string SyntaxMetadataCommitsHtml = @"<html>

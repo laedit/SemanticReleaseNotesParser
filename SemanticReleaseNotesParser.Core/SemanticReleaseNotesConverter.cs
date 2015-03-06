@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using SemanticReleaseNotesParser.Core.Formatter;
+using System.IO;
 
 namespace SemanticReleaseNotesParser.Core
 {
@@ -15,7 +16,7 @@ namespace SemanticReleaseNotesParser.Core
         /// <returns>A formatted release notes</returns>
         public static string Convert(string rawReleaseNotes, SemanticReleaseNotesConverterSettings settings = null)
         {
-            return SemanticReleaseNotesFormatter.Format(SemanticReleaseNotesParser.Parse(rawReleaseNotes, settings), settings);
+            return SemanticReleaseNotesFormatter.Format(Parser.SemanticReleaseNotesParser.Parse(rawReleaseNotes, settings), settings);
         }
 
         /// <summary>
@@ -27,7 +28,7 @@ namespace SemanticReleaseNotesParser.Core
         /// <returns>A formatted release notes</returns>
         public static void Convert(TextReader reader, TextWriter writer, SemanticReleaseNotesConverterSettings settings = null)
         {
-            SemanticReleaseNotesFormatter.Format(writer, SemanticReleaseNotesParser.Parse(reader, settings), settings);
+            SemanticReleaseNotesFormatter.Format(writer, Parser.SemanticReleaseNotesParser.Parse(reader, settings), settings);
         }
 
         /// <summary>
@@ -38,7 +39,7 @@ namespace SemanticReleaseNotesParser.Core
         /// <returns>A parsed release notes</returns>
         public static ReleaseNotes Parse(TextReader reader, SemanticReleaseNotesConverterSettings settings = null)
         {
-            return SemanticReleaseNotesParser.Parse(reader, settings);
+            return Parser.SemanticReleaseNotesParser.Parse(reader, settings);
         }
 
         /// <summary>
@@ -49,7 +50,7 @@ namespace SemanticReleaseNotesParser.Core
         /// <returns>A parsed release notes</returns>
         public static ReleaseNotes Parse(string rawReleaseNotes, SemanticReleaseNotesConverterSettings settings = null)
         {
-            return SemanticReleaseNotesParser.Parse(rawReleaseNotes, settings);
+            return Parser.SemanticReleaseNotesParser.Parse(rawReleaseNotes, settings);
         }
 
         /// <summary>

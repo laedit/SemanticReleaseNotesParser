@@ -55,11 +55,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Category.cs" />
-    <Compile Include="Formatter\GroupBy.cs" />
+    <Compile Include="GroupBy.cs" />
     <Compile Include="Item.cs" />
-    <Compile Include="Formatter\OutputFormat.cs" />
+    <Compile Include="OutputFormat.cs" />
     <Compile Include="Metadata.cs" />
-    <Compile Include="Parser\MetadataDefinition.cs" />
+    <Compile Include="Parser\IParserPart.cs" />
+    <Compile Include="Parser\ItemParserPart.cs" />
+    <Compile Include="Parser\LinkParser.cs" />
+    <Compile Include="Parser\MetadataParserPart.cs" />
+    <Compile Include="Parser\Metadata\CommitsMetadataDefinition.cs" />
+    <Compile Include="Parser\Metadata\IMetadataDefinition.cs" />
+    <Compile Include="Parser\PrimaryParserPart.cs" />
+    <Compile Include="Parser\SectionParserPart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReleaseNotes.cs" />
     <Compile Include="Section.cs" />

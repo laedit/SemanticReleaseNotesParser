@@ -10,7 +10,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Parse_Null_Exception()
         {
             // act & assert
-            var exception = Assert.Throws<ArgumentNullException>(() => SemanticReleaseNotesParser.Parse((string)null));
+            var exception = Assert.Throws<ArgumentNullException>(() => Parser.SemanticReleaseNotesParser.Parse((string)null));
             Assert.Equal("rawReleaseNotes", exception.ParamName);
         }
 
@@ -18,7 +18,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Parse_TextReader_Null_Exception()
         {
             // act & assert
-            var exception = Assert.Throws<ArgumentNullException>(() => SemanticReleaseNotesParser.Parse((TextReader)null));
+            var exception = Assert.Throws<ArgumentNullException>(() => Parser.SemanticReleaseNotesParser.Parse((TextReader)null));
             Assert.Equal("reader", exception.ParamName);
         }
 
@@ -26,7 +26,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Parse_Syntax_Summaries()
         {
             // act
-            var releaseNote = SemanticReleaseNotesParser.Parse(Syntax_Summaries);
+            var releaseNote = Parser.SemanticReleaseNotesParser.Parse(Syntax_Summaries);
 
             // assert
             Assert.Equal("This is a _project_ summary with two paragraphs.Lorem ipsum dolor sit amet consectetuer **adipiscing** elit.Aliquam hendreritmi posuere lectus.\r\n\r\nVestibulum `enim wisi` viverra nec fringilla in laoreetvitae risus. Donec sit amet nisl. Aliquam [semper](?) ipsumsit amet velit.", releaseNote.Summary);
@@ -36,7 +36,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Parse_TextReader_Syntax_Summaries()
         {
             // act
-            var releaseNote = SemanticReleaseNotesParser.Parse(GetTextReader(Syntax_Summaries));
+            var releaseNote = Parser.SemanticReleaseNotesParser.Parse(GetTextReader(Syntax_Summaries));
 
             // assert
             Assert.Equal("This is a _project_ summary with two paragraphs.Lorem ipsum dolor sit amet consectetuer **adipiscing** elit.Aliquam hendreritmi posuere lectus.\r\n\r\nVestibulum `enim wisi` viverra nec fringilla in laoreetvitae risus. Donec sit amet nisl. Aliquam [semper](?) ipsumsit amet velit.", releaseNote.Summary);
@@ -46,7 +46,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Parse_Syntax_Items()
         {
             // act
-            var releaseNote = SemanticReleaseNotesParser.Parse(Syntax_Items);
+            var releaseNote = Parser.SemanticReleaseNotesParser.Parse(Syntax_Items);
 
             // assert
             Assert.Equal(4, releaseNote.Items.Count);
@@ -61,7 +61,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Parse_Syntax_Sections()
         {
             // act
-            var releaseNote = SemanticReleaseNotesParser.Parse(Syntax_Sections);
+            var releaseNote = Parser.SemanticReleaseNotesParser.Parse(Syntax_Sections);
 
             // assert
             Assert.Equal(2, releaseNote.Sections.Count);
@@ -85,7 +85,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Parse_Syntax_Priority()
         {
             // act
-            var releaseNote = SemanticReleaseNotesParser.Parse(Syntax_Priority);
+            var releaseNote = Parser.SemanticReleaseNotesParser.Parse(Syntax_Priority);
 
             // assert
             Assert.Equal(string.Empty, releaseNote.Summary);
@@ -117,7 +117,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Parse_Syntax_Category()
         {
             // act
-            var releaseNote = SemanticReleaseNotesParser.Parse(Syntax_Category);
+            var releaseNote = Parser.SemanticReleaseNotesParser.Parse(Syntax_Category);
 
             // assert
             Assert.Equal(string.Empty, releaseNote.Summary);
@@ -153,7 +153,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Parse_Example_A()
         {
             // act
-            var releaseNote = SemanticReleaseNotesParser.Parse(ExampleA);
+            var releaseNote = Parser.SemanticReleaseNotesParser.Parse(ExampleA);
 
             // assert
             Assert.Equal("Incremental release designed to provide an update to some of the core plugins.", releaseNote.Summary);
@@ -175,7 +175,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Parse_Example_B()
         {
             // act
-            var releaseNote = SemanticReleaseNotesParser.Parse(ExampleB);
+            var releaseNote = Parser.SemanticReleaseNotesParser.Parse(ExampleB);
 
             // assert
             Assert.Equal("Incremental release designed to provide an update to some of the core plugins.", releaseNote.Summary);
@@ -206,7 +206,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Parse_Example_C()
         {
             // act
-            var releaseNote = SemanticReleaseNotesParser.Parse(ExampleC);
+            var releaseNote = Parser.SemanticReleaseNotesParser.Parse(ExampleC);
 
             // assert
             Assert.Equal("Incremental release designed to provide an update to some of the core plugins.", releaseNote.Summary);
@@ -243,7 +243,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Parse_Example_D()
         {
             // act
-            var releaseNote = SemanticReleaseNotesParser.Parse(ExampleD);
+            var releaseNote = Parser.SemanticReleaseNotesParser.Parse(ExampleD);
 
             // assert
             Assert.Equal("Incremental release designed to provide an update to some of the core plugins.", releaseNote.Summary);
@@ -287,7 +287,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Parse_Real_NVika()
         {
             // act
-            var releaseNote = SemanticReleaseNotesParser.Parse(NVikaReleaseNotes);
+            var releaseNote = Parser.SemanticReleaseNotesParser.Parse(NVikaReleaseNotes);
 
             // assert
             Assert.Equal(1, releaseNote.Metadata.Count);
@@ -310,7 +310,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Parse_Example_A_WithOnlyLF()
         {
             // act
-            var releaseNote = SemanticReleaseNotesParser.Parse(ExampleAWithOnlyLF);
+            var releaseNote = Parser.SemanticReleaseNotesParser.Parse(ExampleAWithOnlyLF);
 
             // assert
             Assert.Equal("Incremental release designed to provide an update to some of the core plugins.", releaseNote.Summary);
@@ -332,7 +332,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Parse_Syntax_Metadata_Commits()
         {
             // act
-            var releaseNote = SemanticReleaseNotesParser.Parse(Syntax_Metadata_Commits);
+            var releaseNote = Parser.SemanticReleaseNotesParser.Parse(Syntax_Metadata_Commits);
 
             // assert
             Assert.Equal(2, releaseNote.Metadata.Count);

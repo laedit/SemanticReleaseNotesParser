@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace SemanticReleaseNotesParser.Core
+namespace SemanticReleaseNotesParser.Core.Formatter
 {
     /// <summary>
     /// Semantic release notes formatter
