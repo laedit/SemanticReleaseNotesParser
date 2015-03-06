@@ -1,12 +1,14 @@
 # vNext
 
+ - [#16](https://github.com/laedit/SemanticReleaseNotesParser/issues/16) - Support v0.4-beta of http://semanticreleasenotes.org/: Metadata +breaking-change
+ - [#12](https://github.com/laedit/SemanticReleaseNotesParser/issues/12) - Support v0.4-beta of http://semanticreleasenotes.org/: Categories +breaking-change
  - [#15](https://github.com/laedit/SemanticReleaseNotesParser/issues/15) - Support environment other than windows +fix
  - [#14](https://github.com/laedit/SemanticReleaseNotesParser/issues/14) - Adapt to AppVeyor environment variable +fix
  - [#9](https://github.com/laedit/SemanticReleaseNotesParser/issues/9) - Add SemanticReleaseNotesConvert class +breaking-change
  - [#8](https://github.com/laedit/SemanticReleaseNotesParser/issues/8) - Add an option to pluralize categories titles +enhancement
  - [#7](https://github.com/laedit/SemanticReleaseNotesParser/issues/7) - Escape SemanticReleaseNotes before sending it to AppVeyor +fix
 
-Commits: [010d2a2c88...99c5630663](https://github.com/laedit/SemanticReleaseNotesParser/compare/010d2a2c88...99c5630663)
+Commits: [010d2a2c88...1e03ca9453](https://github.com/laedit/SemanticReleaseNotesParser/compare/010d2a2c88...1e03ca9453)
 
 
 # V0.1.0
