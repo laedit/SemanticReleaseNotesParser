@@ -14,11 +14,18 @@ namespace SemanticReleaseNotesParser.Core.Formatter
     /// </summary>
     internal static class SemanticReleaseNotesFormatter
     {
-        private const string HtmlEnvelope = @"<html>
+        private const string HtmlEnvelope = @"<html>{0}
 <body>
-{0}
+{1}
 </body>
 </html>";
+
+        private const string HtmlHeader = @"
+<header>
+<style>
+{0}
+</style>
+</header>";
 
         private readonly static CommonMarkSettings DefaultCommonMarkSettings = new CommonMarkSettings
         {
@@ -84,7 +91,14 @@ namespace SemanticReleaseNotesParser.Core.Formatter
             {
                 throw new InvalidOperationException("The priorities for items are not supported currently for Html output.");
             }
-            return string.Format(HtmlEnvelope, CommonMarkConverter.Convert(result, DefaultCommonMarkSettings).Trim());
+
+            var header = string.Empty;
+            if (settings.IncludeStyle)
+            {
+                header = string.Format(HtmlHeader, string.IsNullOrEmpty(settings.CustomStyle) ? GetEmbeddedResource("DefaultStyle.css") : settings.CustomStyle);
+            }
+
+            return string.Format(HtmlEnvelope, header, CommonMarkConverter.Convert(result, DefaultCommonMarkSettings).Trim());
         }
 
         private static List<Category> GetCategories(ReleaseNotes releaseNotes, SemanticReleaseNotesConverterSettings settings)
@@ -126,13 +140,18 @@ namespace SemanticReleaseNotesParser.Core.Formatter
 
         private static string GetLiquidTemplate(SemanticReleaseNotesConverterSettings settings)
         {
-            string templateName = "SemanticReleaseNotesParser.Core.Resources.GroupBySections.liquid";
+            string templateName = "GroupBySections.liquid";
             if (settings.GroupBy == GroupBy.Categories)
             {
-                templateName = "SemanticReleaseNotesParser.Core.Resources.GroupByCategories.liquid";
+                templateName = "GroupByCategories.liquid";
             }
 
-            using (var reader = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(templateName)))
+            return GetEmbeddedResource(templateName);
+        }
+
+        private static string GetEmbeddedResource(string resourceName)
+        {
+            using (var reader = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("SemanticReleaseNotesParser.Core.Resources." + resourceName)))
             {
                 return reader.ReadToEnd();
             }

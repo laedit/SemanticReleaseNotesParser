@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using Xunit;
 
@@ -29,7 +30,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Format_ExampleA_Default()
         {
             // act
-            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExempleAReleaseNotes());
+            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExampleAReleaseNotes());
 
             // assert
             Assert.Equal(ExampleAHtml, resultHtml.Trim());
@@ -42,7 +43,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
             var resultHtml = new StringBuilder();
 
             // act
-            SemanticReleaseNotesFormatter.Format(new StringWriter(resultHtml), GetExempleAReleaseNotes());
+            SemanticReleaseNotesFormatter.Format(new StringWriter(resultHtml), GetExampleAReleaseNotes());
 
             // assert
             Assert.Equal(ExampleAHtml, resultHtml.ToString().Trim());
@@ -52,7 +53,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Format_ExampleA_Output_Html()
         {
             // act
-            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExempleAReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html });
+            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExampleAReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html });
 
             // assert
             Assert.Equal(ExampleAHtml, resultHtml.Trim());
@@ -62,7 +63,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Format_ExampleA_Output_Markdown()
         {
             // act
-            var resultMarkdown = SemanticReleaseNotesFormatter.Format(GetExempleAReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Markdown });
+            var resultMarkdown = SemanticReleaseNotesFormatter.Format(GetExampleAReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Markdown });
 
             // assert
             Assert.Equal(ExampleAMarkdown, resultMarkdown.Trim());
@@ -75,7 +76,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
             var resultMarkdown = new StringBuilder();
 
             // act
-            SemanticReleaseNotesFormatter.Format(new StringWriter(resultMarkdown), GetExempleAReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Markdown });
+            SemanticReleaseNotesFormatter.Format(new StringWriter(resultMarkdown), GetExampleAReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Markdown });
 
             // assert
             Assert.Equal(ExampleAMarkdown, resultMarkdown.ToString().Trim());
@@ -85,7 +86,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Format_ExampleA_Output_Html_GroupBy_Categories()
         {
             // act
-            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExempleAReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html, GroupBy = GroupBy.Categories });
+            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExampleAReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html, GroupBy = GroupBy.Categories });
 
             // assert
             Assert.Equal(ExampleAHtmlCategories, resultHtml.Trim());
@@ -95,7 +96,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Format_ExampleA_Output_Markdown_GroupBy_Categories()
         {
             // act
-            var resultMarkdown = SemanticReleaseNotesFormatter.Format(GetExempleAReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Markdown, GroupBy = GroupBy.Categories });
+            var resultMarkdown = SemanticReleaseNotesFormatter.Format(GetExampleAReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Markdown, GroupBy = GroupBy.Categories });
 
             // assert
             Assert.Equal(ExampleAMarkdownCategories, resultMarkdown.Trim());
@@ -105,7 +106,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Format_ExampleB_Output_Html()
         {
             // act
-            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExempleBReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html });
+            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExampleBReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html });
 
             // assert
             Assert.Equal(ExampleBHtml, resultHtml.Trim());
@@ -115,7 +116,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Format_ExampleB_Output_Markdown()
         {
             // act
-            var resultMarkdown = SemanticReleaseNotesFormatter.Format(GetExempleBReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Markdown });
+            var resultMarkdown = SemanticReleaseNotesFormatter.Format(GetExampleBReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Markdown });
 
             // assert
             Assert.Equal(ExampleBMarkdown, resultMarkdown.Trim());
@@ -125,7 +126,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Format_ExampleA_Output_Html_Custom_LiquidTemplate()
         {
             // act
-            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExempleAReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html, LiquidTemplate = CustomLiquidTemplate });
+            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExampleAReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html, LiquidTemplate = CustomLiquidTemplate });
 
             // assert
             Assert.Equal(CustomLiquidTemplateHtml, resultHtml.Trim());
@@ -135,7 +136,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Format_ExampleA_Output_Markdown_Custom_LiquidTemplate()
         {
             // act
-            var resultMarkdown = SemanticReleaseNotesFormatter.Format(GetExempleAReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Markdown, LiquidTemplate = CustomLiquidTemplate });
+            var resultMarkdown = SemanticReleaseNotesFormatter.Format(GetExampleAReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Markdown, LiquidTemplate = CustomLiquidTemplate });
 
             // assert
             Assert.Equal(CustomLiquidTemplateMarkdown, resultMarkdown.Trim());
@@ -145,7 +146,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Format_ExampleC_Output_Html()
         {
             // act
-            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExempleCReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html });
+            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExampleCReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html });
 
             // assert
             Assert.Equal(ExampleCHtml, resultHtml.Trim());
@@ -155,7 +156,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Format_ExampleC_Output_Markdown()
         {
             // act
-            var resultMarkdown = SemanticReleaseNotesFormatter.Format(GetExempleCReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Markdown });
+            var resultMarkdown = SemanticReleaseNotesFormatter.Format(GetExampleCReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Markdown });
 
             // assert
             Assert.Equal(ExampleCMarkdown, resultMarkdown.Trim());
@@ -165,7 +166,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Format_ExampleC_Output_Html_GroupBy_Categories()
         {
             // act
-            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExempleCReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html, GroupBy = GroupBy.Categories });
+            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExampleCReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html, GroupBy = GroupBy.Categories });
 
             // assert
             Assert.Equal(ExampleCHtmlCategories, resultHtml.Trim());
@@ -175,7 +176,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Format_ExampleC_Output_Markdown_GroupBy_Categories()
         {
             // act
-            var resultMarkdown = SemanticReleaseNotesFormatter.Format(GetExempleCReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Markdown, GroupBy = GroupBy.Categories });
+            var resultMarkdown = SemanticReleaseNotesFormatter.Format(GetExampleCReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Markdown, GroupBy = GroupBy.Categories });
 
             // assert
             Assert.Equal(ExampleCMarkdownCategories, resultMarkdown.Trim());
@@ -185,7 +186,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Format_ExampleD_Output_Html()
         {
             // act
-            var exception = Assert.Throws<InvalidOperationException>(() => SemanticReleaseNotesFormatter.Format(GetExempleDReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html }));
+            var exception = Assert.Throws<InvalidOperationException>(() => SemanticReleaseNotesFormatter.Format(GetExampleDReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html }));
 
             // assert
             Assert.Equal("The priorities for items are not supported currently for Html output.", exception.Message);
@@ -196,7 +197,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Format_ExampleD_Output_Markdown()
         {
             // act
-            var resultMarkdown = SemanticReleaseNotesFormatter.Format(GetExempleDReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Markdown });
+            var resultMarkdown = SemanticReleaseNotesFormatter.Format(GetExampleDReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Markdown });
 
             // assert
             Assert.Equal(ExampleDMarkdown, resultMarkdown.Trim());
@@ -206,7 +207,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Format_ExampleA_Output_Html_PluralizeCategoriesTitle()
         {
             // act
-            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExempleABisReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html, GroupBy = GroupBy.Categories, PluralizeCategoriesTitle = true });
+            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExampleABisReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html, GroupBy = GroupBy.Categories, PluralizeCategoriesTitle = true });
 
             // assert
             Assert.Equal(ExampleABisHtmlCategories, resultHtml.Trim());
@@ -216,7 +217,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Format_ExampleA_Output_Markdown_PluralizeCategoriesTitle()
         {
             // act
-            var resultMarkdown = SemanticReleaseNotesFormatter.Format(GetExempleABisReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Markdown, GroupBy = GroupBy.Categories, PluralizeCategoriesTitle = true });
+            var resultMarkdown = SemanticReleaseNotesFormatter.Format(GetExampleABisReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Markdown, GroupBy = GroupBy.Categories, PluralizeCategoriesTitle = true });
 
             // assert
             Assert.Equal(ExampleABisMarkdownCategories, resultMarkdown.Trim());
@@ -242,7 +243,30 @@ namespace SemanticReleaseNotesParser.Core.Tests
             Assert.Equal(SyntaxMetadataCommitsMarkdown, resultMarkdown.Trim());
         }
 
-        private ReleaseNotes GetExempleAReleaseNotes()
+        [Fact]
+        public void Format_ExampleA_Output_Html_With_DefaultStyle()
+        {
+            // act
+            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExampleAReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html, IncludeStyle = true });
+
+            // assert
+            Assert.Equal(GetExampleAHtmlWithStyle(), resultHtml.Trim());
+        }
+
+        [Fact]
+        public void Format_ExampleA_Output_Html_WithCustomStyle()
+        {
+            // arrange
+            var customStyle = "body { color:black; width:500px; }";
+
+            // act
+            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExampleAReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html, IncludeStyle = true, CustomStyle = customStyle });
+
+            // assert
+            Assert.Equal(GetExampleAHtmlWithStyle(customStyle), resultHtml.Trim());
+        }
+
+        private ReleaseNotes GetExampleAReleaseNotes()
         {
             return new ReleaseNotes
             {
@@ -257,7 +281,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
             };
         }
 
-        private ReleaseNotes GetExempleBReleaseNotes()
+        private ReleaseNotes GetExampleBReleaseNotes()
         {
             return new ReleaseNotes
             {
@@ -278,7 +302,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
             };
         }
 
-        private ReleaseNotes GetExempleCReleaseNotes()
+        private ReleaseNotes GetExampleCReleaseNotes()
         {
             return new ReleaseNotes
             {
@@ -300,7 +324,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
             };
         }
 
-        private ReleaseNotes GetExempleDReleaseNotes()
+        private ReleaseNotes GetExampleDReleaseNotes()
         {
             return new ReleaseNotes
             {
@@ -322,7 +346,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
             };
         }
 
-        private ReleaseNotes GetExempleABisReleaseNotes()
+        private ReleaseNotes GetExampleABisReleaseNotes()
         {
             return new ReleaseNotes
             {
@@ -347,6 +371,18 @@ namespace SemanticReleaseNotesParser.Core.Tests
                     new Metadata { Name  = "Commits", Value = "[56af25a...d3fead4](https://github.com/Glimpse/Semantic-Release-Notes/compare/56af25a...d3fead4)" }
                 }
             };
+        }
+
+        private string GetExampleAHtmlWithStyle(string style = null)
+        {
+            if (style == null)
+            {
+                using (var reader = new StreamReader(Assembly.GetAssembly(typeof(SemanticReleaseNotesFormatter)).GetManifestResourceStream("SemanticReleaseNotesParser.Core.Resources.DefaultStyle.css")))
+                {
+                    style = reader.ReadToEnd();
+                }
+            }
+            return string.Format(ExampleAHtmlWithHeader, style);
         }
 
         private const string ExampleAHtml = @"<html>
@@ -601,6 +637,23 @@ Commits: [56af25a...d3fead4](https://github.com/Glimpse/Semantic-Release-Notes/c
 <body>
 <p>Commits: 56af25a...d3fead4</p>
 <p>Commits: <a href=""https://github.com/Glimpse/Semantic-Release-Notes/compare/56af25a...d3fead4"">56af25a...d3fead4</a></p>
+</body>
+</html>";
+
+        private const string ExampleAHtmlWithHeader = @"<html>
+<header>
+<style>
+{0}
+</style>
+</header>
+<body>
+<p>Incremental release designed to provide an update to some of the core plugins.</p>
+<ul>
+<li>{{New}} Release Checker: Now gives you a breakdown of exactly what you are missing.</li>
+<li>{{New}} Structured Layout: An alternative layout engine that allows developers to control layout.</li>
+<li>{{Changed}} Timeline: Comes with an additional grid view to show the same data.</li>
+<li>{{Fix}} Ajax: Fix that crashed poll in Chrome and IE due to log/trace statement.</li>
+</ul>
 </body>
 </html>";
     }

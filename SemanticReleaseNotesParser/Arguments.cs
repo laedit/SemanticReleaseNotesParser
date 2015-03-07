@@ -26,6 +26,8 @@ namespace SemanticReleaseNotesParser
 
         public bool PluralizeCategoriesTitle { get; set; }
 
+        public string IncludeStyle { get; set; }
+
         private Arguments()
         {
             Add("r|releasenotes=", "Release notes file path to parse (default: ReleaseNotes.md)", r => ReleaseNotesPath = r);
@@ -34,7 +36,8 @@ namespace SemanticReleaseNotesParser
             Add<OutputFormat>("f|outputformat=", "Format of the resulting file [html|markdown] (default: Html)", f => OutputFormat = f);
             Add<GroupBy>("g|groupby=", "Defines the grouping of items [sections|categories] (default: Sections)", g => GroupBy = g);
             Add("template=", "Path of the liquid template file to format the result", t => TemplatePath = t);
-            Add("pluralizecategoriestitle", "Pluralize categories title", pd => PluralizeCategoriesTitle = true);
+            Add("pluralizecategoriestitle", "Pluralize categories title; Works only with GroupBy=categories", pd => PluralizeCategoriesTitle = true);
+            Add("includestyle:", "Include style in html output; If no style is provided, the default is used", i => IncludeStyle = i ?? string.Empty);
             Add("debug", "Debug mode, more messages are logged", d => Debug = true);
             Add("h|?|help", "Help", h => Help = true);
 

@@ -1,10 +1,12 @@
 ﻿using NSubstitute;
 using SemanticReleaseNotesParser.Abstractions;
+using SemanticReleaseNotesParser.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
+using System.Reflection;
 using System.Text;
 using Xunit;
 
@@ -217,6 +219,38 @@ namespace SemanticReleaseNotesParser.Tests
         }
 
         [Fact]
+        public void Run_IncludeStyle_Default()
+        {
+            // arrange
+            Program.FileSystem = GetFileSystem();
+            Program.Environment = GetEnvironment(true);
+            Program.WebClientFactory = GetWebClientFactory();
+
+            // act
+            Program.Main(new[] { "-includestyle" });
+
+            // assert
+            Assert.Equal(0, _exitCode);
+            Assert.Equal(GetExampleAHtmlWithStyle(), Program.FileSystem.File.ReadAllText("ReleaseNotes.html").Trim());
+        }
+
+        [Fact]
+        public void Run_IncludeStyle_Custom()
+        {
+            // arrange
+            Program.FileSystem = GetFileSystem();
+            Program.Environment = GetEnvironment(true);
+            Program.WebClientFactory = GetWebClientFactory();
+
+            // act
+            Program.Main(new[] { "-includestyle=\"body { color: black; width: 500px; }\"" });
+
+            // assert
+            Assert.Equal(0, _exitCode);
+            Assert.Equal(GetExampleAHtmlWithStyle("body { color: black; width: 500px; }"), Program.FileSystem.File.ReadAllText("ReleaseNotes.html").Trim());
+        }
+
+        [Fact]
         public void Run_PluralizeCategoriesTitle()
         {
             // arrange
@@ -301,6 +335,18 @@ namespace SemanticReleaseNotesParser.Tests
             return fileSystem;
         }
 
+        private string GetExampleAHtmlWithStyle(string style = null)
+        {
+            if (style == null)
+            {
+                using (var reader = new StreamReader(Assembly.GetAssembly(typeof(Item)).GetManifestResourceStream("SemanticReleaseNotesParser.Core.Resources.DefaultStyle.css")))
+                {
+                    style = reader.ReadToEnd();
+                }
+            }
+            return string.Format(ExpectedHtmlWithHeader, style);
+        }
+
         public void Dispose()
         {
             Logger.Reset();
@@ -361,6 +407,22 @@ namespace SemanticReleaseNotesParser.Tests
 <h1>Fixes</h1>
 <ul>
 <li>This is the <code>third</code> list item.</li>
+</ul>
+</body>
+</html>";
+
+        private const string ExpectedHtmlWithHeader = @"<html>
+<header>
+<style>
+{0}
+</style>
+</header>
+<body>
+<p>A little summary</p>
+<h1>System</h1>
+<ul>
+<li>{{New}} This is the <strong>second</strong> <strong>list</strong> item.</li>
+<li>{{Fix}} This is the <code>third</code> list item.</li>
 </ul>
 </body>
 </html>";

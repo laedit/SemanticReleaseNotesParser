@@ -14,24 +14,25 @@ Can be used to parse a semantic release notes and to format it to a markdown or 
 
 ## Usage
 ### CommandLine
-`SemanticReleaseNotes <parameters>`: parse the default `ReleaseNotes.md` and generates a `ReleaseNotes.html`
+`SemanticReleaseNotes [parameters]`: parse the default `ReleaseNotes.md` and generates a `ReleaseNotes.html`
 
 All parameters are optional.
 
 Parameters:
 
- - `-r=[filename]`: Release notes file path to parse (default: `ReleaseNotes.md`)
- - `-o=[filename]`: Path of the resulting file (default: `ReleaseNotes.html`)
- - `-t=[file|environment|fileandenvironment]`: Type of output (default: `file`)
+ - `-r=<filename>`: Release notes file path to parse (default: `ReleaseNotes.md`)
+ - `-o=<filename>`: Path of the resulting file (default: `ReleaseNotes.html`)
+ - `-t=<file|environment|fileandenvironment>`: Type of output (default: `file`)
    - `file` generates a file with the name from `-o` or `ReleaseNotes.html` by default
    - `environment` set an environment variable with the name `SemanticReleaseNotes` and value of the formatted release notes; support [build servers](https://github.com/laedit/SemanticReleaseNotesParser/wiki/Build-Servers-Support)
    - `fileandenvironment` make both of the above
- - `-f=[Html|Markdown]`: Format of the resulting file (default: `Html`)
- - `-g=[Sections|Categories]`: Defines the grouping of items (default: `Sections`)
+ - `-f=<html|markdown>`: Format of the resulting file (default: `html`)
+ - `-g=<sections|categories>`: Defines the grouping of items (default: `sections`)
  - `--template`: Path of the [liquid template](https://github.com/laedit/SemanticReleaseNotesParser/wiki/Format-templating) file to format the result ; Overrides type, format and groupby of output
- - `--pluralizecategoriestitle`: Pluralize categories title
- - `--debug`: add debug messages
- - `-h`: help
+ - `--pluralizecategoriestitle`: Pluralize categories title; works only with `g=categories`
+ - `--includestyle[=<custom style>]`: Include style in the html output; if no custom style is provided, the default is used
+ - `--debug`: Add debug messages
+ - `-h`: Help
 
 ### Library
 - `SemanticReleaseNotesConverter` class help to parse, format or convert a `ReleaseNotes`

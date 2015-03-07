@@ -29,6 +29,7 @@ namespace SemanticReleaseNotesParser.Tests
             Assert.Contains("-f, --outputformat=VALUE", output.ToString());
             Assert.Contains("-g, --groupby=VALUE", output.ToString());
             Assert.Contains("--pluralizecategoriestitle", output.ToString());
+            Assert.Contains("--includestyle[=VALUE]", output.ToString());
         }
 
         [Fact]
@@ -46,6 +47,7 @@ namespace SemanticReleaseNotesParser.Tests
             Assert.Equal("ReleaseNotes.html", arguments.ResultFilePath);
             Assert.Null(arguments.TemplatePath);
             Assert.False(arguments.PluralizeCategoriesTitle);
+            Assert.Null(arguments.IncludeStyle);
         }
 
         [Fact]
@@ -236,6 +238,26 @@ namespace SemanticReleaseNotesParser.Tests
 
             // assert
             Assert.True(arguments.PluralizeCategoriesTitle);
+        }
+
+        [Fact]
+        public void ParseArguments_IncludeStyle()
+        {
+            // act
+            var arguments = Arguments.ParseArguments(new[] { "--includestyle" });
+
+            // assert
+            Assert.Equal(string.Empty, arguments.IncludeStyle);
+        }
+
+        [Fact]
+        public void ParseArguments_IncludeStyle_WithValue()
+        {
+            // act
+            var arguments = Arguments.ParseArguments(new[] { "--includestyle=my_style" });
+
+            // assert
+            Assert.Equal("my_style", arguments.IncludeStyle);
         }
     }
 }

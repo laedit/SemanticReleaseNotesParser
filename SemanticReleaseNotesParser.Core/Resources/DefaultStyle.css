@@ -1,0 +1,16 @@
+﻿html{font-size:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;font-family:sans-serif;color:#222;text-align:center;}
+body{font-family:Verdana, "Bitstream Vera Sans", sans-serif;line-height:1.8em;text-align:left;font-size:11px;color:#4A4A4A;width:500px;margin:0 auto;padding:15px 0;}
+a,a:visited,a:link{color:#4A4A4A;}
+a:hover{color:#000;text-decoration:none;background-color:#D1D1D1;}
+a:focus{outline:thin dotted;}
+a:hover,a:active{outline:0;}
+ul,ol{margin:1em 0;padding:0 0 0 40px;}
+h1{font-family:"Gill Sans", "Gill Sans Std", "Gill Sans MT", Georgia, serif;font-size:2em;line-height:1.5em;text-align:left;font-weight:400;margin:0 0 .25em;}
+h2{font-family:"Gill Sans", "Gill Sans Std", "Gill Sans MT", Verdana, "Bitstream Vera Sans", sans-serif;font-size:1.3em;text-align:left;font-weight:400;line-height:1.8em;letter-spacing:.2em;text-transform:uppercase;margin:1em 0;}
+h2 + h3{margin-top:1.5em;}
+h3{font-family:"Gill Sans", "Gill Sans Std", "Gill Sans MT", Verdana, "Bitstream Vera Sans", sans-serif;font-size:1.1em;text-align:left;font-weight:400;line-height:1.8em;letter-spacing:.2em;margin-bottom:1.4em;margin-top:3em;text-transform:uppercase;}
+h4,h5,h6{font-family:Verdana, "Bitstream Vera Sans", sans-serif;font-size:1em;text-align:left;font-weight:700;line-height:1.8em;margin:2em 0 0;}
+h1 + h2,h6 + h2{margin-top:2em;}
+p + h3,pre + h3{margin-top:4em;}
+ul.srn-priorities{list-style:none;padding-left:20px;}
+ul.srn-priorities > li:before{content:attr(srn-priority) '.';padding-right:7px;}

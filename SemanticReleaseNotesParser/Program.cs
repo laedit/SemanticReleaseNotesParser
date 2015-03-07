@@ -78,7 +78,9 @@ namespace SemanticReleaseNotesParser
                     OutputFormat = arguments.OutputFormat,
                     LiquidTemplate = template,
                     GroupBy = arguments.GroupBy,
-                    PluralizeCategoriesTitle = arguments.PluralizeCategoriesTitle
+                    PluralizeCategoriesTitle = arguments.PluralizeCategoriesTitle,
+                    IncludeStyle = arguments.IncludeStyle != null,
+                    CustomStyle = GetCustomStyle(arguments.IncludeStyle)
                 };
 
                 // Parsing
@@ -143,6 +145,24 @@ namespace SemanticReleaseNotesParser
                 new AppVeyor(Environment, WebClientFactory),
                 new LocalBuildServer(Environment)
             }.First(bs => bs.CanApplyToCurrentContext());
+        }
+
+        private static string GetCustomStyle(string customStyle)
+        {
+            if (customStyle != null)
+            {
+                if (customStyle.StartsWith("\""))
+                {
+                    customStyle = customStyle.Substring(1);
+                }
+
+                if (customStyle.EndsWith("\""))
+                {
+                    customStyle = customStyle.Substring(0, customStyle.Length - 1);
+                }
+            }
+
+            return customStyle;
         }
     }
 }

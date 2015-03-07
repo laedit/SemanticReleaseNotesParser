@@ -27,6 +27,16 @@
         /// </summary>
         public bool PluralizeCategoriesTitle { get; set; }
 
+        /// <summary>
+        /// True to include style int the HTML output
+        /// </summary>
+        public bool IncludeStyle { get; set; }
+
+        /// <summary>
+        /// Custom style to overrides the default style
+        /// </summary>
+        public string CustomStyle { get; set; }
+
         internal static SemanticReleaseNotesConverterSettings Default
         {
             get { return _default; }
