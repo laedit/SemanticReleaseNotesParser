@@ -339,7 +339,7 @@ namespace SemanticReleaseNotesParser.Tests
         {
             if (style == null)
             {
-                using (var reader = new StreamReader(Assembly.GetAssembly(typeof(Item)).GetManifestResourceStream("SemanticReleaseNotesParser.Core.Resources.DefaultStyle.css")))
+                using (var reader = new StreamReader(Assembly.GetAssembly(typeof(SemanticReleaseNotesConverter)).GetManifestResourceStream("SemanticReleaseNotesParser.Core.Resources.DefaultStyle.css")))
                 {
                     style = reader.ReadToEnd();
                 }
