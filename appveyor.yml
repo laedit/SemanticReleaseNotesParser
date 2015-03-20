@@ -64,7 +64,7 @@ artifacts:
 
 - path: ReleaseNotes.html
 
-- path: PackagingAssets\chocolatey\SemanticReleaseNotesParser.*.nupkg
+- path: PackagingAssets\chocolatey\semanticreleasenotes-parser.*.nupkg
   name: SemanticReleaseNotesParser.nupkg
 
 - path: PackagingAssets\nuget\SemanticReleaseNotesParser.Core.*.nupkg
