@@ -3,7 +3,7 @@
   <metadata>
     <id>semanticreleasenotes-parser</id>
     <version>$version$</version>
-    <title>SemanticReleaseNotesParser</title>
+    <title>Semantic Release Notes Parser</title>
     <authors>laedit</authors>
     <owners>laedit</owners>
     <projectUrl>https://github.com/laedit/SemanticReleaseNotesParser</projectUrl>
