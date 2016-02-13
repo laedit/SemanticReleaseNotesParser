@@ -40,6 +40,6 @@ Parameters:
 ## Third party libraries
  - [DotLiquid](https://github.com/dotliquid/dotliquid) is used to process the liquid templates
  - [CommonMark.NET](https://github.com/Knagis/CommonMark.NET) is used to process the markdown
- - [Humanizer](https://github.com/MehdiK/Humanizer) is used to titleize and pluralize categories title
+ - [Humanizer](https://github.com/Humanizr/Humanizer) is used to titleize and pluralize categories title
 
-Icon: [Article](http://thenounproject.com/term/article/16591/) designed by [Stefan Parnarov](http://thenounproject.com/sapi/) from The Noun Project.
+Icon: [Article](https://thenounproject.com/term/article/16591/) designed by [Stefan Parnarov](https://thenounproject.com/sapi/) from The Noun Project.
