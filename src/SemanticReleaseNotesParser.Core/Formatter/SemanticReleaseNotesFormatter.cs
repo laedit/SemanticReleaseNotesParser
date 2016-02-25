@@ -27,11 +27,14 @@ namespace SemanticReleaseNotesParser.Core.Formatter
 </style>
 </header>";
 
-        private readonly static CommonMarkSettings DefaultCommonMarkSettings = new CommonMarkSettings
+        private readonly static CommonMarkSettings DefaultCommonMarkSettings;
+
+        static SemanticReleaseNotesFormatter()
         {
-            AdditionalFeatures = CommonMarkAdditionalFeatures.StrikethroughTilde,
-            OutputFormat = CommonMark.OutputFormat.Html
-        };
+            DefaultCommonMarkSettings = CommonMarkSettings.Default.Clone();
+            DefaultCommonMarkSettings.AdditionalFeatures = CommonMarkAdditionalFeatures.StrikethroughTilde;
+            DefaultCommonMarkSettings.OutputFormat = CommonMark.OutputFormat.Html;
+        }
 
         /// <summary>
         /// Format a release notes
