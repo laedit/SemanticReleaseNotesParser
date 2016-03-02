@@ -39,11 +39,15 @@ Target "InspectCodeAnalysis" (fun _ ->
     
     if directExec(fun info ->
         info.FileName <- "inspectcode"
-        info.Arguments <- "/o=\"" + artifactsDir + "inspectcodereport.xml\" \"src\SemanticReleaseNotesParser.sln\"" )
+        info.Arguments <- "/o=\"" + artifactsDir + "inspectcodereport_Core.xml\" /project=\"SemanticReleaseNotesParser.Core\" \"src\SemanticReleaseNotesParser.sln\"" )
     then
-        "nvika" |> Choco.Install id
-        artifactsDir + "inspectcodereport.xml" |> NVika.ParseReport (fun p -> { p with Debug = true; IncludeSource = true })
-            
+        if directExec(fun info ->
+            info.FileName <- "inspectcode"
+            info.Arguments <- "/o=\"" + artifactsDir + "inspectcodereport_Program.xml\" /project=\"SemanticReleaseNotesParser\" \"src\SemanticReleaseNotesParser.sln\"" )
+        then
+            "nvika" |> Choco.Install id
+            [artifactsDir + "inspectcodereport_Core.xml"; artifactsDir + "inspectcodereport_Program.xml"] |> NVika.ParseReports (fun p -> { p with Debug = true; IncludeSource = true })
+        else failwith "Execution of inspectcode have failed, NVika can't be executed."
     else failwith "Execution of inspectcode have failed, NVika can't be executed."
 )
 
