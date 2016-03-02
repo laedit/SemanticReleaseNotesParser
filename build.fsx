@@ -29,6 +29,10 @@ Target "RestorePackages" (fun _ ->
 )
 
 Target "BuildApp" (fun _ ->
+    !! "src/SemanticReleaseNotesParser.Core/SemanticReleaseNotesParser.Core.csproj"
+      |> MSBuildRelease null "Build"
+      |> Log "AppBuild-Output: "
+
     !! "src/SemanticReleaseNotesParser/SemanticReleaseNotesParser.csproj"
       |> MSBuildRelease buildDir "Build"
       |> Log "AppBuild-Output: "
@@ -60,7 +64,7 @@ Target "ILRepack" (fun _ ->
     
     if not (directExec(fun info ->
         info.FileName <- "./tools/ilrepack/tools/ilrepack" 
-        info.Arguments <- @"/internalize /parallel /wildcards /lib:""C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETPortable\v4.0"" /out:" + artifactsDir + "SemanticReleaseNotesParser.exe " + buildDir + "SemanticReleaseNotesParser.exe " + buildDir + "*.dll" ))
+        info.Arguments <- @"/internalize /parallel /wildcards /lib:""C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETPortable\v4.0"" /out:" + artifactsDir + "SemanticReleaseNotesParser.exe " + (buildDir @@ "SemanticReleaseNotesParser.exe ") + (buildDir @@ "*.dll") ))
     then
         failwith "Execution of ilrepack have failed."
 )
@@ -194,6 +198,7 @@ Target "NugetPack" (fun _ ->
         Version = version
         OutputPath = artifactsDir
         WorkingDir = buildDir
+        Properties = ["Configuration","Release"]
     }) "src/SemanticReleaseNotesParser.Core/SemanticReleaseNotesParser.Core.csproj"
 )
 
