@@ -57,7 +57,7 @@ module NVika =
     let private buildArgs command reports parameters =
         new StringBuilder()
                 |> appendWithoutQuotes command
-                |> append (separated " " reports)
+                |> appendWithoutQuotes (separated " " reports)
                 |> appendIfTrueWithoutQuotes parameters.Debug "--debug"
                 |> appendIfTrueWithoutQuotes parameters.IncludeSource "--includesource"
                 |> toText
