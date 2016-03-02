@@ -1,0 +1,12 @@
+language: csharp
+
+cache:
+  directories:
+  - src/packages
+  - tools
+
+before_script:
+ - chmod +x build.sh
+
+script:
+  - ./build.sh
