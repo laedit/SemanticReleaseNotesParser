@@ -1,4 +1,6 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/6h723a3g2e99r6on?svg=true)](https://ci.appveyor.com/project/laedit/semanticreleasenotesparser) [![Coverage Status](https://coveralls.io/repos/laedit/SemanticReleaseNotesParser/badge.svg?branch=master)](https://coveralls.io/r/laedit/SemanticReleaseNotesParser?branch=master)
+[![Licence Apache 2](https://img.shields.io/badge/licence-Apache%202-blue.svg)](https://github.com/laedit/vika/blob/master/LICENSE) 
+[![Build status](https://ci.appveyor.com/api/projects/status/6h723a3g2e99r6on?svg=true)](https://ci.appveyor.com/project/laedit/semanticreleasenotesparser) 
+[![Coverage Status](https://coveralls.io/repos/laedit/SemanticReleaseNotesParser/badge.svg?branch=master)](https://coveralls.io/r/laedit/SemanticReleaseNotesParser?branch=master)
  
 
 ![Project icon](icon.png)
