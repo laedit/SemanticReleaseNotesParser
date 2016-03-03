@@ -76,7 +76,7 @@ Target "BuildReleaseNotes" (fun _ ->
                                                         OutputPath = artifactsDir @@ "ReleaseNotes.html"
                                                         PluralizeCategoriesTitle = true
                                                         IncludeStyle = SemanticReleaseNotesParser.IncludeStyleType.Yes
-                                                        ToolPath = artifactsDir @@ "SemanticReleaseNotesParser.exe" 
+                                                        ToolPath = if Choco.IsAvailable then artifactsDir @@ "SemanticReleaseNotesParser.exe" else buildDir @@ "SemanticReleaseNotesParser.exe"
         } )
 
      SemanticReleaseNotesParser.Convert (fun p -> { p with 
@@ -85,7 +85,7 @@ Target "BuildReleaseNotes" (fun _ ->
                                                         OutputFormat = SemanticReleaseNotesParser.OutputFormat.Markdown
                                                         Debug = true
                                                         PluralizeCategoriesTitle = true
-                                                        ToolPath = artifactsDir @@ "SemanticReleaseNotesParser.exe" 
+                                                        ToolPath = if Choco.IsAvailable then artifactsDir @@ "SemanticReleaseNotesParser.exe" else buildDir @@ "SemanticReleaseNotesParser.exe"
         } )
 )
 
