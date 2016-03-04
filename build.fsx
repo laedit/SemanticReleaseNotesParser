@@ -126,15 +126,17 @@ Target "Test" (fun _ ->
             OptionalArguments = "-excludebyattribute:*.ExcludeFromCodeCoverage* -returntargetcode";
         })
     
-        testDir + "SemanticReleaseNotesParser.Tests.dll -noshadow" |> OpenCover (fun p -> 
-        { p with
-            ExePath = "./tools/OpenCover/tools/OpenCover.Console.exe"
-            TestRunnerExePath = "./tools/xunit.runner.console/tools/xunit.console.exe";
-            Output = artifactsDir @@ "coverage.xml";
-            Register = RegisterUser;
-            Filter = "+[SemanticReleaseNotesParser]*";
-            OptionalArguments = "-excludebyattribute:*.ExcludeFromCodeCoverage* -returntargetcode -mergeoutput";
-        })
+        if buildServer <> Travis
+        then
+            testDir + "SemanticReleaseNotesParser.Tests.dll -noshadow" |> OpenCover (fun p -> 
+            { p with
+                ExePath = "./tools/OpenCover/tools/OpenCover.Console.exe"
+                TestRunnerExePath = "./tools/xunit.runner.console/tools/xunit.console.exe";
+                Output = artifactsDir @@ "coverage.xml";
+                Register = RegisterUser;
+                Filter = "+[SemanticReleaseNotesParser]*";
+                OptionalArguments = "-excludebyattribute:*.ExcludeFromCodeCoverage* -returntargetcode -mergeoutput";
+            })
     
         if isLocalBuild then
             "ReportGenerator" |> NugetInstall (fun p -> 
