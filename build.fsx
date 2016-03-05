@@ -150,10 +150,15 @@ Target "Test" (fun _ ->
             })
         else
             if not (directExec(fun info ->
-                info.FileName <- "bash"
-                info.Arguments <- "<(curl -s https://codecov.io/bash) -f " + artifactsDir + "coverage.xml" ))
+                info.FileName <- "pip"
+                info.Arguments <- "install codecov" ))
             then
-                failwith "Execution of coveralls.net have failed."
+                failwith "Installation of codecov have failed."
+            if not (directExec(fun info ->
+                info.FileName <- "codecov"
+                info.Arguments <- "-f " + artifactsDir + "coverage.xml" ))
+            then
+                failwith "Execution of codecov have failed."
 )
 
 Target "Zip" (fun _ ->
