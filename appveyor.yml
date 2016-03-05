@@ -12,8 +12,8 @@ install:
 - GitVersion /output buildserver /UpdateAssemblyInfo true
 
 environment:
-  COVERALLS_REPO_TOKEN:
-    secure: S45Gg5pKn0LcC70m7IjzcmPVcuqsdK+Uiq8kUorOfQDM1OM+7pjlcaD0eomEJrqz
+  CODECOV_REPO_TOKEN:
+    secure: 5Y10q21f2g7gsNPKkuugX9Q5d+Y0CZX2lRb1HkZrW1lDxS4Btw/G3PFRvtttPFmy
 
 build_script:
   build.bat
