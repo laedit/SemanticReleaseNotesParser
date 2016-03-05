@@ -103,7 +103,7 @@ Target "Test" (fun _ ->
     })
     
     if isUnix then
-        !! (testDir @@ "SemanticReleaseNotesParser*.Tests.dll")
+        !! (testDir @@ "SemanticReleaseNotesParser.Core.Tests.dll")
         |> xUnit2 (fun p -> { p with 
                                 HtmlOutputPath = Some (artifactsDir @@ "xunit.html") 
                                 ShadowCopy = false
@@ -126,17 +126,15 @@ Target "Test" (fun _ ->
             OptionalArguments = "-excludebyattribute:*.ExcludeFromCodeCoverage* -returntargetcode";
         })
     
-        if buildServer <> Travis
-        then
-            testDir + "SemanticReleaseNotesParser.Tests.dll -noshadow" |> OpenCover (fun p -> 
-            { p with
-                ExePath = "./tools/OpenCover/tools/OpenCover.Console.exe"
-                TestRunnerExePath = "./tools/xunit.runner.console/tools/xunit.console.exe";
-                Output = artifactsDir @@ "coverage.xml";
-                Register = RegisterUser;
-                Filter = "+[SemanticReleaseNotesParser]*";
-                OptionalArguments = "-excludebyattribute:*.ExcludeFromCodeCoverage* -returntargetcode -mergeoutput";
-            })
+        testDir + "SemanticReleaseNotesParser.Tests.dll -noshadow" |> OpenCover (fun p -> 
+        { p with
+            ExePath = "./tools/OpenCover/tools/OpenCover.Console.exe"
+            TestRunnerExePath = "./tools/xunit.runner.console/tools/xunit.console.exe";
+            Output = artifactsDir @@ "coverage.xml";
+            Register = RegisterUser;
+            Filter = "+[SemanticReleaseNotesParser]*";
+            OptionalArguments = "-excludebyattribute:*.ExcludeFromCodeCoverage* -returntargetcode -mergeoutput";
+        })
     
         if isLocalBuild then
             "ReportGenerator" |> NugetInstall (fun p -> 
@@ -217,10 +215,10 @@ Target "All" DoNothing
   ==> "BuildReleaseNotes"
   ==> "BuildTest"
   ==> "Test"
-  ==> "Zip"
-  ==> "PackFakeHelper"
+  =?> ("Zip", buildServer <> Travis)
+  =?> ("PackFakeHelper", buildServer <> Travis)
   =?> ("ChocoPack", Choco.IsAvailable)
-  ==> "NugetPack"
+  =?> ("NugetPack", buildServer <> Travis)
   ==> "All"
 
 // start build

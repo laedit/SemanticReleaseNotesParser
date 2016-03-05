@@ -15,7 +15,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
             var releaseNote = SemanticReleaseNotesConverter.Parse(Syntax_Summaries);
 
             // assert
-            Assert.Equal("This is a _project_ summary with two paragraphs.Lorem ipsum dolor sit amet consectetuer **adipiscing** elit.Aliquam hendreritmi posuere lectus.\r\n\r\nVestibulum `enim wisi` viverra nec fringilla in laoreetvitae risus. Donec sit amet nisl. Aliquam [semper](?) ipsumsit amet velit.", releaseNote.Summary);
+            Assert.Equal(string.Format("This is a _project_ summary with two paragraphs.Lorem ipsum dolor sit amet consectetuer **adipiscing** elit.Aliquam hendreritmi posuere lectus.{0}{0}Vestibulum `enim wisi` viverra nec fringilla in laoreetvitae risus. Donec sit amet nisl. Aliquam [semper](?) ipsumsit amet velit.", Environment.NewLine), releaseNote.Summary);
         }
 
         [Fact]
@@ -25,7 +25,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
             var releaseNote = SemanticReleaseNotesConverter.Parse(GetTextReader(Syntax_Summaries));
 
             // assert
-            Assert.Equal("This is a _project_ summary with two paragraphs.Lorem ipsum dolor sit amet consectetuer **adipiscing** elit.Aliquam hendreritmi posuere lectus.\r\n\r\nVestibulum `enim wisi` viverra nec fringilla in laoreetvitae risus. Donec sit amet nisl. Aliquam [semper](?) ipsumsit amet velit.", releaseNote.Summary);
+            Assert.Equal(string.Format("This is a _project_ summary with two paragraphs.Lorem ipsum dolor sit amet consectetuer **adipiscing** elit.Aliquam hendreritmi posuere lectus.{0}{0}Vestibulum `enim wisi` viverra nec fringilla in laoreetvitae risus. Donec sit amet nisl. Aliquam [semper](?) ipsumsit amet velit.", Environment.NewLine), releaseNote.Summary);
         }
 
         [Fact]
