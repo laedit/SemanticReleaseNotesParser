@@ -149,6 +149,7 @@ Target "Test" (fun _ ->
                 LogVerbosity = ReportGeneratorHelper.ReportGeneratorLogVerbosity.Error
             })
         else
+            System.Environment.SetEnvironmentVariable("PATH", ("C:\\Python34;C:\\Python34\\Scripts;" + environVar "PATH"))
             if not (directExec(fun info ->
                 info.FileName <- "pip"
                 info.Arguments <- "install codecov" ))
