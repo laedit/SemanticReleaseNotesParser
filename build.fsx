@@ -149,14 +149,9 @@ Target "Test" (fun _ ->
                 LogVerbosity = ReportGeneratorHelper.ReportGeneratorLogVerbosity.Error
             })
         else
-            "coveralls.io" |> NugetInstall (fun p -> 
-            { p with 
-                OutputDirectory = "tools";
-                ExcludeVersion = true
-            })
             if not (directExec(fun info ->
-                info.FileName <- @"tools\coveralls.io\tools\coveralls.net.exe"
-                info.Arguments <- "--opencover " + artifactsDir + "coverage.xml" ))
+                info.FileName <- "bash"
+                info.Arguments <- "<(curl -s https://codecov.io/bash) -f " + artifactsDir + "coverage.xml" ))
             then
                 failwith "Execution of coveralls.net have failed."
 )
