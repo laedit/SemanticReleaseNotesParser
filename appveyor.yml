@@ -21,9 +21,9 @@ build_script:
 test: off
 
 artifacts:
-- path: inspectcodereport.xml
+- path: artifacts\inspectcodereport.xml
 
-- path: coverage.xml
+- path: artifacts\coverage.xml
 
 - path: build\SemanticReleaseNotesParser.exe.CodeAnalysisLog.xml
   name: SemanticReleaseNotesParser.exe.CodeAnalysisLog.xml
