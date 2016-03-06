@@ -21,7 +21,8 @@ build_script:
 test: off
 
 artifacts:
-- path: artifacts\inspectcodereport.xml
+- path: artifacts\inspectcodereport_Core.xml
+- path: artifacts\inspectcodereport_Program.xml
 
 - path: artifacts\coverage.xml
 
