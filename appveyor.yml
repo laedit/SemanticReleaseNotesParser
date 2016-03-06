@@ -13,8 +13,8 @@ install:
 
 environment:
   CODECOV_REPO_TOKEN:
-    secure: 5Y10q21f2g7gsNPKkuugX9Q5d+Y0CZX2lRb1HkZrW1lDxS4Btw/G3PFRvtttPFmy
-
+    secure: ze7icJ8ww4OT3xQE3+KmDIyj1LLZKiT9zNHdDLDab+pGSe2RH0mKH5xSdy+mrmYE
+    
 build_script:
   build.bat
 
