@@ -125,7 +125,7 @@ Vestibulum `enim wisi` viverra nec fringilla in laoreetvitae risus. Donec sit am
 
             // assert
             Assert.Equal(string.Empty, releaseNote.Summary);
-            Assert.Equal(8, releaseNote.Items.Count);
+            Assert.Equal(10, releaseNote.Items.Count);
 
             Assert.Equal("New", releaseNote.Items[0].Categories[0]);
             Assert.Equal("This is a New list item.", releaseNote.Items[0].Summary);
@@ -151,6 +151,12 @@ Vestibulum `enim wisi` viverra nec fringilla in laoreetvitae risus. Donec sit am
             Assert.Equal("Developer", releaseNote.Items[7].Categories[0]);
             Assert.Equal("New", releaseNote.Items[7].Categories[1]);
             Assert.Equal("This is my last DEVELOPER list item.", releaseNote.Items[7].Summary);
+
+            Assert.Equal(0, releaseNote.Items[8].Categories.Count);
+            Assert.Equal("This is something without category.", releaseNote.Items[8].Summary);
+
+            Assert.Equal("New", releaseNote.Items[9].Categories[0]);
+            Assert.Equal("And this new with two same categories.", releaseNote.Items[9].Summary);
         }
 
         [Fact]
@@ -393,6 +399,8 @@ This is the summary for Other Section.
  - This is a +super-special custom list item.
  - This is a +o ne letter category.
  - This is my last +DEVELOPER list item. +New
+ - This is something without category.
+ - And this +new with two same categories. +New
          ";
 
         private const string ExampleA = @"Incremental release designed to provide an update to some of the core plugins.
