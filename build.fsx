@@ -190,6 +190,8 @@ Target "ChocoPack" (fun _ ->
             ReleaseNotes = "https://github.com/laedit/SemanticReleaseNotesParser/releases"
             PackageDownloadUrl = "https://github.com/laedit/SemanticReleaseNotesParser/releases/download/" + tag + "/SemanticReleaseNotesParser." + version + ".zip"
             OutputDir = artifactsDir
+            Checksum = Checksum.CalculateFileHash (artifactsDir + "SemanticReleaseNotesParser." + version + ".zip")
+            ChecksumType = Choco.ChocolateyChecksumType.Sha256
         })
 )
 
