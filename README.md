@@ -1,5 +1,6 @@
 [![Licence Apache 2](https://img.shields.io/badge/licence-Apache%202-blue.svg)](https://github.com/laedit/vika/blob/master/LICENSE) 
-[![Build status](https://ci.appveyor.com/api/projects/status/6h723a3g2e99r6on?svg=true)](https://ci.appveyor.com/project/laedit/semanticreleasenotesparser) 
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/6h723a3g2e99r6on?svg=true)](https://ci.appveyor.com/project/laedit/semanticreleasenotesparser) 
+[![Linux Build Status](https://travis-ci.org/laedit/SemanticReleaseNotesParser.svg?branch=master)](https://travis-ci.org/laedit/SemanticReleaseNotesParser)
 [![codecov.io](https://codecov.io/github/laedit/SemanticReleaseNotesParser/coverage.svg?branch=master)](https://codecov.io/github/laedit/SemanticReleaseNotesParser?branch=master)
 [![Gitter](https://badges.gitter.im/laedit/SemanticReleaseNotesParser.svg)](https://gitter.im/laedit/SemanticReleaseNotesParser?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
