@@ -1,4 +1,4 @@
-
+﻿
 cache:
 - src/packages -> **\packages.config
 - C:\ProgramData\chocolatey\bin -> build.fsx
@@ -21,17 +21,11 @@ build_script:
 test: off
 
 artifacts:
-- path: artifacts\inspectcodereport_Core.xml
-- path: artifacts\inspectcodereport_Program.xml
+- path: build\static-analysis.Core.sarif.json
+- path: build\static-analysis.Program.sarif.json
 
 - path: artifacts\coverage.xml
 
-- path: build\SemanticReleaseNotesParser.exe.CodeAnalysisLog.xml
-  name: SemanticReleaseNotesParser.exe.CodeAnalysisLog.xml
-  
-- path: build\SemanticReleaseNotesParser.Core.dll.CodeAnalysisLog.xml
-  name: SemanticReleaseNotesParser.Core.dll.CodeAnalysisLog.xml
-  
 - path: artifacts\SemanticReleaseNotesParser.exe
   name: SemanticReleaseNotesParser.exe
 

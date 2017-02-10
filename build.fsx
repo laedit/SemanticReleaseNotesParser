@@ -1,4 +1,4 @@
-#r "./tools/FAKE/tools/FakeLib.dll"
+﻿#r "./tools/FAKE/tools/FakeLib.dll"
 #load "NVikaHelper.fsx"
 #load "SemanticReleaseNotesParserHelper.fsx"
 
@@ -29,30 +29,14 @@ Target "RestorePackages" (fun _ ->
 )
 
 Target "BuildApp" (fun _ ->
-    !! "src/SemanticReleaseNotesParser.Core/SemanticReleaseNotesParser.Core.csproj"
-      |> MSBuildRelease null "Build"
-      |> Log "AppBuild-Output: "
-
     !! "src/SemanticReleaseNotesParser/SemanticReleaseNotesParser.csproj"
-      |> MSBuildRelease buildDir "Build"
+      |> MSBuildRelease buildDir "ReBuild"
       |> Log "AppBuild-Output: "
 )
 
 Target "InspectCodeAnalysis" (fun _ ->
-    "resharper-clt.portable" |> Choco.Install id
-    
-    if directExec(fun info ->
-        info.FileName <- "inspectcode"
-        info.Arguments <- "/o=\"" + artifactsDir + "inspectcodereport_Core.xml\" /project=\"SemanticReleaseNotesParser.Core\" \"src\SemanticReleaseNotesParser.sln\"" )
-    then
-        if directExec(fun info ->
-            info.FileName <- "inspectcode"
-            info.Arguments <- "/o=\"" + artifactsDir + "inspectcodereport_Program.xml\" /project=\"SemanticReleaseNotesParser\" \"src\SemanticReleaseNotesParser.sln\"" )
-        then
-            "nvika" |> Choco.Install id
-            [artifactsDir + "inspectcodereport_Core.xml"; artifactsDir + "inspectcodereport_Program.xml"] |> NVika.ParseReports (fun p -> { p with Debug = true; IncludeSource = true })
-        else failwith "Execution of inspectcode have failed, NVika can't be executed."
-    else failwith "Execution of inspectcode have failed, NVika can't be executed."
+    "nvika" |> Choco.Install id
+    [buildDir + "static-analysis.Core.sarif.json"; buildDir + "static-analysis.Program.sarif.json"] |> NVika.ParseReports (fun p -> { p with Debug = true; IncludeSource = true })
 )
 
 Target "ILRepack" (fun _ ->
