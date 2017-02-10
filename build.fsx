@@ -157,7 +157,7 @@ Target "Test" (fun _ ->
                 failwith "Installation of codecov have failed."
             if not (directExec(fun info ->
                 info.FileName <- "codecov"
-                info.Arguments <- "-f " + artifactsDir + "coverage.xml" ))
+                info.Arguments <- "-f " + artifactsDir + "coverage.xml -X gcov" ))
             then
                 failwith "Execution of codecov have failed."
 )
