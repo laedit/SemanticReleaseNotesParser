@@ -1,4 +1,4 @@
-
+﻿
 cache:
 - src/packages -> **\packages.config
 - C:\ProgramData\chocolatey\bin -> build.fsx
@@ -11,10 +11,6 @@ init:
 install:
 - GitVersion /output buildserver /UpdateAssemblyInfo true
 
-environment:
-  CODECOV_REPO_TOKEN:
-    secure: ze7icJ8ww4OT3xQE3+KmDIyj1LLZKiT9zNHdDLDab+pGSe2RH0mKH5xSdy+mrmYE
-    
 build_script:
   build.bat
 

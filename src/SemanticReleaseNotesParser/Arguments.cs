@@ -42,7 +42,6 @@ namespace SemanticReleaseNotesParser
             Add("h|?|help", "Help", h => Help = true);
 
             ReleaseNotesPath = DefaultReleaseNotesPath;
-            ResultFilePath = "ReleaseNotes.html";
             OutputType = OutputType.File;
         }
 
@@ -54,6 +53,11 @@ namespace SemanticReleaseNotesParser
             if (arguments.ReleaseNotesPath == DefaultReleaseNotesPath && additionalArguments.Count > 0 && !string.IsNullOrEmpty(additionalArguments[0]))
             {
                 arguments.ReleaseNotesPath = additionalArguments[0];
+            }
+
+            if(string.IsNullOrEmpty(arguments.ResultFilePath))
+            {
+                arguments.ResultFilePath = string.Format("ReleaseNotes.{0}", arguments.OutputFormat == OutputFormat.Markdown ? "md" : "html");
             }
 
             return arguments;

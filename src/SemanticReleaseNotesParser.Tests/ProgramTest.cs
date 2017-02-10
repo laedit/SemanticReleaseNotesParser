@@ -143,7 +143,7 @@ namespace SemanticReleaseNotesParser.Tests
 
             // assert
             Assert.Equal(0, _exitCode);
-            Assert.Equal(ExpectedMarkdow, Program.FileSystem.File.ReadAllText("ReleaseNotes.html").Trim());
+            Assert.Equal(ExpectedMarkdow, Program.FileSystem.File.ReadAllText("ReleaseNotes.md").Trim());
         }
 
         [Fact]
