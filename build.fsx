@@ -1,4 +1,4 @@
-#r "./tools/FAKE/tools/FakeLib.dll"
+﻿#r "./tools/FAKE/tools/FakeLib.dll"
 #load "NVikaHelper.fsx"
 #load "SemanticReleaseNotesParserHelper.fsx"
 
@@ -157,7 +157,7 @@ Target "Test" (fun _ ->
                 failwith "Installation of codecov have failed."
             if not (directExec(fun info ->
                 info.FileName <- "codecov"
-                info.Arguments <- "-f " + artifactsDir + "coverage.xml -t " + environVar "CODECOV_REPO_TOKEN" ))
+                info.Arguments <- "-f " + artifactsDir + "coverage.xml ))
             then
                 failwith "Execution of codecov have failed."
 )
