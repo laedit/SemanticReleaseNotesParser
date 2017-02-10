@@ -1,4 +1,4 @@
-language: csharp
+﻿language: csharp
 
 cache:
   directories:
@@ -10,3 +10,7 @@ before_script:
 
 script:
   - ./build.sh
+
+notifications:
+  email:
+    on_success: change
