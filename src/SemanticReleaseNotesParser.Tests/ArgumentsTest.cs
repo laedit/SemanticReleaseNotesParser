@@ -178,6 +178,7 @@ namespace SemanticReleaseNotesParser.Tests
 
             // assert
             Assert.Equal(OutputFormat.Markdown, arguments.OutputFormat);
+            Assert.Equal("ReleaseNotes.md", arguments.ResultFilePath);
         }
 
         [Fact]
@@ -188,6 +189,7 @@ namespace SemanticReleaseNotesParser.Tests
 
             // assert
             Assert.Equal(OutputFormat.Markdown, arguments.OutputFormat);
+            Assert.Equal("ReleaseNotes.md", arguments.ResultFilePath);
         }
 
         [Fact]
