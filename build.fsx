@@ -29,6 +29,10 @@ Target "RestorePackages" (fun _ ->
 )
 
 Target "BuildApp" (fun _ ->
+    !! "src/SemanticReleaseNotesParser.Core/SemanticReleaseNotesParser.Core.csproj"
+      |> MSBuildRelease null "ReBuild"
+      |> Log "AppBuild-Output: "
+
     !! "src/SemanticReleaseNotesParser/SemanticReleaseNotesParser.csproj"
       |> MSBuildRelease buildDir "ReBuild"
       |> Log "AppBuild-Output: "
