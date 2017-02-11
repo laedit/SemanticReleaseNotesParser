@@ -3,8 +3,6 @@ using SemanticReleaseNotesParser.BuildServers;
 using SemanticReleaseNotesParser.Core;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.IO.Abstractions;
 using System.Linq;
 using System.Reflection;
@@ -22,10 +20,12 @@ namespace SemanticReleaseNotesParser
         internal static void Main(string[] args)
         {
             var exitCode = Run(args);
-            if (Debugger.IsAttached)
+#if DEBUG
+            if (System.Diagnostics.Debugger.IsAttached)
             {
                 Console.ReadKey();
             }
+#endif
             Environment.Exit(exitCode);
         }
 
@@ -119,7 +119,7 @@ namespace SemanticReleaseNotesParser
             }
         }
 
-        [ExcludeFromCodeCoverage]
+        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         private static void SetDefaults()
         {
             if (FileSystem == null)
