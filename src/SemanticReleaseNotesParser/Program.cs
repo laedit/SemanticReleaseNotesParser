@@ -70,6 +70,7 @@ namespace SemanticReleaseNotesParser
                         return 1;
                     }
 
+                    Logger.Debug("Custom template used: '{0}'", arguments.TemplatePath);
                     template = FileSystem.File.ReadAllText(arguments.TemplatePath);
                 }
 

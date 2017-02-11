@@ -130,6 +130,24 @@ namespace SemanticReleaseNotesParser.Tests
             Assert.Contains("Template file 'template.liquid' does not exists", _output.ToString());
         }
 
+
+        [Fact]
+        public void Run_Custom_Template_DebugLog()
+        {
+            // arrange
+            Program.FileSystem = GetFileSystem(true, "ReleaseNotes.md", "template.liquid", CustomTemplate);
+            Program.Environment = GetEnvironment();
+            Program.WebClientFactory = GetWebClientFactory();
+
+            // act
+            Program.Main(new[] { "--template=template.liquid", "--debug" });
+
+            // assert
+            Assert.Equal(0, _exitCode);
+            Assert.Equal(ExpectedCustomHtml, Program.FileSystem.File.ReadAllText("ReleaseNotes.html").Trim());
+            Assert.Contains("Custom template used: 'template.liquid'", _output.ToString());
+        }
+
         [Fact]
         public void Run_Default_Output_Format_Markdown()
         {

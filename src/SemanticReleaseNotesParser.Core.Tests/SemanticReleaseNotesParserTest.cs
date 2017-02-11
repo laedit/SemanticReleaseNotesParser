@@ -15,6 +15,22 @@ namespace SemanticReleaseNotesParser.Core.Tests
         }
 
         [Fact]
+        public void Parse_StringEmpty_Exception()
+        {
+            // act & assert
+            var exception = Assert.Throws<ArgumentNullException>(() => Parser.SemanticReleaseNotesParser.Parse(string.Empty));
+            Assert.Equal("rawReleaseNotes", exception.ParamName);
+        }
+
+        [Fact]
+        public void Parse_WhiteSpace_Exception()
+        {
+            // act & assert
+            var exception = Assert.Throws<ArgumentNullException>(() => Parser.SemanticReleaseNotesParser.Parse(" "));
+            Assert.Equal("rawReleaseNotes", exception.ParamName);
+        }
+
+        [Fact]
         public void Parse_TextReader_Null_Exception()
         {
             // act & assert

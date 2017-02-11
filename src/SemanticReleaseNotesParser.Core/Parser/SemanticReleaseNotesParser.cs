@@ -41,7 +41,7 @@ namespace SemanticReleaseNotesParser.Core.Parser
         /// <returns>A parsed release notes</returns>
         public static ReleaseNotes Parse(string rawReleaseNotes, SemanticReleaseNotesConverterSettings settings = null)
         {
-            if (string.IsNullOrEmpty(rawReleaseNotes))
+            if (string.IsNullOrWhiteSpace(rawReleaseNotes))
             {
                 throw new ArgumentNullException("rawReleaseNotes");
             }
