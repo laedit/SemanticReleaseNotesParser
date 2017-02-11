@@ -77,7 +77,7 @@ module NVika =
     ///     )
     let ParseReports setParams reports =
         let details = separated ", " reports
-        traceStartTask "NVika.ParseReports" details
+        use __ = traceStartTaskUsing "NVika.ParseReports" details
 
         if reports |> isNull then failwith "'reports' must not be empty."
 
@@ -90,7 +90,6 @@ module NVika =
                 info.FileName <- findExe parameters.ToolPath
                 info.Arguments <- args) parameters.TimeOut
         if result <> 0 then failwithf "NVika.ParseReports failed with exit code %i." result
-        traceEndTask "NVika.ParseReports" details
         
     /// Runs NVika parse report on the given reports.
     ///
@@ -106,7 +105,7 @@ module NVika =
     ///         |> NVika.ParseReport (fun p -> { p with IncludeSource = true })
     ///     )
     let ParseReport setParams report =
-        traceStartTask "NVika.ParseReport" report
+        use __ = traceStartTaskUsing "NVika.ParseReport" report
 
         if report |> isNullOrEmpty then failwith "'report' must not be empty."
 
@@ -119,4 +118,3 @@ module NVika =
                 info.FileName <- findExe parameters.ToolPath
                 info.Arguments <- args) parameters.TimeOut
         if result <> 0 then failwithf "NVika.ParseReport failed with exit code %i." result
-        traceEndTask "NVika.ParseReport" report
