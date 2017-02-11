@@ -44,7 +44,7 @@ deploy:
   - provider: GitHub
     auth_token:
       secure: WaNF2IUzat+PQQqquLoaN43QIpnUsrYgSOGN3P5Tpy+A+ANOWQqvWE0eFA+XwmmX
-    artifact: SemanticReleaseNotesParser.zip
+    artifact: SemanticReleaseNotesParser.zip, SemanticReleaseNotesParserHelper.fsx
     description: $(SemanticReleaseNotes)
     on:
       appveyor_repo_tag: true
