@@ -183,7 +183,7 @@ Target "ChocoPack" (fun _ ->
         })
 )
 
-Target "NugetPack" (fun _ ->
+Target "NugetPackCore" (fun _ ->
     NuGet (fun p ->
     { p with
         Version = version
@@ -191,6 +191,16 @@ Target "NugetPack" (fun _ ->
         WorkingDir = buildDir
         Properties = ["Configuration","Release"]
     }) "src/SemanticReleaseNotesParser.Core/SemanticReleaseNotesParser.Core.csproj"
+)
+
+Target "NugetPackFake" (fun _ ->
+    NuGet (fun p ->
+    { p with
+        Version = version
+        OutputPath = artifactsDir
+        WorkingDir = artifactsDir
+        Properties = ["Configuration","Release"]
+    }) "SemanticReleaseNotesParser.Fake.nuspec"
 )
 
 Target "All" DoNothing
@@ -209,7 +219,8 @@ Target "All" DoNothing
   =?> ("Zip", buildServer <> Travis)
   =?> ("PackFakeHelper", buildServer <> Travis)
   =?> ("ChocoPack", Choco.IsAvailable)
-  =?> ("NugetPack", buildServer <> Travis)
+  =?> ("NugetPackCore", buildServer <> Travis)
+  =?> ("NugetPackFake", buildServer <> Travis)
   ==> "All"
 
 // start build
