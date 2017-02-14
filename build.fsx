@@ -57,6 +57,16 @@ Target "ILRepack" (fun _ ->
         failwith "Execution of ilrepack have failed."
 )
 
+Target "SourceLink" (fun _ ->
+    "sourceLink" |> Choco.Install id
+
+    if not (directExec(fun info ->
+        info.FileName <- "SourceLink" 
+        info.Arguments <- "index -pr ./src/SemanticReleaseNotesParser.Core/SemanticReleaseNotesParser.Core.csproj -pp Configuration Release -u \"https://raw.githubusercontent.com/laedit/semanticreleasenotesparser/{0}/%var2%\""))
+    then
+        failwith "Execution of SourceLink have failed."
+)
+
 Target "BuildReleaseNotes" (fun _ ->
      SemanticReleaseNotesParser.Convert (fun p -> { p with 
                                                         GroupBy = SemanticReleaseNotesParser.GroupByType.Categories
@@ -213,6 +223,7 @@ Target "All" DoNothing
   ==> "BuildApp"
   =?> ("InspectCodeAnalysis", Choco.IsAvailable)
   =?> ("ILRepack", Choco.IsAvailable)
+  =?> ("SourceLink", Choco.IsAvailable)
   ==> "BuildReleaseNotes"
   ==> "BuildTest"
   ==> "Test"
