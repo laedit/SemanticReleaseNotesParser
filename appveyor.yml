@@ -6,7 +6,7 @@ cache:
 - tools -> build.fsx
 
 init:
-  - git config --global core.autocrlf input
+  - git config --global core.autocrlf true
   
 install:
 - GitVersion /output buildserver /UpdateAssemblyInfo true
