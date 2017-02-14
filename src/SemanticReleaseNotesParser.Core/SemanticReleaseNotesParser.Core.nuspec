@@ -15,9 +15,9 @@
     <releaseNotes>https://github.com/laedit/SemanticReleaseNotesParser/releases</releaseNotes>
   </metadata>
   <files>
-        <file src="bin/Release/SemanticReleaseNotesParser.Core.dll" target="lib"/>
-        <file src="bin/Release/SemanticReleaseNotesParser.Core.pdb" target="lib"/>
-        <file src="bin/Release/SemanticReleaseNotesParser.Core.pdb.srcsrv" target="lib"/>
-        <file src="bin/Release/SemanticReleaseNotesParser.Core.XML" target="lib"/>
+        <file src="bin/Release/SemanticReleaseNotesParser.Core.dll" target="lib\net40"/>
+        <file src="bin/Release/SemanticReleaseNotesParser.Core.pdb" target="lib\net40"/>
+        <file src="bin/Release/SemanticReleaseNotesParser.Core.pdb.srcsrv" target="lib\net40"/>
+        <file src="bin/Release/SemanticReleaseNotesParser.Core.XML" target="lib\net40"/>
 </files>
 </package>
