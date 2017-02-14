@@ -7,11 +7,17 @@
     <authors>laedit</authors>
     <owners>laedit</owners>
     <projectUrl>https://github.com/laedit/SemanticReleaseNotesParser</projectUrl>
-	<iconUrl>https://cdn.rawgit.com/laedit/SemanticReleaseNotesParser/master/icon.png</iconUrl>
-	<licenseUrl>https://github.com/laedit/SemanticReleaseNotesParser/blob/master/LICENSE</licenseUrl>
+    <iconUrl>https://cdn.rawgit.com/laedit/SemanticReleaseNotesParser/master/icon.png</iconUrl>
+    <licenseUrl>https://github.com/laedit/SemanticReleaseNotesParser/blob/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Parser for Semantic Release Notes (http://www.semanticreleasenotes.org/)</description>
     <tags>Semantic Release Notes Parser hmtl markdown liquid</tags>
     <releaseNotes>https://github.com/laedit/SemanticReleaseNotesParser/releases</releaseNotes>
   </metadata>
+  <files>
+        <file src="bin/Release/SemanticReleaseNotesParser.Core.dll" target="lib\net40"/>
+        <file src="bin/Release/SemanticReleaseNotesParser.Core.pdb" target="lib\net40"/>
+        <file src="bin/Release/SemanticReleaseNotesParser.Core.pdb.srcsrv" target="lib\net40"/>
+        <file src="bin/Release/SemanticReleaseNotesParser.Core.XML" target="lib\net40"/>
+</files>
 </package>

@@ -28,6 +28,16 @@ Target "RestorePackages" (fun _ ->
     |> RestoreMSSolutionPackages (fun p -> { p with OutputPath = "src/packages" })
 )
 
+Target "PrepareSourceLink" (fun _ ->
+    "sourceLink" |> Choco.Install id
+
+    if not (directExec(fun info ->
+        info.FileName <- "SourceLink" 
+        info.Arguments <- "linefeed -pr ./src/SemanticReleaseNotesParser.Core/SemanticReleaseNotesParser.Core.csproj"))
+    then
+        failwith "Execution of SourceLink have failed."
+)
+
 Target "BuildApp" (fun _ ->
     !! "src/SemanticReleaseNotesParser.Core/SemanticReleaseNotesParser.Core.csproj"
       |> MSBuildRelease null "ReBuild"
@@ -55,6 +65,14 @@ Target "ILRepack" (fun _ ->
         info.Arguments <- @"/internalize /parallel /wildcards /lib:""C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETPortable\v4.0"" /out:" + artifactsDir + "SemanticReleaseNotesParser.exe " + (buildDir @@ "SemanticReleaseNotesParser.exe ") + (buildDir @@ "*.dll") ))
     then
         failwith "Execution of ilrepack have failed."
+)
+
+Target "SourceLink" (fun _ ->
+    if not (directExec(fun info ->
+        info.FileName <- "SourceLink" 
+        info.Arguments <- "index -pr ./src/SemanticReleaseNotesParser.Core/SemanticReleaseNotesParser.Core.csproj -pp Configuration Release -u \"https://raw.githubusercontent.com/laedit/semanticreleasenotesparser/{0}/%var2%\""))
+    then
+        failwith "Execution of SourceLink have failed."
 )
 
 Target "BuildReleaseNotes" (fun _ ->
@@ -210,9 +228,11 @@ Target "All" DoNothing
 
 "Clean"
   ==> "RestorePackages"
+  =?> ("PrepareSourceLink", Choco.IsAvailable)
   ==> "BuildApp"
   =?> ("InspectCodeAnalysis", Choco.IsAvailable)
   =?> ("ILRepack", Choco.IsAvailable)
+  =?> ("SourceLink", Choco.IsAvailable)
   ==> "BuildReleaseNotes"
   ==> "BuildTest"
   ==> "Test"
