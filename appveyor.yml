@@ -9,7 +9,7 @@ init:
   - git config --global core.autocrlf true
   
 install:
-- GitVersion /UpdateAssemblyInfo true
+- GitVersion /output buildserver /UpdateAssemblyInfo true
 
 build_script:
   build.bat
