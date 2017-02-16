@@ -40,7 +40,7 @@ namespace SemanticReleaseNotesParser
                 Logger.SetLogAction(ConsoleLogAction.Write);
                 Logger.SetMinimalLevel(LogLevel.Info);
 
-                Logger.Info("SemanticReleaseNotesParser V{0}", Assembly.GetExecutingAssembly().GetName().Version);
+                Logger.Info("SemanticReleaseNotesParser V{0}", typeof(Program).GetTypeInfo().Assembly.GetName().Version);
 
                 // Arguments parsing
                 var arguments = Arguments.ParseArguments(args);

@@ -147,7 +147,7 @@ namespace SemanticReleaseNotesParser.Core.Formatter
 
         private static string GetEmbeddedResource(string resourceName)
         {
-            using (var reader = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("SemanticReleaseNotesParser.Core.Resources." + resourceName)))
+            using (var reader = new StreamReader(typeof(SemanticReleaseNotesFormatter).GetTypeInfo().Assembly.GetManifestResourceStream("SemanticReleaseNotesParser.Core.Resources." + resourceName)))
             {
                 return reader.ReadToEnd();
             }
