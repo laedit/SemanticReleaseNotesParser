@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Category.cs" />
+    <Compile Include="Formatter\SemanticReleaseNotesHtmlFormatter.cs" />
     <Compile Include="GroupBy.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="OutputFormat.cs" />

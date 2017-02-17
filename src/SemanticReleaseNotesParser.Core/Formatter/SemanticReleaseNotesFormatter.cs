@@ -25,6 +25,7 @@ namespace SemanticReleaseNotesParser.Core.Formatter
             DefaultCommonMarkSettings = CommonMarkSettings.Default.Clone();
             DefaultCommonMarkSettings.AdditionalFeatures = CommonMarkAdditionalFeatures.StrikethroughTilde;
             DefaultCommonMarkSettings.OutputFormat = CommonMark.OutputFormat.Html;
+            DefaultCommonMarkSettings.OutputDelegate = (doc, output, settings) => new SemanticReleaseNotesHtmlFormatter(output, settings).WriteDocument(doc);
 
             Template.RegisterSafeType(typeof(Metadata), new[] { "Name", "Value" });
             Template.RegisterSafeType(typeof(ReleaseNotes), new[] { "Summary", "Sections", "Items", "Metadata" });
@@ -87,11 +88,6 @@ namespace SemanticReleaseNotesParser.Core.Formatter
             }
 
             // convert to HTML
-            if (releaseNotes.Items.Any(i => i.Priority > 0) || releaseNotes.Sections.Any(s => s.Items.Any(i => i.Priority > 0)))
-            {
-                throw new InvalidOperationException("The priorities for items are not supported currently for Html output.");
-            }
-
             var header = string.Empty;
             if (settings.IncludeStyle)
             {

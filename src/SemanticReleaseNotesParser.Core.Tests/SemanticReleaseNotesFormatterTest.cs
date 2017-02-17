@@ -186,11 +186,10 @@ namespace SemanticReleaseNotesParser.Core.Tests
         public void Format_ExampleD_Output_Html()
         {
             // act
-            var exception = Assert.Throws<InvalidOperationException>(() => SemanticReleaseNotesFormatter.Format(GetExampleDReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html }));
+            var resultHtml = SemanticReleaseNotesFormatter.Format(GetExampleDReleaseNotes(), new SemanticReleaseNotesConverterSettings { OutputFormat = OutputFormat.Html });
 
             // assert
-            Assert.Equal("The priorities for items are not supported currently for Html output.", exception.Message);
-            //Assert.Equal(ExampleDHtml, resultHtml.Trim());
+            Assert.Equal(ExampleDHtml, resultHtml.Trim());
         }
 
         [Fact]
@@ -601,8 +600,8 @@ Incremental release designed to provide an update to some of the core plugins.";
         private const string ExampleDHtml = @"<html>
 <body>
 <p>Incremental release designed to provide an update to some of the core plugins.</p>
-<ul class=""srn_priority"">
-<li data-content=""1""><em>Example</em>: You can have global issues that aren't grouped to a section</li>
+<ul class=""srn-priorities"">
+<li srn-priority=""1""><em>Example</em>: You can have global issues that aren't grouped to a section</li>
 </ul>
 <h1>System</h1>
 <ul class=""srn-priorities"">
@@ -610,7 +609,7 @@ Incremental release designed to provide an update to some of the core plugins.";
 <li srn-priority=""2"">{New} <em>Structured Layout</em>: An alternative layout engine that allows developers to control layout.</li>
 </ul>
 <h1>Plugin</h1>
-<ul class=""srn_priorities"">
+<ul class=""srn-priorities"">
 <li srn-priority=""1"">{Changed} <em>Timeline</em>: Comes with an additional grid view to show the same data.</li>
 <li srn-priority=""1"">{Fix} <em>Ajax</em>: Fix that crashed poll in Chrome and IE due to log/trace statement. <a href=""http://getglimpse.com"">i1234</a></li>
 </ul>
