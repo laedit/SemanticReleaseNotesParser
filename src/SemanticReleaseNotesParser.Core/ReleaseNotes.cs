@@ -1,12 +1,11 @@
-﻿using DotLiquid;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SemanticReleaseNotesParser.Core
 {
     /// <summary>
     /// Release notes
     /// </summary>
-    public sealed class ReleaseNotes : Drop
+    public sealed class ReleaseNotes
     {
         /// <summary>
         /// Summary of the release notes

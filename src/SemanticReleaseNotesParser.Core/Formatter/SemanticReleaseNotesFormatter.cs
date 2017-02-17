@@ -25,6 +25,12 @@ namespace SemanticReleaseNotesParser.Core.Formatter
             DefaultCommonMarkSettings = CommonMarkSettings.Default.Clone();
             DefaultCommonMarkSettings.AdditionalFeatures = CommonMarkAdditionalFeatures.StrikethroughTilde;
             DefaultCommonMarkSettings.OutputFormat = CommonMark.OutputFormat.Html;
+
+            Template.RegisterSafeType(typeof(Metadata), new[] { "Name", "Value" });
+            Template.RegisterSafeType(typeof(ReleaseNotes), new[] { "Summary", "Sections", "Items", "Metadata" });
+            Template.RegisterSafeType(typeof(Section), new[] { "Name", "Summary", "Items", "Icon" });
+            Template.RegisterSafeType(typeof(Category), new[] { "Name", "Items" });
+            Template.RegisterSafeType(typeof(Item), new[] { "TaskId", "TaskLink", "Categories", "Priority", "Summary" });
         }
 
         /// <summary>

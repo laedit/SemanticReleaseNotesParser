@@ -1,11 +1,10 @@
-﻿using DotLiquid;
-
+﻿
 namespace SemanticReleaseNotesParser.Core
 {
     /// <summary>
     /// Metadata of a release note
     /// </summary>
-    public sealed class Metadata : Drop
+    public sealed class Metadata
     {
         /// <summary>
         /// Name of the metadata
