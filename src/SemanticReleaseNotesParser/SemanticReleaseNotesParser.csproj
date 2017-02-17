@@ -70,7 +70,8 @@
     <Compile Include="BuildServers\AppVeyor.cs" />
     <Compile Include="BuildServers\IBuildServer.cs" />
     <Compile Include="BuildServers\LocalBuildServer.cs" />
-    <Compile Include="Logger.cs" />
+    <Compile Include="Logging\ConsoleLogAction.cs" />
+    <Compile Include="Logging\Logger.cs" />
     <Compile Include="Arguments.cs" />
     <Compile Include="OutputType.cs" />
     <Compile Include="Program.cs" />

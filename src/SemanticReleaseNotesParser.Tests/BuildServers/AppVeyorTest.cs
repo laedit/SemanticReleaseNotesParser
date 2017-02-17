@@ -1,6 +1,7 @@
 ﻿using NSubstitute;
 using SemanticReleaseNotesParser.Abstractions;
 using SemanticReleaseNotesParser.BuildServers;
+using SemanticReleaseNotesParser.Logging;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -40,6 +41,8 @@ namespace SemanticReleaseNotesParser.Tests.BuildServers
         public void SetEnvironmentVariable()
         {
             // arrange
+            var logs = new StringBuilder();
+            Logger.SetLogAction((message, logLevel) => logs.AppendLine(message));
             var buildServer = new AppVeyor(GetEnvironment(), GetWebClientFactory());
 
             // act
@@ -50,17 +53,9 @@ namespace SemanticReleaseNotesParser.Tests.BuildServers
             Assert.Equal("api/build/variables", _address);
             Assert.Equal("POST", _method);
             Assert.Equal("{ \"name\": \"name\", \"value\": \"value\n\\\"value2\\\" \\\\o\\/\" }", _uploadedData);
-            Assert.Equal("Adding AppVeyor environment variable: name.", _logs.ToString().Trim());
+            Assert.Equal("Adding AppVeyor environment variable: name.", logs.ToString().Trim());
         }
-
-        private StringBuilder _logs;
-
-        public AppVeyorTest()
-        {
-            _logs = new StringBuilder();
-            Logger.SetWriter(new StringWriter(_logs));
-        }
-
+        
         private Dictionary<string, string> _environmentVariables;
 
         private IEnvironment GetEnvironment(bool isOnAppVeyor = true)

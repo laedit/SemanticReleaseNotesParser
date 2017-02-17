@@ -1,6 +1,7 @@
 ﻿using NSubstitute;
 using SemanticReleaseNotesParser.Abstractions;
 using SemanticReleaseNotesParser.BuildServers;
+using SemanticReleaseNotesParser.Logging;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -27,6 +28,8 @@ namespace SemanticReleaseNotesParser.Tests.BuildServers
         public void SetEnvironmentVariable()
         {
             // arrange
+            var logs = new StringBuilder();
+            Logger.SetLogAction((message, logLevel) => logs.AppendLine(message));
             var buildServer = new LocalBuildServer(GetEnvironment());
 
             // act
@@ -34,17 +37,9 @@ namespace SemanticReleaseNotesParser.Tests.BuildServers
 
             // assert
             Assert.Equal("value", _environmentVariables["name"]);
-            Assert.Equal("Adding local environment variable: name.", _logs.ToString().Trim());
+            Assert.Equal("Adding local environment variable: name.", logs.ToString().Trim());
         }
-
-        private StringBuilder _logs;
-
-        public LocalBuildServerTest()
-        {
-            _logs = new StringBuilder();
-            Logger.SetWriter(new StringWriter(_logs));
-        }
-
+        
         private Dictionary<string, string> _environmentVariables;
 
         private IEnvironment GetEnvironment()

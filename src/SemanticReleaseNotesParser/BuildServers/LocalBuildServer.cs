@@ -1,4 +1,5 @@
 ﻿using SemanticReleaseNotesParser.Abstractions;
+using SemanticReleaseNotesParser.Logging;
 
 namespace SemanticReleaseNotesParser.BuildServers
 {

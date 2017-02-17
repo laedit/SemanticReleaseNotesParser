@@ -1,6 +1,7 @@
 ﻿using SemanticReleaseNotesParser.Abstractions;
 using SemanticReleaseNotesParser.BuildServers;
 using SemanticReleaseNotesParser.Core;
+using SemanticReleaseNotesParser.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO.Abstractions;
@@ -36,7 +37,8 @@ namespace SemanticReleaseNotesParser
                 SetDefaults();
 
                 var output = Console.Out;
-                Logger.SetWriter(output);
+                Logger.SetLogAction(ConsoleLogAction.Write);
+                Logger.SetMinimalLevel(LogLevel.Info);
 
                 Logger.Info("SemanticReleaseNotesParser V{0}", Assembly.GetExecutingAssembly().GetName().Version);
 
@@ -51,7 +53,7 @@ namespace SemanticReleaseNotesParser
                 // Handle debug
                 if (arguments.Debug)
                 {
-                    Logger.AddCategory("debug");
+                    Logger.SetMinimalLevel(LogLevel.Debug);
                 }
 
                 if (!FileSystem.File.Exists(arguments.ReleaseNotesPath))

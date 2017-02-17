@@ -1,6 +1,7 @@
 ﻿using NSubstitute;
 using SemanticReleaseNotesParser.Abstractions;
 using SemanticReleaseNotesParser.Core;
+using SemanticReleaseNotesParser.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -285,7 +286,7 @@ namespace SemanticReleaseNotesParser.Tests
             Assert.Equal(ExpectedHtmlCategories, Program.FileSystem.File.ReadAllText("ReleaseNotes.html"));
         }
 
-        private StringBuilder _output;
+        private readonly StringBuilder _output;
 
         public ProgramTest()
         {
@@ -367,7 +368,7 @@ namespace SemanticReleaseNotesParser.Tests
 
         public void Dispose()
         {
-            Logger.Reset();
+            _output.Clear();
         }
 
         private const string DefaultMarkdown = @"A little summary
