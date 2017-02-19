@@ -53,7 +53,7 @@ namespace SemanticReleaseNotesParser.Tests.BuildServers
             Assert.Equal("api/build/variables", _address);
             Assert.Equal("POST", _method);
             Assert.Equal("{ \"name\": \"name\", \"value\": \"value\n\\\"value2\\\" \\\\o\\/\" }", _uploadedData);
-            Assert.Equal("Adding AppVeyor environment variable: name.", logs.ToString().Trim());
+            Assert.Contains("Adding AppVeyor environment variable: name.", logs.ToString().Trim());
         }
         
         private Dictionary<string, string> _environmentVariables;
