@@ -8,7 +8,7 @@
 
 ![Project icon](icon.png)
 
-Parser for [Semantic Release Notes](http://www.semanticreleasenotes.org/) v0.3.
+Parser for [Semantic Release Notes](http://www.semanticreleasenotes.org/) ([fallback](http://htmlpreview.github.io/?https://github.com/avanderhoorn/Semantic-Release-Notes/blob/master/index.html)) v0.3.
 
 Can be used to parse a semantic release notes and to format it to a markdown or html file or environment variable, for use on build sever.
 
