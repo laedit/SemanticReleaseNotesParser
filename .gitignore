@@ -197,3 +197,4 @@ tools/xunit.runner.console/
 tools/coveralls.io/
 tools/ReportGenerator
 tools/ILRepack
+/src/.vs/
