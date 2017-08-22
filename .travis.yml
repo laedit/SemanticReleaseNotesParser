@@ -1,5 +1,6 @@
-dotnet: 1.0.0-rc4-004771
+dotnet: 1.0.3
 language: csharp
+dist: trusty
 
 cache:
   directories:
