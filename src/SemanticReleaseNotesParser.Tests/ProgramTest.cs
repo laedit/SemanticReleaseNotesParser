@@ -1,4 +1,4 @@
-﻿using NSubstitute;
+using NSubstitute;
 using SemanticReleaseNotesParser.Abstractions;
 using SemanticReleaseNotesParser.Core;
 using SemanticReleaseNotesParser.Logging;
@@ -363,7 +363,7 @@ namespace SemanticReleaseNotesParser.Tests
                     style = reader.ReadToEnd();
                 }
             }
-            return string.Format(ExpectedHtmlWithHeader, style);
+            return string.Format(ExpectedHtmlWithHead, style);
         }
 
         public void Dispose()
@@ -430,12 +430,12 @@ namespace SemanticReleaseNotesParser.Tests
 </body>
 </html>";
 
-        private const string ExpectedHtmlWithHeader = @"<html>
-<header>
+        private const string ExpectedHtmlWithHead = @"<html>
+<head>
 <style>
 {0}
 </style>
-</header>
+</head>
 <body>
 <p>A little summary</p>
 <h1>System</h1>

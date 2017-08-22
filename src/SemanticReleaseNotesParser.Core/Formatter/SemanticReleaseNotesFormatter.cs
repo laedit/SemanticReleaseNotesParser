@@ -1,4 +1,4 @@
-﻿using CommonMark;
+using CommonMark;
 using DotLiquid;
 using Humanizer;
 using System;
@@ -16,7 +16,7 @@ namespace SemanticReleaseNotesParser.Core.Formatter
     {
         private const string HtmlEnvelope = @"<html>{0}{2}<body>{2}{1}{2}</body>{2}</html>";
 
-        private const string HtmlHeader = @"{1}<header>{1}<style>{1}{0}{1}</style>{1}</header>";
+        private const string HtmlHead = @"{1}<head>{1}<style>{1}{0}{1}</style>{1}</head>";
 
         private readonly static CommonMarkSettings DefaultCommonMarkSettings;
 
@@ -88,13 +88,13 @@ namespace SemanticReleaseNotesParser.Core.Formatter
             }
 
             // convert to HTML
-            var header = string.Empty;
+            var head = string.Empty;
             if (settings.IncludeStyle)
             {
-                header = string.Format(HtmlHeader, string.IsNullOrEmpty(settings.CustomStyle) ? GetEmbeddedResource("DefaultStyle.css") : settings.CustomStyle, Environment.NewLine);
+                head = string.Format(HtmlHead, string.IsNullOrEmpty(settings.CustomStyle) ? GetEmbeddedResource("DefaultStyle.css") : settings.CustomStyle, Environment.NewLine);
             }
 
-            return string.Format(HtmlEnvelope, header, CommonMarkConverter.Convert(result, DefaultCommonMarkSettings).Trim(), Environment.NewLine);
+            return string.Format(HtmlEnvelope, head, CommonMarkConverter.Convert(result, DefaultCommonMarkSettings).Trim(), Environment.NewLine);
         }
 
         private static List<Category> GetCategories(ReleaseNotes releaseNotes, SemanticReleaseNotesConverterSettings settings)

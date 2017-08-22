@@ -1,4 +1,4 @@
-﻿using SemanticReleaseNotesParser.Core.Formatter;
+using SemanticReleaseNotesParser.Core.Formatter;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -381,7 +381,7 @@ namespace SemanticReleaseNotesParser.Core.Tests
                     style = reader.ReadToEnd();
                 }
             }
-            return string.Format(ExampleAHtmlWithHeader, style);
+            return string.Format(ExampleAHtmlWithHead, style);
         }
 
         private const string ExampleAHtml = @"<html>
@@ -639,12 +639,12 @@ Commits: [56af25a...d3fead4](https://github.com/Glimpse/Semantic-Release-Notes/c
 </body>
 </html>";
 
-        private const string ExampleAHtmlWithHeader = @"<html>
-<header>
+        private const string ExampleAHtmlWithHead = @"<html>
+<head>
 <style>
 {0}
 </style>
-</header>
+</head>
 <body>
 <p>Incremental release designed to provide an update to some of the core plugins.</p>
 <ul>
