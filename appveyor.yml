@@ -1,4 +1,5 @@
-﻿
+image: Visual Studio 2017
+
 cache:
 - src/packages -> **\packages.config
 - C:\ProgramData\chocolatey\bin -> build.fsx
