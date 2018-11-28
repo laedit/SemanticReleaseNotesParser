@@ -7,7 +7,6 @@ cache:
 
 init:
   - git config --global core.autocrlf true
-  - nuget sources update -Name nuget.org -Source https://api.nuget.org/v3/index.json
   
 install:
 - GitVersion /output buildserver /UpdateAssemblyInfo true
