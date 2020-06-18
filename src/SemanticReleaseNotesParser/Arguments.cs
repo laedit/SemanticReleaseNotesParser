@@ -1,4 +1,4 @@
-﻿using NDesk.Options;
+﻿using Mono.Options;
 using SemanticReleaseNotesParser.Core;
 using System.Collections.Generic;
 
