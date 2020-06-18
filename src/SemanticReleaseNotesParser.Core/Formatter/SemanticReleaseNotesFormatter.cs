@@ -3,6 +3,7 @@ using DotLiquid;
 using Humanizer;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -43,7 +44,7 @@ namespace SemanticReleaseNotesParser.Core.Formatter
         {
             if (writer == null)
             {
-                throw new ArgumentNullException("writer");
+                throw new ArgumentNullException(nameof(writer));
             }
 
             writer.Write(Format(releaseNotes, settings));
@@ -59,7 +60,7 @@ namespace SemanticReleaseNotesParser.Core.Formatter
         {
             if (releaseNotes == null)
             {
-                throw new ArgumentNullException("releaseNotes");
+                throw new ArgumentNullException(nameof(releaseNotes));
             }
 
             if (settings == null)
@@ -90,10 +91,10 @@ namespace SemanticReleaseNotesParser.Core.Formatter
             var head = string.Empty;
             if (settings.IncludeStyle)
             {
-                head = string.Format(HtmlHead, string.IsNullOrEmpty(settings.CustomStyle) ? GetEmbeddedResource("DefaultStyle.css") : settings.CustomStyle, Environment.NewLine);
+                head = string.Format(CultureInfo.InvariantCulture, HtmlHead, string.IsNullOrEmpty(settings.CustomStyle) ? GetEmbeddedResource("DefaultStyle.css") : settings.CustomStyle, Environment.NewLine);
             }
 
-            return string.Format(HtmlEnvelope, head, CommonMarkConverter.Convert(result, DefaultCommonMarkSettings).Trim(), Environment.NewLine);
+            return string.Format(CultureInfo.InvariantCulture, HtmlEnvelope, head, CommonMarkConverter.Convert(result, DefaultCommonMarkSettings).Trim(), Environment.NewLine);
         }
 
         private static List<Category> GetCategories(ReleaseNotes releaseNotes, SemanticReleaseNotesConverterSettings settings)
