@@ -2,13 +2,23 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <DocumentationFile>$(OutputPath)\$(MSBuildProjectName).xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Resources\DefaultStyle.css" />
-    <None Remove="Resources\GroupByCategories.liquid" />
-    <None Remove="Resources\GroupBySections.liquid" />
-  </ItemGroup>
+  <PropertyGroup>
+    <PackageId>SemanticReleaseNotesParser.Core</PackageId>
+    <Authors>laedit</Authors>
+    <Description>Parser for Semantic Release Notes (http://www.semanticreleasenotes.org/)</Description>
+    <PackageProjectUrl>https://github.com/laedit/SemanticReleaseNotesParser</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/laedit/SemanticReleaseNotesParser</RepositoryUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageTags>Semantic Release Notes Parser hmtl markdown liquid</PackageTags>
+    <PackageReleaseNotes>https://github.com/laedit/SemanticReleaseNotesParser/releases</PackageReleaseNotes>
+  </PropertyGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\DefaultStyle.css" />
@@ -24,6 +34,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.8.0.18411">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -34,6 +48,17 @@
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>SemanticReleaseNotesParser.Core.Tests</_Parameter1>
     </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
