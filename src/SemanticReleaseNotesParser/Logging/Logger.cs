@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Globalization;
 
 namespace SemanticReleaseNotesParser.Logging
 {
@@ -51,7 +52,7 @@ namespace SemanticReleaseNotesParser.Logging
         {
             if (messageLevel >= _minLevel)
             {
-                _trace(string.Format(message, messageParameters), messageLevel);
+                _trace(string.Format(CultureInfo.InvariantCulture, message, messageParameters), messageLevel);
             }
         }
     }
