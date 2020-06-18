@@ -45,7 +45,7 @@ namespace SemanticReleaseNotesParser.Core.Parser
                             item.Categories.Add(categoryName);
                         }
                         var replacement = category.Groups[1].Value;
-                        if (input.EndsWith(category.Groups[1].Value, StringComparison.OrdinalIgnoreCase))
+                        if (input.EndsWith(category.Groups[1].Value, StringComparison.Ordinal))
                         {
                             replacement = string.Empty;
                         }
