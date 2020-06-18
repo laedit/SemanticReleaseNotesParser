@@ -4,15 +4,8 @@ namespace SemanticReleaseNotesParser.Logging
 {
     internal static class Logger
     {
-        private static Action<string, LogLevel> _trace;
-        private static LogLevel _minLevel;
-
-        static Logger()
-        {
-            // Do nothing by default
-            _trace = (message, TraceLevel) => { };
-            _minLevel = LogLevel.Info;
-        }
+        private static Action<string, LogLevel> _trace = (message, TraceLevel) => { }; // Do nothing by default
+        private static LogLevel _minLevel = LogLevel.Info;
 
         internal static void SetLogAction(Action<string, LogLevel> trace)
         {

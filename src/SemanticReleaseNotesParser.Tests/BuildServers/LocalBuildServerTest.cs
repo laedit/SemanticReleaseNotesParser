@@ -3,7 +3,6 @@ using SemanticReleaseNotesParser.Abstractions;
 using SemanticReleaseNotesParser.BuildServers;
 using SemanticReleaseNotesParser.Logging;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using Xunit;
 

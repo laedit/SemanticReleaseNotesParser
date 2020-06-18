@@ -18,11 +18,10 @@ namespace SemanticReleaseNotesParser.Core.Formatter
 
         private const string HtmlHead = @"{1}<head>{1}<style>{1}{0}{1}</style>{1}</head>";
 
-        private readonly static CommonMarkSettings DefaultCommonMarkSettings;
+        private readonly static CommonMarkSettings DefaultCommonMarkSettings = CommonMarkSettings.Default.Clone();
 
         static SemanticReleaseNotesFormatter()
         {
-            DefaultCommonMarkSettings = CommonMarkSettings.Default.Clone();
             DefaultCommonMarkSettings.AdditionalFeatures = CommonMarkAdditionalFeatures.StrikethroughTilde;
             DefaultCommonMarkSettings.OutputFormat = CommonMark.OutputFormat.Html;
             DefaultCommonMarkSettings.OutputDelegate = (doc, output, settings) => new SemanticReleaseNotesHtmlFormatter(output, settings).WriteDocument(doc);

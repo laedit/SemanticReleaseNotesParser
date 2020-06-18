@@ -5,8 +5,6 @@
     /// </summary>
     public sealed class SemanticReleaseNotesConverterSettings
     {
-        private readonly static SemanticReleaseNotesConverterSettings _default = new SemanticReleaseNotesConverterSettings();
-
         /// <summary>
         /// Defines the output format
         /// </summary>
@@ -37,9 +35,6 @@
         /// </summary>
         public string CustomStyle { get; set; }
 
-        internal static SemanticReleaseNotesConverterSettings Default
-        {
-            get { return _default; }
-        }
+        internal static SemanticReleaseNotesConverterSettings Default { get; } = new SemanticReleaseNotesConverterSettings();
     }
 }

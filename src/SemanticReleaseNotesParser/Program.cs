@@ -10,7 +10,7 @@ using System.Reflection;
 
 namespace SemanticReleaseNotesParser
 {
-    internal class Program
+    internal static class Program
     {
         internal static IFileSystem FileSystem { get; set; }
 
