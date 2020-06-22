@@ -1,4 +1,4 @@
-﻿namespace SemanticReleaseNotesParser.Core
+namespace SemanticReleaseNotesParser.Core
 {
     /// <summary>
     /// Settings for Semantic Release Notes Converter

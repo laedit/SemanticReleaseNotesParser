@@ -1,4 +1,4 @@
-﻿namespace SemanticReleaseNotesParser.Abstractions
+namespace SemanticReleaseNotesParser.Abstractions
 {
     internal interface IWebClientFactory
     {

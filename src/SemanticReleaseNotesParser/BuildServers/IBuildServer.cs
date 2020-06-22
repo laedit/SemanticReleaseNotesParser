@@ -1,4 +1,4 @@
-﻿namespace SemanticReleaseNotesParser.BuildServers
+namespace SemanticReleaseNotesParser.BuildServers
 {
     internal interface IBuildServer
     {

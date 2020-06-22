@@ -1,4 +1,4 @@
-﻿using CommonMark.Formatters;
+using CommonMark.Formatters;
 using CommonMark;
 using System.IO;
 using CommonMark.Syntax;
@@ -40,8 +40,8 @@ namespace SemanticReleaseNotesParser.Core.Formatter
                     {
                         EnsureNewLine();
                         Write("<ul");
-                        if(block.ListData.ListType == ListType.Ordered)
-                        { 
+                        if (block.ListData.ListType == ListType.Ordered)
+                        {
                             Write(" class=\"srn-priorities\"");
                         }
                         Write(">");
@@ -56,7 +56,8 @@ namespace SemanticReleaseNotesParser.Core.Formatter
 
                     break;
 
-                default: base.WriteBlock(block, isOpening, isClosing, out ignoreChildNodes);
+                default:
+                    base.WriteBlock(block, isOpening, isClosing, out ignoreChildNodes);
                     break;
             }
         }

@@ -1,4 +1,4 @@
-﻿namespace SemanticReleaseNotesParser.Core
+namespace SemanticReleaseNotesParser.Core
 {
     /// <summary>
     /// Defines how items will be grouped

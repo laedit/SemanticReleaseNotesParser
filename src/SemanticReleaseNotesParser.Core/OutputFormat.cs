@@ -1,4 +1,4 @@
-﻿namespace SemanticReleaseNotesParser.Core
+namespace SemanticReleaseNotesParser.Core
 {
     /// <summary>
     /// Defines the output format

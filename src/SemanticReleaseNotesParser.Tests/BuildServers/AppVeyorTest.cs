@@ -1,4 +1,4 @@
-﻿using NSubstitute;
+using NSubstitute;
 using SemanticReleaseNotesParser.Abstractions;
 using SemanticReleaseNotesParser.BuildServers;
 using SemanticReleaseNotesParser.Logging;
@@ -55,7 +55,7 @@ namespace SemanticReleaseNotesParser.Tests.BuildServers
             Assert.Equal("{ \"name\": \"name\", \"value\": \"value\n\\\"value2\\\" \\\\o\\/\" }", _uploadedData);
             Assert.Contains("Adding AppVeyor environment variable: name.", logs.ToString().Trim());
         }
-        
+
         private Dictionary<string, string> _environmentVariables;
 
         private IEnvironment GetEnvironment(bool isOnAppVeyor = true)

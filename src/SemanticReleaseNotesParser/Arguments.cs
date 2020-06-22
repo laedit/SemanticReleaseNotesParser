@@ -56,7 +56,7 @@ namespace SemanticReleaseNotesParser
                 arguments.ReleaseNotesPath = additionalArguments[0];
             }
 
-            if(string.IsNullOrEmpty(arguments.ResultFilePath))
+            if (string.IsNullOrEmpty(arguments.ResultFilePath))
             {
                 arguments.ResultFilePath = string.Format(CultureInfo.InvariantCulture, "ReleaseNotes.{0}", arguments.OutputFormat == OutputFormat.Markdown ? "md" : "html");
             }

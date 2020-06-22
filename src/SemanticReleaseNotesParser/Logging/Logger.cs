@@ -37,7 +37,7 @@ namespace SemanticReleaseNotesParser.Logging
         {
             TraceMessage(message, messageParameters, LogLevel.Info);
         }
-        
+
         /// <summary>
         /// Trace an error message
         /// </summary>
