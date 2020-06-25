@@ -4,13 +4,16 @@
     <TargetFramework>netstandard1.3</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <DocumentationFile>$(OutputPath)\$(MSBuildProjectName).xml</DocumentationFile>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <ErrorLog>bin\$(Configuration)\$(TargetFramework)\static-analysis.Core.sarif.json</ErrorLog>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageId>SemanticReleaseNotesParser.Core</PackageId>
     <Authors>laedit</Authors>
-    <Description>Parser for Semantic Release Notes (http://www.semanticreleasenotes.org/)</Description>
+    <Description>API - Parser for Semantic Release Notes (http://www.semanticreleasenotes.org/)</Description>
     <PackageProjectUrl>https://github.com/laedit/SemanticReleaseNotesParser</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
     <RepositoryType>git</RepositoryType>

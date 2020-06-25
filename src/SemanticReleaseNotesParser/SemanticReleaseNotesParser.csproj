@@ -1,24 +1,29 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Authors>laedit</Authors>
+    <ErrorLog>bin\$(Configuration)\$(TargetFramework)\static-analysis.Core.sarif.json</ErrorLog>
     <PackAsTool>true</PackAsTool>
+    <Authors>laedit</Authors>
     <ToolCommandName>semanticreleasenotesparser</ToolCommandName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>Parser for Semantic Release Notes (http://www.semanticreleasenotes.org/)</Description>
+    <Description>Tool - Parser for Semantic Release Notes (http://www.semanticreleasenotes.org/)</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
     <PackageProjectUrl>https://github.com/laedit/SemanticReleaseNotesParser</PackageProjectUrl>
-    <RepositoryUrl></RepositoryUrl>
-    <RepositoryType></RepositoryType>
+    <RepositoryUrl>https://github.com/laedit/SemanticReleaseNotesParser</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
     <PackageTags>Semantic Release Notes Parser hmtl markdown liquid</PackageTags>
     <PackageReleaseNotes>https://github.com/laedit/SemanticReleaseNotesParser/releases</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
