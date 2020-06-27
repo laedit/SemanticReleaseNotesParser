@@ -1,7 +1,6 @@
-os: Visual Studio 2017
+os: Visual Studio 2019
 
 cache:
-- src/packages -> **\packages.config
 - C:\ProgramData\chocolatey\bin -> build.fsx
 - C:\ProgramData\chocolatey\lib -> build.fsx
 - tools -> build.fsx

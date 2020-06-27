@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <ErrorLog>bin\$(Configuration)\$(TargetFramework)\static-analysis.Core.sarif.json</ErrorLog>
+    <ErrorLog>bin\$(Configuration)\$(TargetFramework)\static-analysis.sarif.json</ErrorLog>
     <PackAsTool>true</PackAsTool>
     <Authors>laedit</Authors>
     <ToolCommandName>semanticreleasenotesparser</ToolCommandName>

@@ -10,6 +10,14 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 indent_size = 4
 
-# yaml files
+# Default severity for analyzer diagnostics with category 'Globalization'
+dotnet_analyzer_diagnostic.category-Globalization.severity = silent
+
+# CA1031: Do not catch general exception types
+dotnet_diagnostic.CA1031.severity = silent
+
+# CA2227: Collection properties should be read only
+dotnet_diagnostic.CA2227.severity = suggestion
+
 [*.yml]
 indent_size = 2

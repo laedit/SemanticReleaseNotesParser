@@ -3,7 +3,6 @@
 [![Linux Build Status](https://travis-ci.org/laedit/SemanticReleaseNotesParser.svg?branch=master)](https://travis-ci.org/laedit/SemanticReleaseNotesParser)
 [![codecov.io](https://codecov.io/github/laedit/SemanticReleaseNotesParser/coverage.svg?branch=master)](https://codecov.io/github/laedit/SemanticReleaseNotesParser?branch=master)
 [![SourceLink](https://img.shields.io/badge/SourceLink-ready-brightgreen.svg)](https://ctaggart.github.io/SourceLink/index.html)
-[![Gitter](https://badges.gitter.im/laedit/SemanticReleaseNotesParser.svg)](https://gitter.im/laedit/SemanticReleaseNotesParser?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 
 ![Project icon](icon.png)
@@ -46,5 +45,17 @@ Parameters:
  - [DotLiquid](https://github.com/dotliquid/dotliquid) is used to process the liquid templates
  - [CommonMark.NET](https://github.com/Knagis/CommonMark.NET) is used to process the markdown
  - [Humanizer](https://github.com/Humanizr/Humanizer) is used to titleize and pluralize categories title
+
+# Contribute
+
+Please pick an existing issue, or create one in order to discuss it before you go full ahead.
+
+## Build
+Just use [`local-build.ps1`](./local-build.ps1).
+It will build the projects, launch the tests and packages all the thing, ready to be tested locally.
+
+## Release
+1. Generates release notes with https://github.com/StefH/GitHubReleaseNotes or https://github.com/GitTools/GitReleaseNotes [TODO]
+2. Create and push a new tag based on the template: `v[x].[y].[y]` => `v0.1.0`
 
 Icon: [Article](https://thenounproject.com/term/article/16591/) designed by [Stefan Parnarov](https://thenounproject.com/sapi/) from The Noun Project.

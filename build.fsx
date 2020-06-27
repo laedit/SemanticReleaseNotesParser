@@ -1,4 +1,4 @@
-﻿#r "./tools/FAKE/tools/FakeLib.dll"
+#r "./tools/FAKE/tools/FakeLib.dll"
 #load "NVikaHelper.fsx"
 #load "SemanticReleaseNotesParserHelper.fsx"
 
@@ -22,12 +22,12 @@ let tag = if buildServer = AppVeyor then AppVeyor.AppVeyorEnvironment.RepoTagNam
 Target "Clean" (fun _ ->
     CleanDirs [buildDir; testDir; artifactsDir]
 )
-
+// done
 Target "RestorePackages" (fun _ ->
     "./src/SemanticReleaseNotesParser.sln"
     |> RestoreMSSolutionPackages (fun p -> { p with OutputPath = "src/packages" })
 )
-
+// done
 Target "PrepareSourceLink" (fun _ ->
     "sourceLink" |> Choco.Install id
 
@@ -37,7 +37,7 @@ Target "PrepareSourceLink" (fun _ ->
     then
         failwith "Execution of SourceLink have failed."
 )
-
+// done
 Target "BuildApp" (fun _ ->
     !! "src/SemanticReleaseNotesParser.Core/SemanticReleaseNotesParser.Core.csproj"
       |> MSBuildRelease null "ReBuild"
@@ -47,12 +47,12 @@ Target "BuildApp" (fun _ ->
       |> MSBuildRelease buildDir "ReBuild"
       |> Log "AppBuild-Output: "
 )
-
+// to do after
 Target "InspectCodeAnalysis" (fun _ ->
     "nvika" |> Choco.Install id
     [buildDir + "static-analysis.Core.sarif.json"; buildDir + "static-analysis.Program.sarif.json"] |> NVika.ParseReports (fun p -> { p with Debug = true; IncludeSource = true })
 )
-
+// done
 Target "ILRepack" (fun _ ->
     "ilrepack" |> NugetInstall (fun p -> 
     { p with 
@@ -66,7 +66,7 @@ Target "ILRepack" (fun _ ->
     then
         failwith "Execution of ilrepack have failed."
 )
-
+// done
 Target "SourceLink" (fun _ ->
     if not (directExec(fun info ->
         info.FileName <- "SourceLink" 
@@ -74,7 +74,7 @@ Target "SourceLink" (fun _ ->
     then
         failwith "Execution of SourceLink have failed."
 )
-
+// done
 Target "BuildReleaseNotes" (fun _ ->
      SemanticReleaseNotesParser.Convert (fun p -> { p with 
                                                         GroupBy = SemanticReleaseNotesParser.GroupByType.Categories
@@ -95,19 +95,20 @@ Target "BuildReleaseNotes" (fun _ ->
         } )
 )
 
+// done
 Target "BuildTest" (fun _ ->
     !! "src/*.Tests/*.Tests.csproj"
       |> MSBuildRelease testDir "Build"
       |> Log "AppBuild-Output: "
 )
-
+ // half done, report missing
 Target "Test" (fun _ ->
     "xunit.runner.console" |> NugetInstall (fun p -> 
     { p with 
         OutputDirectory = "tools";
         ExcludeVersion = true
     })
-    
+    // done
     if isUnix then
         !! (testDir @@ "SemanticReleaseNotesParser.Core.Tests.dll")
         |> xUnit2 (fun p -> { p with 
@@ -115,13 +116,13 @@ Target "Test" (fun _ ->
                                 ShadowCopy = false
                             })
     else
-
+    // done
         "OpenCover" |> NugetInstall (fun p -> 
         { p with 
             OutputDirectory = "tools";
             ExcludeVersion = true
         })
-    
+        // done
         testDir + "SemanticReleaseNotesParser.Core.Tests.dll -noshadow" |> OpenCover (fun p -> 
         { p with
             ExePath = "./tools/OpenCover/tools/OpenCover.Console.exe"
@@ -141,7 +142,7 @@ Target "Test" (fun _ ->
             Filter = "+[SemanticReleaseNotesParser]*";
             OptionalArguments = "-excludebyattribute:*.ExcludeFromCodeCoverage* -returntargetcode -mergeoutput";
         })
-    
+    // done
         if isLocalBuild then
             "ReportGenerator" |> NugetInstall (fun p -> 
             { p with 
@@ -155,6 +156,7 @@ Target "Test" (fun _ ->
                 LogVerbosity = ReportGeneratorHelper.ReportGeneratorLogVerbosity.Error
             })
         else
+        // todo https://github.com/marketplace/actions/codecov / single report merged by reportgenerator or upload each report
             System.Environment.SetEnvironmentVariable("PATH", ("C:\\Python34;C:\\Python34\\Scripts;" + environVar "PATH"))
             if not (directExec(fun info ->
                 info.FileName <- "pip"
@@ -167,18 +169,20 @@ Target "Test" (fun _ ->
             then
                 failwith "Execution of codecov have failed."
 )
-
+// done
 Target "Zip" (fun _ ->
     !! (artifactsDir + "SemanticReleaseNotesParser.exe")
     ++ (artifactsDir + "ReleaseNotes.html")
     |> Zip artifactsDir (artifactsDir + "SemanticReleaseNotesParser." + version + ".zip")
 )
 
+// discontinued
 Target "PackFakeHelper" (fun _ ->
     "SemanticReleaseNotesParserHelper.fsx" |> FileHelper.CopyFile artifactsDir
     artifactsDir @@ "SemanticReleaseNotesParserHelper.fsx" |> FileHelper.RegexReplaceInFileWithEncoding "./tools/FAKE/tools/FakeLib.dll" "FakeLib.dll" System.Text.Encoding.UTF8
 )
 
+// current https://github.com/crazy-max/ghaction-chocolatey/blob/master/src/main.ts
 Target "ChocoPack" (fun _ ->
     Choco.Pack (fun p -> 
         { p with 
@@ -200,7 +204,7 @@ Target "ChocoPack" (fun _ ->
             ChecksumType = Choco.ChocolateyChecksumType.Sha256
         })
 )
-
+// done
 Target "NugetPackCore" (fun _ ->
     NuGet (fun p ->
     { p with
@@ -210,7 +214,7 @@ Target "NugetPackCore" (fun _ ->
         Properties = ["Configuration","Release"]
     }) "src/SemanticReleaseNotesParser.Core/SemanticReleaseNotesParser.Core.csproj"
 )
-
+// done
 Target "NugetPackFake" (fun _ ->
     NuGet (fun p ->
     { p with
