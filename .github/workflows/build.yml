@@ -30,10 +30,13 @@ jobs:
         dotnet tool restore
 
     - name: Set version
-      run: dotnet gitversion /updateprojectfiles
+      id: gitversion # step id used as reference for output values
+      uses: gittools/actions/gitversion/execute@v0.9.2
+      
+    - run: echo "NuGetVersionV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}"
 
     - name: Build
-      run: dotnet build src --configuration Release --no-restore
+      run: dotnet build src --configuration Release --no-restore /p:Version=${{ steps.gitversion.outputs.nuGetVersionV2 }}
 
     - name: Test
-      run: dotnet test src --no-build --verbosity normal
+      run: dotnet test src --configuration Release --no-build --nologo --verbosity normal --collect:"XPlat Code Coverage"

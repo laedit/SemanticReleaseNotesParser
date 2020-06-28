@@ -21,7 +21,7 @@ dotnet build src --configuration Release --no-restore /p:Version=$version
 # vika --debug --includesource
 
 # Test
-dotnet test src --configuration Release --no-build --nologo --verbosity normal --collect:"XPlat Code Coverage" 
+dotnet test src --configuration Release --no-build --nologo --verbosity normal --collect:"XPlat Code Coverage"
 dotnet reportgenerator "-reports:src/**/TestResults/**/coverage.cobertura.xml" "-targetdir:artifacts/reports" -reporttypes:Html
 
 # Publish windows version
