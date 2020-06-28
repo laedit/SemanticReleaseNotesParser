@@ -21,21 +21,27 @@ dotnet build src --configuration Release --no-restore /p:Version=$version
 # vika --debug --includesource
 
 # Test
-dotnet test src --no-build --nologo --verbosity normal --collect:"XPlat Code Coverage"
+dotnet test src --configuration Release --no-build --nologo --verbosity normal --collect:"XPlat Code Coverage" 
 dotnet reportgenerator "-reports:src/**/TestResults/**/coverage.cobertura.xml" "-targetdir:artifacts/reports" -reporttypes:Html
+
+# Publish windows version
+dotnet publish src/SemanticReleaseNotesParser --configuration Release --output ./publish --self-contained true --runtime win-x86 -p:PublishSingleFile=true -p:PublishTrimmed=true /p:PackAsTool=false /p:Version=$version
 
 # Build release notes
 ./publish/SemanticReleaseNotesParser.exe -g=categories --debug -o="artifacts/ReleaseNotes.html" --pluralizecategoriestitle --includestyle
 ./publish/SemanticReleaseNotesParser.exe -g=categories --debug -t=environment -f=markdown --pluralizecategoriestitle # for github release?
 
-# Publish
+# Create packages
 Copy-Item -Path "src/SemanticReleaseNotesParser/bin/Release/SemanticReleaseNotesParser.$version.nupkg" -Destination artifacts
 Copy-Item -Path "src/SemanticReleaseNotesParser.Core/bin/Release/SemanticReleaseNotesParser.Core.$version.nupkg" -Destination artifacts
 Copy-Item -Path "src/SemanticReleaseNotesParser.Core/bin/Release/SemanticReleaseNotesParser.Core.$version.snupkg" -Destination artifacts
-dotnet publish src/SemanticReleaseNotesParser --configuration Release --output ./publish --self-contained true --runtime win-x86 -p:PublishSingleFile=true -p:PublishTrimmed=true /p:PackAsTool=false /p:Version=$version
 Copy-Item -Path "artifacts/ReleaseNotes.html" -Destination publish
 Compress-Archive -Path publish/* -DestinationPath "artifacts/SemanticReleaseNotesParser.$version.zip"
 
 if (choco -v) {
-    choco pack --version $version
+    $installPath = "chocolatey/tools/chocolateyInstall.ps1"
+    $originalContent = Get-Content $installPath
+    $originalContent.replace('[version]', $version) | Set-Content $installPath
+    choco pack chocolatey/semanticreleasenotes-parser.nuspec --version $version --outdir artifacts
+    Set-Content $installPath $originalContent
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>semanticreleasenotes-parser</id>
+    <version>0.1.0</version>
+    <title>Semantic Release Notes Parser</title>
+    <authors>laedit</authors>
+    <owners>laedit</owners>
+    <licenseUrl>https://github.com/laedit/SemanticReleaseNotesParser/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/laedit/SemanticReleaseNotesParser</projectUrl>
+    <iconUrl>https://cdn.rawgit.com/laedit/SemanticReleaseNotesParser/master/icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Parser for Semantic Release Notes (http://www.semanticreleasenotes.org/)</description>
+    <releaseNotes>https://github.com/laedit/SemanticReleaseNotesParser/releases</releaseNotes>
+    <tags>Semantic Release Notes Parser hmtl markdown liquid</tags>
+  </metadata>
+  <files>
+    <file src="tools/**" />
+  </files>
+</package>
