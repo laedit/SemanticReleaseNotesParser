@@ -16,6 +16,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Fetch all history for all tags and branches
+      run: git fetch --prune --unshallow
+
     - uses: actions/cache@v2
       with:
         path: ~/.nuget/packages
