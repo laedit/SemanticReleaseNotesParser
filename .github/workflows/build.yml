@@ -1,4 +1,4 @@
-name: build
+name: Build
 
 on:
   push:
@@ -34,7 +34,7 @@ jobs:
         dotnet tool restore
 
     - name: Check gitversion
-      run: dotnet gitversion $GITHUB_WORKSPACE$/SemanticReleaseNotesParser /output json /output buildserver
+      run: dotnet gitversion $env:GITHUB_WORKSPACE/SemanticReleaseNotesParser /output json /output buildserver
 
     - name: Echo version
       run: echo ${{ steps.gitversion.outputs.nuGetVersionV2 }}
