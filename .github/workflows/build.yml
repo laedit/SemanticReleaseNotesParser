@@ -37,13 +37,13 @@ jobs:
         dotnet tool restore
 
     - name: Check gitversion
-      run: dotnet gitversion $env:GITHUB_WORKSPACE /output json /output buildserver
+      run: dotnet gitversion $env:GITHUB_WORKSPACE /output buildserver
 
     - name: Echo version
-      run: echo ${{ steps.gitversion.outputs.nuGetVersionV2 }}
+      run: echo $env:GitVersion_NuGetVersionV2
 
     - name: Build
-      run: dotnet build src --configuration Release --no-restore /p:Version=${{ steps.gitversion.outputs.nuGetVersionV2 }}
+      run: dotnet build src --configuration Release --no-restore /p:Version=$env:GitVersion_NuGetVersionV2
 
     - name: Test
       run: dotnet test src --configuration Release --no-build --nologo --verbosity normal --collect:"XPlat Code Coverage"
