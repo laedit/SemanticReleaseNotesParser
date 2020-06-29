@@ -32,17 +32,10 @@ jobs:
       run: |
         dotnet restore src
         dotnet tool restore
-        dotnet gitversion
-        dotnet-gitversion
-        dotnet-gitversion D:/a/SemanticReleaseNotesParser/SemanticReleaseNotesParser /output json /output buildserver
 
     - name: Check gitversion
-      run: dotnet-gitversion D:/a/SemanticReleaseNotesParser/SemanticReleaseNotesParser /output json /output buildserver
-      
-    - name: Set version
-      id: gitversion # step id used as reference for output values
-      uses: gittools/actions/gitversion/execute@v0.9.3
-      
+      run: dotnet gitversion $GITHUB_WORKSPACE$/SemanticReleaseNotesParser /output json /output buildserver
+
     - name: Echo version
       run: echo ${{ steps.gitversion.outputs.nuGetVersionV2 }}
 
