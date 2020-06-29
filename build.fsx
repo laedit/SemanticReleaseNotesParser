@@ -126,7 +126,7 @@ Target "Test" (fun _ ->
         testDir + "SemanticReleaseNotesParser.Core.Tests.dll -noshadow" |> OpenCover (fun p -> 
         { p with
             ExePath = "./tools/OpenCover/tools/OpenCover.Console.exe"
-            TestRunnerExePath = "./tools/xunit.runner.console/tools/xunit.console.exe";
+            TestRunnerExePath = "./tools/xunit.runner.console/tools/net452/xunit.console.exe";
             Output = artifactsDir @@ "coverage.xml";
             Register = RegisterUser;
             Filter = "+[SemanticReleaseNotesParser.Core]*";
@@ -136,7 +136,7 @@ Target "Test" (fun _ ->
         testDir + "SemanticReleaseNotesParser.Tests.dll -noshadow" |> OpenCover (fun p -> 
         { p with
             ExePath = "./tools/OpenCover/tools/OpenCover.Console.exe"
-            TestRunnerExePath = "./tools/xunit.runner.console/tools/xunit.console.exe";
+            TestRunnerExePath = "./tools/xunit.runner.console/tools/net452/xunit.console.exe";
             Output = artifactsDir @@ "coverage.xml";
             Register = RegisterUser;
             Filter = "+[SemanticReleaseNotesParser]*";
@@ -152,7 +152,7 @@ Target "Test" (fun _ ->
             [artifactsDir @@ "coverage.xml"] |> ReportGeneratorHelper.ReportGenerator (fun p -> 
             { p with 
                 TargetDir = artifactsDir @@ "reports" 
-                ExePath = @"tools\ReportGenerator\tools\ReportGenerator.exe"
+                ExePath = @"tools\ReportGenerator\tools\net47\ReportGenerator.exe"
                 LogVerbosity = ReportGeneratorHelper.ReportGeneratorLogVerbosity.Error
             })
         else
