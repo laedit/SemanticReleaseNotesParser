@@ -50,6 +50,9 @@ jobs:
         dotnet test src --configuration Release --no-build --nologo --verbosity normal --collect:"XPlat Code Coverage"
         dotnet reportgenerator "-reports:src/**/TestResults/**/coverage.cobertura.xml" "-targetdir:artifacts/reports" -reporttypes:Html
 
+    - name: Publish windows version
+      run: dotnet publish src/SemanticReleaseNotesParser --configuration Release --output ./publish --self-contained true --runtime win-x86 -p:PublishSingleFile=true -p:PublishTrimmed=true /p:PackAsTool=false /p:Version=$env:GitVersion_NuGetVersionV2
+
     - name: Publish release notes
       run: |
         ./publish/SemanticReleaseNotesParser.exe -g=categories --debug -o="artifacts/ReleaseNotes.html" --pluralizecategoriestitle --includestyle
