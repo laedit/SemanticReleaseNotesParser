@@ -29,7 +29,6 @@ dotnet publish src/SemanticReleaseNotesParser --configuration Release --output .
 
 # Build release notes
 ./publish/SemanticReleaseNotesParser.exe -g=categories --debug -o="artifacts/ReleaseNotes.html" --pluralizecategoriestitle --includestyle
-./publish/SemanticReleaseNotesParser.exe -g=categories --debug -t=environment -f=markdown --pluralizecategoriestitle # for github release?
 
 # Create packages
 Copy-Item -Path "src/SemanticReleaseNotesParser/bin/Release/SemanticReleaseNotesParser.$version.nupkg" -Destination artifacts

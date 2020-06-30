@@ -46,4 +46,28 @@ jobs:
       run: dotnet build src --configuration Release --no-restore /p:Version=$env:GitVersion_NuGetVersionV2
 
     - name: Test
-      run: dotnet test src --configuration Release --no-build --nologo --verbosity normal --collect:"XPlat Code Coverage"
+      run: |
+        dotnet test src --configuration Release --no-build --nologo --verbosity normal --collect:"XPlat Code Coverage"
+        dotnet reportgenerator "-reports:src/**/TestResults/**/coverage.cobertura.xml" "-targetdir:artifacts/reports" -reporttypes:Html
+
+    - name: Publish release notes
+      run: |
+        ./publish/SemanticReleaseNotesParser.exe -g=categories --debug -o="artifacts/ReleaseNotes.html" --pluralizecategoriestitle --includestyle
+        ./publish/SemanticReleaseNotesParser.exe -g=categories --debug -t=environment -f=markdown --pluralizecategoriestitle # for github release?
+
+    - name: Create packages
+      run: |
+        Copy-Item -Path "src/SemanticReleaseNotesParser/bin/Release/SemanticReleaseNotesParser.$version.nupkg" -Destination artifacts
+        Copy-Item -Path "src/SemanticReleaseNotesParser.Core/bin/Release/SemanticReleaseNotesParser.Core.$version.nupkg" -Destination artifacts
+        Copy-Item -Path "src/SemanticReleaseNotesParser.Core/bin/Release/SemanticReleaseNotesParser.Core.$version.snupkg" -Destination artifacts
+        Copy-Item -Path "artifacts/ReleaseNotes.html" -Destination publish
+        Compress-Archive -Path publish/* -DestinationPath "artifacts/SemanticReleaseNotesParser.$version.zip"
+        $installPath = "chocolatey/tools/chocolateyInstall.ps1"
+        $originalContent = Get-Content $installPath
+        $originalContent.replace('[version]', $version) | Set-Content $installPath
+        choco pack chocolatey/semanticreleasenotes-parser.nuspec --version $version --outdir artifacts
+        Set-Content $installPath $originalContent
+
+    - uses: actions/upload-artifact@v2
+      with:
+        path: artifacts/
