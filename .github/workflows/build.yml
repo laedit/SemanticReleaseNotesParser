@@ -68,7 +68,7 @@ jobs:
         $installPath = "chocolatey/tools/chocolateyInstall.ps1"
         $originalContent = Get-Content $installPath
         $originalContent.replace('[version]', $env:GitVersion_NuGetVersionV2) | Set-Content $installPath
-        choco pack chocolatey/semanticreleasenotes-parser.nuspec --version $env:GitVersion_NuGetVersionV2* --outdir artifacts
+        choco pack chocolatey/semanticreleasenotes-parser.nuspec --version $env:GitVersion_NuGetVersionV2 --outdir artifacts
         Set-Content $installPath $originalContent
 
     - uses: actions/upload-artifact@v2
