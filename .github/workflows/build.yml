@@ -45,11 +45,14 @@ jobs:
 
     - name: Build
       run: dotnet build src --configuration Release --no-restore /p:Version=$env:GitVersion_NuGetVersionV2
+      
+#    - name: Vika
+#      run: vika --debug --includesource
 
     - name: Test
-      run: |
-        dotnet test src --configuration Release --no-build --nologo --verbosity normal --collect:"XPlat Code Coverage"
-        dotnet reportgenerator "-reports:src/**/TestResults/**/coverage.cobertura.xml" "-targetdir:artifacts/reports" -reporttypes:Html
+      run: dotnet test src --configuration Release --no-build --nologo --verbosity normal --collect:"XPlat Code Coverage"
+
+    - uses: codecov/codecov-action@v1
 
     - name: Publish windows version
       run: dotnet publish src/SemanticReleaseNotesParser --configuration Release --output ./publish --self-contained true --runtime win-x86 -p:PublishSingleFile=true -p:PublishTrimmed=true /p:PackAsTool=false /p:Version=$env:GitVersion_NuGetVersionV2
@@ -89,3 +92,8 @@ jobs:
       - uses: actions/download-artifact@v2
       - name: Display structure of downloaded files
         run: ls -R
+        
+    #  - name: Nuget publish
+    #    run: dotnet nuget push src/DotnetVersion/output/ -s https://nuget.org -k ${NUGET_API_KEY}
+        # env:
+          # NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
