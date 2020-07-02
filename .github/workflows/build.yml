@@ -57,6 +57,9 @@ jobs:
     - name: Publish windows version
       run: dotnet publish src/SemanticReleaseNotesParser --configuration Release --output ./publish --self-contained true --runtime win-x86 -p:PublishSingleFile=true -p:PublishTrimmed=true /p:PackAsTool=false /p:Version=$env:GitVersion_NuGetVersionV2
 
+    - name: Create artifacts directory #FIXME https://github.com/laedit/SemanticReleaseNotesParser/issues/407
+      run: mkdir artifacts
+
     - name: Publish release notes
       run: |
         ./publish/SemanticReleaseNotesParser.exe -g=categories --debug -o="artifacts/ReleaseNotes.html" --pluralizecategoriestitle --includestyle
