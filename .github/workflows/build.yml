@@ -93,6 +93,7 @@ jobs:
       run: |
         echo ${GITHUB_REF/refs\/tags\//}
         echo ${GITHUB_REF/refs\/tags\/v}
+        echo ${GITHUB_REF#refs/tags/v}
 
   release:
     if: startsWith(github.ref, 'refs/tags/v')
@@ -111,53 +112,53 @@ jobs:
 
       - name: Get the version
         id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/v}
 
-     - name: Create Release
-       id: create_release
-       uses: actions/create-release@v1
-       env:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-       with:
-         tag_name: ${{ github.ref }}
-         release_name: ${{ github.ref }}
-         body: ${{ env.ReleaseNotes_md }}
-         draft: false
-         prerelease: false
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: ${{ env.ReleaseNotes_md }}
+          draft: false
+          prerelease: false
 
-     - name: Upload Zip netcore
-       id: upload-release-asset 
-       uses: actions/upload-release-asset@v1
-       env:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-       with:
-         upload_url: ${{ steps.create_release.outputs.upload_url }}
-         asset_path: ./artifacts/SemanticReleaseNotesParser.netcore.${{ steps.get_version.outputs.version }}.zip
-         asset_name: SemanticReleaseNotesParser.netcore.${{ steps.get_version.outputs.version }}.zip
-         asset_content_type: application/zip
+      - name: Upload Zip netcore
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./artifacts/SemanticReleaseNotesParser.netcore.${{ steps.get_version.outputs.version }}.zip
+          asset_name: SemanticReleaseNotesParser.netcore.${{ steps.get_version.outputs.version }}.zip
+          asset_content_type: application/zip
     
-     - name: Upload Zip win-x86
-       id: upload-release-asset 
-       uses: actions/upload-release-asset@v1
-       env:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-       with:
-         upload_url: ${{ steps.create_release.outputs.upload_url }}
-         asset_path: ./artifacts/SemanticReleaseNotesParser.win-x86.${{ steps.get_version.outputs.version }}.zip
-         asset_name: SemanticReleaseNotesParser.win-x86.${{ steps.get_version.outputs.version }}.zip
-         asset_content_type: application/zip
+      - name: Upload Zip win-x86
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./artifacts/SemanticReleaseNotesParser.win-x86.${{ steps.get_version.outputs.version }}.zip
+          asset_name: SemanticReleaseNotesParser.win-x86.${{ steps.get_version.outputs.version }}.zip
+          asset_content_type: application/zip
 
-     - name: Chocolatey push
-       run: choco push artifacts/semanticreleasenotes-parser.win-x86.${{ steps.get_version.outputs.version }}.nupkg --source=https://push.chocolatey.org/ --api-key=${CHOCO_API_KEY} --noop #for check?
-       env:
-         CHOCO_API_KEY: ${{ secrets.CHOCO_API_KEY }}
+      - name: Chocolatey push
+        run: choco push artifacts/semanticreleasenotes-parser.win-x86.${{ steps.get_version.outputs.version }}.nupkg --source=https://push.chocolatey.org/ --api-key=${CHOCO_API_KEY} --noop #for check?
+        env:
+          CHOCO_API_KEY: ${{ secrets.CHOCO_API_KEY }}
 
-     - name: Nuget push Core
-       run: dotnet nuget push artifacts/SemanticReleaseNotesParser.Core.${{ steps.get_version.outputs.version }}.nupkg -s  https://api.nuget.org/v3/index.json -k ${NUGET_API_KEY}
-       env:
-         NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      - name: Nuget push Core
+        run: dotnet nuget push artifacts/SemanticReleaseNotesParser.Core.${{ steps.get_version.outputs.version }}.nupkg -s  https://api.nuget.org/v3/index.json -k ${NUGET_API_KEY}
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 
-     - name: Nuget push Tool
-       run: dotnet nuget push artifacts/SemanticReleaseNotesParser.${{ steps.get_version.outputs.version }}.nupkg -s  https://api.nuget.org/v3/index.json -k ${NUGET_API_KEY}
-       env:
-         NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      - name: Nuget push Tool
+        run: dotnet nuget push artifacts/SemanticReleaseNotesParser.${{ steps.get_version.outputs.version }}.nupkg -s  https://api.nuget.org/v3/index.json -k ${NUGET_API_KEY}
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
