@@ -62,7 +62,9 @@ jobs:
         
     - name: Echo version
       id: get_version
-      run: echo "::set-env name=VERSION::${GITHUB_REF}"
+      run: |
+        echo ${GITHUB_REF}
+        echo "::set-env name=VERSION::${GITHUB_REF}"
 
     - name: Test
       run: dotnet test src --configuration Release --no-build --nologo --verbosity normal --collect:"XPlat Code Coverage"
