@@ -56,11 +56,13 @@ jobs:
       run: |
         dotnet run --project src/SemanticReleaseNotesParser --no-build --configuration Release -- -g=categories --debug -o="artifacts/ReleaseNotes.html" --pluralizecategoriestitle --includestyle
         dotnet run --project src/SemanticReleaseNotesParser --no-build --configuration Release -- -g=categories --debug -t=environment -f=markdown --pluralizecategoriestitle
+        echo "release notes: $env:SemanticReleaseNotes"
+        gci env:* | sort-object name
         echo "::set-env name=ReleaseNotes_md::$env:SemanticReleaseNotes"
         
     - name: Echo version
       id: get_version
-      run: echo "::set-env name=VERSION::${GITHUB_REF#refs/tags/v}"
+      run: echo "::set-env name=VERSION::${GITHUB_REF#refs/heads/}"
 
     - name: Test
       run: dotnet test src --configuration Release --no-build --nologo --verbosity normal --collect:"XPlat Code Coverage"
