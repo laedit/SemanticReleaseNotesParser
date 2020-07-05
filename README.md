@@ -51,8 +51,13 @@ Parameters:
 Please pick an existing issue, or create one in order to discuss it before you go full ahead.
 
 ## Build
-Just use [`local-build.ps1`](./local-build.ps1).
-It will build the projects, launch the tests and packages all the thing, ready to be tested locally.
+Just use [`local-build.ps1`](./local-build.ps1).  
+It will:
+ - apply the source format
+ - build the projects
+ - launch the tests
+ - packages all the thing
+
 
 ## Release
 1. Generates release notes with https://github.com/StefH/GitHubReleaseNotes or https://github.com/GitTools/GitReleaseNotes [TODO]

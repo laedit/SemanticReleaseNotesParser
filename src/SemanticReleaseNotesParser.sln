@@ -14,15 +14,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E70C1C84-0FF5-4551-A500-4FDD56AA4E8D}"
 	ProjectSection(SolutionItems) = preProject
 		..\.editorconfig = ..\.editorconfig
-		..\.travis.yml = ..\.travis.yml
-		..\appveyor.yml = ..\appveyor.yml
-		..\build.bat = ..\build.bat
-		..\build.fsx = ..\build.fsx
-		..\build.sh = ..\build.sh
 		..\.github\workflows\build.yml = ..\.github\workflows\build.yml
 		..\.github\workflows\format.yml = ..\.github\workflows\format.yml
 		..\local-build.ps1 = ..\local-build.ps1
-		..\.github\workflows\publish.yml = ..\.github\workflows\publish.yml
 		..\README.md = ..\README.md
 		..\ReleaseNotes.md = ..\ReleaseNotes.md
 	EndProjectSection

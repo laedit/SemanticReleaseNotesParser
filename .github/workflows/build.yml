@@ -56,7 +56,11 @@ jobs:
       run: |
         dotnet run --project src/SemanticReleaseNotesParser --no-build --configuration Release -- -g=categories --debug -o="artifacts/ReleaseNotes.html" --pluralizecategoriestitle --includestyle
         dotnet run --project src/SemanticReleaseNotesParser --no-build --configuration Release -- -g=categories --debug -t=environment -f=markdown --pluralizecategoriestitle
-        echo "::set-env name=ReleaseNotes_md::$SemanticReleaseNotes$"
+        echo ::set-env name=ReleaseNotes_md::$env:SemanticReleaseNotes
+        
+    - name: Echo version
+      id: get_version
+      run: echo ::set-env name=VERSION::${GITHUB_REF#refs/tags/v}
 
     - name: Test
       run: dotnet test src --configuration Release --no-build --nologo --verbosity normal --collect:"XPlat Code Coverage"
@@ -87,13 +91,6 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         path: artifacts/*
-        
-    - name: Echo version
-      id: get_version
-      run: |
-        echo ${GITHUB_REF/refs\/tags\//}
-        echo ${GITHUB_REF/refs\/tags\/v}
-        echo ${GITHUB_REF#refs/tags/v}
 
   release:
     if: startsWith(github.ref, 'refs/tags/v')
