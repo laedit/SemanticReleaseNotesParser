@@ -1,6 +1,7 @@
-﻿using NDesk.Options;
+using Mono.Options;
 using SemanticReleaseNotesParser.Core;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace SemanticReleaseNotesParser
 {
@@ -55,9 +56,9 @@ namespace SemanticReleaseNotesParser
                 arguments.ReleaseNotesPath = additionalArguments[0];
             }
 
-            if(string.IsNullOrEmpty(arguments.ResultFilePath))
+            if (string.IsNullOrEmpty(arguments.ResultFilePath))
             {
-                arguments.ResultFilePath = string.Format("ReleaseNotes.{0}", arguments.OutputFormat == OutputFormat.Markdown ? "md" : "html");
+                arguments.ResultFilePath = string.Format(CultureInfo.InvariantCulture, "ReleaseNotes.{0}", arguments.OutputFormat == OutputFormat.Markdown ? "md" : "html");
             }
 
             return arguments;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -27,7 +27,7 @@ namespace SemanticReleaseNotesParser.Core.Parser
         {
             if (reader == null)
             {
-                throw new ArgumentNullException("reader");
+                throw new ArgumentNullException(nameof(reader));
             }
 
             return Parse(reader.ReadToEnd());
@@ -43,7 +43,7 @@ namespace SemanticReleaseNotesParser.Core.Parser
         {
             if (string.IsNullOrWhiteSpace(rawReleaseNotes))
             {
-                throw new ArgumentNullException("rawReleaseNotes");
+                throw new ArgumentNullException(nameof(rawReleaseNotes));
             }
 
             var releaseNotes = new ReleaseNotes();

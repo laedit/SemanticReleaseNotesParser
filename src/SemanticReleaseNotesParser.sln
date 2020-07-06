@@ -1,23 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticReleaseNotesParser", "SemanticReleaseNotesParser\SemanticReleaseNotesParser.csproj", "{D095BE8A-58BE-4722-AD79-151191C1243D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SemanticReleaseNotesParser", "SemanticReleaseNotesParser\SemanticReleaseNotesParser.csproj", "{D095BE8A-58BE-4722-AD79-151191C1243D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticReleaseNotesParser.Core", "SemanticReleaseNotesParser.Core\SemanticReleaseNotesParser.Core.csproj", "{982453C5-147D-435E-B70A-E25E6C2EE748}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SemanticReleaseNotesParser.Core", "SemanticReleaseNotesParser.Core\SemanticReleaseNotesParser.Core.csproj", "{982453C5-147D-435E-B70A-E25E6C2EE748}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticReleaseNotesParser.Core.Tests", "SemanticReleaseNotesParser.Core.Tests\SemanticReleaseNotesParser.Core.Tests.csproj", "{90B46F40-8589-4665-AFF9-4CA01FAF03AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SemanticReleaseNotesParser.Core.Tests", "SemanticReleaseNotesParser.Core.Tests\SemanticReleaseNotesParser.Core.Tests.csproj", "{90B46F40-8589-4665-AFF9-4CA01FAF03AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticReleaseNotesParser.Tests", "SemanticReleaseNotesParser.Tests\SemanticReleaseNotesParser.Tests.csproj", "{6FC85324-7E4B-4856-9F34-B3EA4362733F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SemanticReleaseNotesParser.Tests", "SemanticReleaseNotesParser.Tests\SemanticReleaseNotesParser.Tests.csproj", "{6FC85324-7E4B-4856-9F34-B3EA4362733F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E70C1C84-0FF5-4551-A500-4FDD56AA4E8D}"
 	ProjectSection(SolutionItems) = preProject
-		..\.travis.yml = ..\.travis.yml
-		..\appveyor.yml = ..\appveyor.yml
-		..\build.bat = ..\build.bat
-		..\build.fsx = ..\build.fsx
-		..\build.sh = ..\build.sh
+		..\.editorconfig = ..\.editorconfig
+		..\.github\workflows\build.yml = ..\.github\workflows\build.yml
+		..\.github\workflows\format.yml = ..\.github\workflows\format.yml
+		..\local-build.ps1 = ..\local-build.ps1
+		..\README.md = ..\README.md
+		..\ReleaseNotes.md = ..\ReleaseNotes.md
 	EndProjectSection
 EndProject
 Global
@@ -45,5 +46,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E4600A17-5ED4-4AD4-A117-C36B0A562B69}
 	EndGlobalSection
 EndGlobal

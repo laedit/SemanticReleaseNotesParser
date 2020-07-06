@@ -1,0 +1,155 @@
+name: Build
+
+on:
+  push:
+    tags: v[1-9]+.[0-9]+.[0-9]+
+    branches: [ master ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Fetch all history for all tags and branches
+      run: git fetch --prune --unshallow
+
+    - uses: actions/cache@v2
+      with:
+        path: ~/.nuget/packages
+        key: nuget-${{ hashFiles('**/packages.lock.json') }}
+        restore-keys: |
+          nuget-
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+
+    - name: Install dependencies
+      run: |
+        dotnet restore src
+        dotnet tool restore
+
+    - name: Check gitversion
+      run: dotnet gitversion $env:GITHUB_WORKSPACE /output buildserver
+
+    - name: Echo version
+      run: echo $env:GitVersion_NuGetVersionV2
+
+    - name: Build
+      run: dotnet build src --configuration Release --no-restore /p:Version=$env:GitVersion_NuGetVersionV2
+      
+#    - name: Vika
+#      run: vika --debug --includesource static-analysis.Core.sarif.json static-analysis.Program.sarif.json
+
+    - name: Create artifacts directory #FIXME https://github.com/laedit/SemanticReleaseNotesParser/issues/407
+      run: mkdir artifacts
+
+    - name: Publish release notes
+      run: |
+        dotnet run --project src/SemanticReleaseNotesParser --no-build --configuration Release -- -g=categories --debug -o="artifacts/ReleaseNotes.html" --pluralizecategoriestitle --includestyle
+        dotnet run --project src/SemanticReleaseNotesParser --no-build --configuration Release -- -g=categories --debug -t=environment -f=markdown --pluralizecategoriestitle
+        echo "::set-env name=ReleaseNotes_md::$env:SemanticReleaseNotes"
+
+    - name: Test
+      run: dotnet test src --configuration Release --no-build --nologo --verbosity normal --collect:"XPlat Code Coverage"
+
+    - uses: codecov/codecov-action@v1
+
+    - name: Create packages
+      run: |
+        Compress-Archive -Path src/SemanticReleaseNotesParser/bin/Release/netcoreapp3.1/*, artifacts/ReleaseNotes.html -DestinationPath "artifacts/SemanticReleaseNotesParser.netcore.$env:GitVersion_NuGetVersionV2.zip"
+        Copy-Item -Path "src/SemanticReleaseNotesParser/bin/Release/SemanticReleaseNotesParser.$env:GitVersion_NuGetVersionV2.nupkg" -Destination artifacts
+        Copy-Item -Path "src/SemanticReleaseNotesParser.Core/bin/Release/SemanticReleaseNotesParser.Core.$env:GitVersion_NuGetVersionV2.nupkg" -Destination artifacts
+        Copy-Item -Path "src/SemanticReleaseNotesParser.Core/bin/Release/SemanticReleaseNotesParser.Core.$env:GitVersion_NuGetVersionV2.snupkg" -Destination artifacts
+
+    - name: Publish windows version
+      run: |
+        dotnet publish src/SemanticReleaseNotesParser --configuration Release --output ./publish --self-contained true --runtime win-x86 -p:PublishSingleFile=true -p:PublishTrimmed=true /p:PackAsTool=false /p:Version=$env:GitVersion_NuGetVersionV2
+        Copy-Item -Path "artifacts/ReleaseNotes.html" -Destination publish
+        Compress-Archive -Path publish/* -DestinationPath "artifacts/SemanticReleaseNotesParser.win-x86.$env:GitVersion_NuGetVersionV2.zip"
+
+    - name: Publish chocolatey version
+      run: |
+        $installPath = "chocolatey/tools/chocolateyInstall.ps1"
+        $originalContent = Get-Content $installPath
+        $originalContent.replace('[version]', $env:GitVersion_NuGetVersionV2) | Set-Content $installPath
+        choco pack chocolatey/semanticreleasenotes-parser.nuspec --version $env:GitVersion_NuGetVersionV2 --outdir artifacts
+        Set-Content $installPath $originalContent
+
+    - uses: actions/upload-artifact@v2
+      with:
+        path: artifacts/*
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [build]
+    runs-on: ubuntu-latest
+    
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+    steps:
+      - uses: actions/download-artifact@v2
+
+      - name: Display structure of downloaded files
+        run: ls -R
+
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/v}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: ${{ env.ReleaseNotes_md }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Zip netcore
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./artifacts/SemanticReleaseNotesParser.netcore.${{ steps.get_version.outputs.version }}.zip
+          asset_name: SemanticReleaseNotesParser.netcore.${{ steps.get_version.outputs.version }}.zip
+          asset_content_type: application/zip
+    
+      - name: Upload Zip win-x86
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./artifacts/SemanticReleaseNotesParser.win-x86.${{ steps.get_version.outputs.version }}.zip
+          asset_name: SemanticReleaseNotesParser.win-x86.${{ steps.get_version.outputs.version }}.zip
+          asset_content_type: application/zip
+
+      - name: Chocolatey push
+        run: choco push artifacts/semanticreleasenotes-parser.win-x86.${{ steps.get_version.outputs.version }}.nupkg --source=https://push.chocolatey.org/ --api-key=${CHOCO_API_KEY} --noop #for check?
+        env:
+          CHOCO_API_KEY: ${{ secrets.CHOCO_API_KEY }}
+
+      - name: Nuget push Core
+        run: dotnet nuget push artifacts/SemanticReleaseNotesParser.Core.${{ steps.get_version.outputs.version }}.nupkg -s  https://api.nuget.org/v3/index.json -k ${NUGET_API_KEY}
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+
+      - name: Nuget push Tool
+        run: dotnet nuget push artifacts/SemanticReleaseNotesParser.${{ steps.get_version.outputs.version }}.nupkg -s  https://api.nuget.org/v3/index.json -k ${NUGET_API_KEY}
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}

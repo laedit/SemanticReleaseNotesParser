@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using Xunit;
 
@@ -168,7 +168,7 @@ Vestibulum `enim wisi` viverra nec fringilla in laoreetvitae risus. Donec sit am
             Assert.Equal("New", releaseNote.Items[7].Categories[1]);
             Assert.Equal("This is my last DEVELOPER list item.", releaseNote.Items[7].Summary);
 
-            Assert.Equal(0, releaseNote.Items[8].Categories.Count);
+            Assert.Empty(releaseNote.Items[8].Categories);
             Assert.Equal("This is something without category.", releaseNote.Items[8].Summary);
 
             Assert.Equal("New", releaseNote.Items[9].Categories[0]);
@@ -205,7 +205,7 @@ Vestibulum `enim wisi` viverra nec fringilla in laoreetvitae risus. Donec sit am
 
             // assert
             Assert.Equal("Incremental release designed to provide an update to some of the core plugins.", releaseNote.Summary);
-            Assert.Equal(0, releaseNote.Items.Count);
+            Assert.Empty(releaseNote.Items);
 
             Assert.Equal(2, releaseNote.Sections.Count);
 
@@ -237,7 +237,7 @@ Vestibulum `enim wisi` viverra nec fringilla in laoreetvitae risus. Donec sit am
             // assert
             Assert.Equal("Incremental release designed to provide an update to some of the core plugins.", releaseNote.Summary);
 
-            Assert.Equal(1, releaseNote.Items.Count);
+            Assert.Single(releaseNote.Items);
             Assert.Equal("*Example*: You can have global issues that aren't grouped to a section", releaseNote.Items[0].Summary);
 
             Assert.Equal(2, releaseNote.Sections.Count);
@@ -274,7 +274,7 @@ Vestibulum `enim wisi` viverra nec fringilla in laoreetvitae risus. Donec sit am
             // assert
             Assert.Equal("Incremental release designed to provide an update to some of the core plugins.", releaseNote.Summary);
 
-            Assert.Equal(1, releaseNote.Items.Count);
+            Assert.Single(releaseNote.Items);
             Assert.Equal(1, releaseNote.Items[0].Priority);
             Assert.Equal("*Example*: You can have global issues that aren't grouped to a section", releaseNote.Items[0].Summary);
 
@@ -316,7 +316,7 @@ Vestibulum `enim wisi` viverra nec fringilla in laoreetvitae risus. Donec sit am
             var releaseNote = Parser.SemanticReleaseNotesParser.Parse(NVikaReleaseNotes);
 
             // assert
-            Assert.Equal(1, releaseNote.Metadata.Count);
+            Assert.Single(releaseNote.Metadata);
             Assert.Equal("Commits", releaseNote.Metadata[0].Name);
             Assert.Equal("[19556f025b...0203ea9a43](https://github.com/laedit/vika/compare/19556f025b...0203ea9a43)", releaseNote.Metadata[0].Value);
 

@@ -1,7 +1,6 @@
 using NSubstitute;
 using SemanticReleaseNotesParser.Abstractions;
 using SemanticReleaseNotesParser.Core;
-using SemanticReleaseNotesParser.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;

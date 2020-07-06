@@ -3,6 +3,7 @@ using DotLiquid;
 using Humanizer;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -18,11 +19,10 @@ namespace SemanticReleaseNotesParser.Core.Formatter
 
         private const string HtmlHead = @"{1}<head>{1}<style>{1}{0}{1}</style>{1}</head>";
 
-        private readonly static CommonMarkSettings DefaultCommonMarkSettings;
+        private readonly static CommonMarkSettings DefaultCommonMarkSettings = CommonMarkSettings.Default.Clone();
 
         static SemanticReleaseNotesFormatter()
         {
-            DefaultCommonMarkSettings = CommonMarkSettings.Default.Clone();
             DefaultCommonMarkSettings.AdditionalFeatures = CommonMarkAdditionalFeatures.StrikethroughTilde;
             DefaultCommonMarkSettings.OutputFormat = CommonMark.OutputFormat.Html;
             DefaultCommonMarkSettings.OutputDelegate = (doc, output, settings) => new SemanticReleaseNotesHtmlFormatter(output, settings).WriteDocument(doc);
@@ -44,7 +44,7 @@ namespace SemanticReleaseNotesParser.Core.Formatter
         {
             if (writer == null)
             {
-                throw new ArgumentNullException("writer");
+                throw new ArgumentNullException(nameof(writer));
             }
 
             writer.Write(Format(releaseNotes, settings));
@@ -60,7 +60,7 @@ namespace SemanticReleaseNotesParser.Core.Formatter
         {
             if (releaseNotes == null)
             {
-                throw new ArgumentNullException("releaseNotes");
+                throw new ArgumentNullException(nameof(releaseNotes));
             }
 
             if (settings == null)
@@ -91,10 +91,10 @@ namespace SemanticReleaseNotesParser.Core.Formatter
             var head = string.Empty;
             if (settings.IncludeStyle)
             {
-                head = string.Format(HtmlHead, string.IsNullOrEmpty(settings.CustomStyle) ? GetEmbeddedResource("DefaultStyle.css") : settings.CustomStyle, Environment.NewLine);
+                head = string.Format(CultureInfo.InvariantCulture, HtmlHead, string.IsNullOrEmpty(settings.CustomStyle) ? GetEmbeddedResource("DefaultStyle.css") : settings.CustomStyle, Environment.NewLine);
             }
 
-            return string.Format(HtmlEnvelope, head, CommonMarkConverter.Convert(result, DefaultCommonMarkSettings).Trim(), Environment.NewLine);
+            return string.Format(CultureInfo.InvariantCulture, HtmlEnvelope, head, CommonMarkConverter.Convert(result, DefaultCommonMarkSettings).Trim(), Environment.NewLine);
         }
 
         private static List<Category> GetCategories(ReleaseNotes releaseNotes, SemanticReleaseNotesConverterSettings settings)
@@ -147,7 +147,7 @@ namespace SemanticReleaseNotesParser.Core.Formatter
 
         private static string GetEmbeddedResource(string resourceName)
         {
-            using (var reader = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("SemanticReleaseNotesParser.Core.Resources." + resourceName)))
+            using (var reader = new StreamReader(typeof(SemanticReleaseNotesFormatter).GetTypeInfo().Assembly.GetManifestResourceStream("SemanticReleaseNotesParser.Core.Resources." + resourceName)))
             {
                 return reader.ReadToEnd();
             }

@@ -1,5 +1,6 @@
-﻿using SemanticReleaseNotesParser.Abstractions;
+using SemanticReleaseNotesParser.Abstractions;
 using SemanticReleaseNotesParser.Logging;
+using System.Globalization;
 using System.Text;
 
 namespace SemanticReleaseNotesParser.BuildServers
@@ -27,7 +28,7 @@ namespace SemanticReleaseNotesParser.BuildServers
         public void SetEnvironmentVariable(string variable, string value)
         {
             Logger.Debug("AppVeyor API Url: {0}", _appVeyorApiUrl);
-            var request = string.Format(SetEnvironmentVariableRequest, variable, EscapeStringValue(value.Replace("\r\n", "\n")));
+            var request = string.Format(CultureInfo.InvariantCulture, SetEnvironmentVariableRequest, variable, EscapeStringValue(value.Replace("\r\n", "\n", System.StringComparison.Ordinal)));
             Logger.Debug("Request body: {0}", request);
 
             using (var webClient = _webClientFactory.Create(_appVeyorApiUrl))
@@ -49,15 +50,15 @@ namespace SemanticReleaseNotesParser.BuildServers
                 switch (c)
                 {
                     case SLASH:
-                        output.AppendFormat("{0}{1}", BACK_SLASH, SLASH);
+                        output.AppendFormat(CultureInfo.InvariantCulture, "{0}{1}", BACK_SLASH, SLASH);
                         break;
 
                     case BACK_SLASH:
-                        output.AppendFormat("{0}{0}", BACK_SLASH);
+                        output.AppendFormat(CultureInfo.InvariantCulture, "{0}{0}", BACK_SLASH);
                         break;
 
                     case DBL_QUOTE:
-                        output.AppendFormat("{0}{1}", BACK_SLASH, DBL_QUOTE);
+                        output.AppendFormat(CultureInfo.InvariantCulture, "{0}{1}", BACK_SLASH, DBL_QUOTE);
                         break;
 
                     default:

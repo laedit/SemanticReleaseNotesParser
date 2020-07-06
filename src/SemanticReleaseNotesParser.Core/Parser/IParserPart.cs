@@ -1,4 +1,4 @@
-﻿namespace SemanticReleaseNotesParser.Core.Parser
+namespace SemanticReleaseNotesParser.Core.Parser
 {
     internal interface IParserPart
     {

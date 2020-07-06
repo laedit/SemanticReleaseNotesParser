@@ -1,4 +1,4 @@
-﻿using Humanizer;
+using Humanizer;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -18,8 +18,7 @@ namespace SemanticReleaseNotesParser.Core.Parser
                 var item = new Item();
 
                 // Priority
-                int priority;
-                if (!string.IsNullOrEmpty(match.Groups[1].Value) && Int32.TryParse(match.Groups[1].Value, out priority))
+                if (!string.IsNullOrEmpty(match.Groups[1].Value) && int.TryParse(match.Groups[1].Value, out int priority))
                 {
                     item.Priority = priority;
                 }
@@ -46,7 +45,7 @@ namespace SemanticReleaseNotesParser.Core.Parser
                             item.Categories.Add(categoryName);
                         }
                         var replacement = category.Groups[1].Value;
-                        if (input.EndsWith(category.Groups[1].Value))
+                        if (input.EndsWith(category.Groups[1].Value, StringComparison.Ordinal))
                         {
                             replacement = string.Empty;
                         }

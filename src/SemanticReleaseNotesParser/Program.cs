@@ -1,16 +1,17 @@
-﻿using SemanticReleaseNotesParser.Abstractions;
+using SemanticReleaseNotesParser.Abstractions;
 using SemanticReleaseNotesParser.BuildServers;
 using SemanticReleaseNotesParser.Core;
 using SemanticReleaseNotesParser.Logging;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO.Abstractions;
 using System.Linq;
 using System.Reflection;
 
 namespace SemanticReleaseNotesParser
 {
-    internal class Program
+    internal static class Program
     {
         internal static IFileSystem FileSystem { get; set; }
 
@@ -40,7 +41,7 @@ namespace SemanticReleaseNotesParser
                 Logger.SetLogAction(ConsoleLogAction.Write);
                 Logger.SetMinimalLevel(LogLevel.Info);
 
-                Logger.Info("SemanticReleaseNotesParser V{0}", Assembly.GetExecutingAssembly().GetName().Version);
+                Logger.Info("SemanticReleaseNotesParser V{0}", typeof(Program).GetTypeInfo().Assembly.GetName().Version);
 
                 // Arguments parsing
                 var arguments = Arguments.ParseArguments(args);
@@ -116,7 +117,7 @@ namespace SemanticReleaseNotesParser
             }
             catch (Exception exception)
             {
-                var error = string.Format("An unexpected error occurred:\r\n{0}", exception);
+                var error = string.Format(CultureInfo.InvariantCulture, "An unexpected error occurred:\r\n{0}", exception);
                 Logger.Error(error);
                 return 1;
             }
@@ -154,12 +155,12 @@ namespace SemanticReleaseNotesParser
         {
             if (customStyle != null)
             {
-                if (customStyle.StartsWith("\""))
+                if (customStyle.StartsWith("\"", StringComparison.OrdinalIgnoreCase))
                 {
                     customStyle = customStyle.Substring(1);
                 }
 
-                if (customStyle.EndsWith("\""))
+                if (customStyle.EndsWith("\"", StringComparison.OrdinalIgnoreCase))
                 {
                     customStyle = customStyle.Substring(0, customStyle.Length - 1);
                 }

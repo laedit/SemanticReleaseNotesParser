@@ -1,4 +1,4 @@
-﻿using SemanticReleaseNotesParser.Core.Formatter;
+using SemanticReleaseNotesParser.Core.Formatter;
 using System.IO;
 
 namespace SemanticReleaseNotesParser.Core

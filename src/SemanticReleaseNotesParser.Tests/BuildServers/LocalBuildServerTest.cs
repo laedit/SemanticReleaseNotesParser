@@ -1,9 +1,8 @@
-﻿using NSubstitute;
+using NSubstitute;
 using SemanticReleaseNotesParser.Abstractions;
 using SemanticReleaseNotesParser.BuildServers;
 using SemanticReleaseNotesParser.Logging;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using Xunit;
 
@@ -39,7 +38,7 @@ namespace SemanticReleaseNotesParser.Tests.BuildServers
             Assert.Equal("value", _environmentVariables["name"]);
             Assert.Equal("Adding local environment variable: name.", logs.ToString().Trim());
         }
-        
+
         private Dictionary<string, string> _environmentVariables;
 
         private IEnvironment GetEnvironment()

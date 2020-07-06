@@ -1,4 +1,4 @@
-﻿using SemanticReleaseNotesParser.Logging;
+using SemanticReleaseNotesParser.Logging;
 using System.Text;
 using Xunit;
 
