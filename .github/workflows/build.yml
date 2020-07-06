@@ -65,6 +65,7 @@ jobs:
       run: |
         echo ${GITHUB_REF}
         echo $env:GITHUB_REF
+        echo ${{ github.ref }}
         echo "::set-env name=VERSION::${GITHUB_REF}"
 
     - name: Test
