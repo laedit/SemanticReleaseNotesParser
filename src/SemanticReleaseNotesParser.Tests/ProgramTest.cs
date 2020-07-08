@@ -315,7 +315,7 @@ namespace SemanticReleaseNotesParser.Tests
             Assert.Equal(0, _exitCode);
             Assert.False(Program.FileSystem.File.Exists("ReleaseNotes.html"));
             Assert.False(_environmentVariables.ContainsKey("SemanticReleaseNotes"));
-            Assert.Contains($"::set-env name=SemanticReleaseNotes::{ExpectedHtml}", _output.ToString());
+            Assert.Contains($"::set-env name=SemanticReleaseNotes::{ExpectedHtml.Replace("\r", "%0D").Replace("\n", "%0A")}", _output.ToString());
         }
 
         private readonly StringBuilder _output;
