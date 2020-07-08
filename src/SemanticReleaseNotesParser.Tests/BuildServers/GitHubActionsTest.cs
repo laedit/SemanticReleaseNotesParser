@@ -63,7 +63,7 @@ namespace SemanticReleaseNotesParser.Tests.BuildServers
             var environment = Substitute.For<IEnvironment>();
             if (isOnGitHubActions)
             {
-                environment.GetEnvironmentVariable("GITHUB_ACTIONS").Returns("true"); 
+                environment.GetEnvironmentVariable("GITHUB_ACTIONS").Returns("true");
             }
 
             return environment;
