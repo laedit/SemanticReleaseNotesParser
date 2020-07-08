@@ -14,14 +14,12 @@ namespace SemanticReleaseNotesParser.BuildServers
 
         public bool CanApplyToCurrentContext()
         {
-            var ghaEnvVar = _environment.GetEnvironmentVariable("GITHUB_ACTIONS");
-            Logger.Debug($"GITHUB_ACTIONS: {ghaEnvVar}");
-            return ghaEnvVar == "true";
+            return _environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true";
         }
 
         public void SetEnvironmentVariable(string variable, string value)
         {
-            Logger.Info($"::set-env name={variable}::{value}");
+            Logger.Info($"::set-env name={variable}::{value.Replace("{", "{{").Replace("}", "}}")}");
             Logger.Info("Adding GitHub Actions environment variable: {0}.", variable);
         }
     }

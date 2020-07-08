@@ -146,6 +146,7 @@ namespace SemanticReleaseNotesParser
             return new List<IBuildServer>
             {
                 new AppVeyor(Environment, WebClientFactory),
+                new GitHubActions(Environment),
                 new LocalBuildServer(Environment)
             }.First(bs => bs.CanApplyToCurrentContext());
         }
