@@ -22,12 +22,6 @@ namespace SemanticReleaseNotesParser
         internal static void Main(string[] args)
         {
             var exitCode = Run(args);
-#if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                Console.ReadKey();
-            }
-#endif
             Environment.Exit(exitCode);
         }
 
@@ -101,6 +95,11 @@ namespace SemanticReleaseNotesParser
                 if (arguments.OutputType.HasFlag(OutputType.File))
                 {
                     Logger.Debug("File output");
+                    var targetFolder = FileSystem.Path.GetDirectoryName(arguments.ResultFilePath);
+                    if (!string.IsNullOrWhiteSpace(targetFolder) && !FileSystem.Directory.Exists(targetFolder))
+                    {
+                        FileSystem.Directory.CreateDirectory(targetFolder);
+                    }
                     FileSystem.File.WriteAllText(arguments.ResultFilePath, formattedReleaseNotes);
                     Logger.Info("File '{0}' generated", arguments.ResultFilePath);
                 }

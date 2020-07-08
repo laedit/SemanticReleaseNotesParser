@@ -285,6 +285,24 @@ namespace SemanticReleaseNotesParser.Tests
             Assert.Equal(ExpectedHtmlCategories, Program.FileSystem.File.ReadAllText("ReleaseNotes.html"));
         }
 
+        [Fact]
+        public void Run_Custom_OutputFile_With_Nonexisting_Folder()
+        {
+            // arrange
+            Program.FileSystem = GetFileSystem();
+            Program.Environment = GetEnvironment();
+            Program.WebClientFactory = GetWebClientFactory();
+
+            // act
+            Program.Main(new[] { "-o=NonExistingFolder/MyReleaseNotes.html" });
+
+            // assert
+            Assert.Equal(0, _exitCode);
+            Assert.Equal(ExpectedHtml, Program.FileSystem.File.ReadAllText("NonExistingFolder/MyReleaseNotes.html").Trim());
+            Assert.DoesNotContain("File output", _output.ToString());
+            Assert.Contains("File 'NonExistingFolder/MyReleaseNotes.html' generated", _output.ToString());
+        }
+
         private readonly StringBuilder _output;
 
         public ProgramTest()

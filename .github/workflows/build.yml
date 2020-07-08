@@ -49,9 +49,6 @@ jobs:
 #    - name: Vika
 #      run: vika --debug --includesource static-analysis.Core.sarif.json static-analysis.Program.sarif.json
 
-    - name: Create artifacts directory #FIXME https://github.com/laedit/SemanticReleaseNotesParser/issues/407
-      run: mkdir artifacts
-
     - name: Publish release notes
       run: |
         dotnet run --project src/SemanticReleaseNotesParser --no-build --configuration Release -- -g=categories --debug -o="artifacts/ReleaseNotes.html" --pluralizecategoriestitle --includestyle

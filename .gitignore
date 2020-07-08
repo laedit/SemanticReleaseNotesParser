@@ -187,15 +187,6 @@ FakesAssemblies/
 # Nuget package build
 PackagingAssets/nuget/Lib/Net40/
 
-# FAKE cache
-.fake/
-
 # tools
-tools/FAKE/
-tools/OpenCover/
-tools/xunit.runner.console/
-tools/coveralls.io/
-tools/ReportGenerator
-tools/ILRepack
 /src/.vs/
 /.vs
