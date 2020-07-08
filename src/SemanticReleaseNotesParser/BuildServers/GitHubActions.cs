@@ -22,7 +22,7 @@ namespace SemanticReleaseNotesParser.BuildServers
             Logger.Info($"::set-env name={variable}::{EscapeValue(value)}");
             Logger.Info("Adding GitHub Actions environment variable: {0}.", variable);
         }
-        
+
         private static string EscapeValue(string value)
         {
             return value
