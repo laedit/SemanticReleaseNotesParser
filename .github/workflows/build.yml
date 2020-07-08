@@ -53,7 +53,6 @@ jobs:
       run: |
         dotnet run --project src/SemanticReleaseNotesParser --no-build --configuration Release -- -g=categories --debug -o="artifacts/ReleaseNotes.html" --pluralizecategoriestitle --includestyle
         dotnet run --project src/SemanticReleaseNotesParser --no-build --configuration Release -- -g=categories --debug -t=environment -f=markdown --pluralizecategoriestitle
-        echo "::set-env name=ReleaseNotes_md::$env:SemanticReleaseNotes"
 
     - name: Test
       run: dotnet test src --configuration Release --no-build --nologo --verbosity normal --collect:"XPlat Code Coverage"
@@ -112,7 +111,7 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
-          body: ${{ env.ReleaseNotes_md }}
+          body: ${{ env.SemanticReleaseNotes }}
           draft: false
           prerelease: false
 

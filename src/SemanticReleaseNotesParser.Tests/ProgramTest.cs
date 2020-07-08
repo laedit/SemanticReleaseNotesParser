@@ -223,7 +223,7 @@ namespace SemanticReleaseNotesParser.Tests
         {
             // arrange
             Program.FileSystem = GetFileSystem();
-            Program.Environment = GetEnvironment(true);
+            Program.Environment = GetEnvironmentAppVeyor();
             Program.WebClientFactory = GetWebClientFactory();
 
             // act
@@ -241,8 +241,7 @@ namespace SemanticReleaseNotesParser.Tests
         {
             // arrange
             Program.FileSystem = GetFileSystem();
-            Program.Environment = GetEnvironment(true);
-            Program.WebClientFactory = GetWebClientFactory();
+            Program.Environment = GetEnvironment();
 
             // act
             Program.Main(new[] { "-includestyle" });
@@ -257,8 +256,7 @@ namespace SemanticReleaseNotesParser.Tests
         {
             // arrange
             Program.FileSystem = GetFileSystem();
-            Program.Environment = GetEnvironment(true);
-            Program.WebClientFactory = GetWebClientFactory();
+            Program.Environment = GetEnvironment();
 
             // act
             Program.Main(new[] { "-includestyle=\"body { color: black; width: 500px; }\"" });
@@ -273,8 +271,7 @@ namespace SemanticReleaseNotesParser.Tests
         {
             // arrange
             Program.FileSystem = GetFileSystem();
-            Program.Environment = GetEnvironment(true);
-            Program.WebClientFactory = GetWebClientFactory();
+            Program.Environment = GetEnvironment();
 
             // act
             Program.Main(new[] { "--pluralizecategoriestitle", "-g=categories" });
@@ -303,6 +300,24 @@ namespace SemanticReleaseNotesParser.Tests
             Assert.Contains("File 'NonExistingFolder/MyReleaseNotes.html' generated", _output.ToString());
         }
 
+        [Fact]
+        public void Run_Environment_GitHubActions()
+        {
+            // arrange
+            Program.FileSystem = GetFileSystem();
+            Program.Environment = GetEnvironmentGitHubActions();
+            Program.WebClientFactory = GetWebClientFactory();
+
+            // act
+            Program.Main(new[] { "-t=environment" });
+
+            // assert
+            Assert.Equal(0, _exitCode);
+            Assert.False(Program.FileSystem.File.Exists("ReleaseNotes.html"));
+            Assert.False(_environmentVariables.ContainsKey("SemanticReleaseNotes"));
+            Assert.Contains($"::set-env name=SemanticReleaseNotes::{ExpectedHtml.Replace("\r", "%0D").Replace("\n", "%0A")}", _output.ToString());
+        }
+
         private readonly StringBuilder _output;
 
         public ProgramTest()
@@ -314,21 +329,33 @@ namespace SemanticReleaseNotesParser.Tests
         private Dictionary<string, string> _environmentVariables;
         private int _exitCode;
 
-        private IEnvironment GetEnvironment(bool isOnAppVeyor = false)
+        private IEnvironment GetEnvironment()
         {
             _environmentVariables = new Dictionary<string, string>();
 
             var environment = Substitute.For<IEnvironment>();
             environment.When(e => e.SetEnvironmentVariable(Arg.Any<string>(), Arg.Any<string>())).Do(ci => _environmentVariables.Add((string)ci.Args()[0], (string)ci.Args()[1]));
 
-            environment.GetEnvironmentVariable("APPVEYOR_API_URL").Returns("http://localhost:8080");
-
-            if (isOnAppVeyor)
-            {
-                environment.GetEnvironmentVariable("APPVEYOR").Returns("TRUE");
-            }
-
             environment.When(e => e.Exit(Arg.Any<int>())).Do(ci => _exitCode = ci.Arg<int>());
+
+            return environment;
+        }
+
+        private IEnvironment GetEnvironmentAppVeyor()
+        {
+            var environment = GetEnvironment();
+
+            environment.GetEnvironmentVariable("APPVEYOR_API_URL").Returns("http://localhost:8080");
+            environment.GetEnvironmentVariable("APPVEYOR").Returns("TRUE");
+
+            return environment;
+        }
+
+        private IEnvironment GetEnvironmentGitHubActions()
+        {
+            var environment = GetEnvironment();
+
+            environment.GetEnvironmentVariable("GITHUB_ACTIONS").Returns("true");
 
             return environment;
         }
