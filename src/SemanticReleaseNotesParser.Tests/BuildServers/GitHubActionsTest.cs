@@ -50,7 +50,7 @@ namespace SemanticReleaseNotesParser.Tests.BuildServers
             // assert
             Assert.False(_environmentVariables.ContainsKey("name"));
             var trimmedLogs = logs.ToString().Trim();
-            Assert.Contains("::set-env name=name::value%0D%0A"value2\" \\o/", trimmedLogs);
+            Assert.Contains("::set-env name=name::value%0D%0A\"value2\" \\o/", trimmedLogs);
             Assert.Contains("Adding GitHub Actions environment variable: name.", trimmedLogs);
         }
 
