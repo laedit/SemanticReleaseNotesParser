@@ -111,7 +111,7 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
-          body: ${{ env.ReleaseNotes_md }}
+          body: ${{ env.SemanticReleaseNotes }}
           draft: false
           prerelease: false
 
