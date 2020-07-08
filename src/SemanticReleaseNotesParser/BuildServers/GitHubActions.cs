@@ -19,8 +19,16 @@ namespace SemanticReleaseNotesParser.BuildServers
 
         public void SetEnvironmentVariable(string variable, string value)
         {
-            Logger.Info($"::set-env name={variable}::{value.Replace("{", "{{").Replace("}", "}}")}");
+            Logger.Info($"::set-env name={variable}::{EscapeValue(value)}");
             Logger.Info("Adding GitHub Actions environment variable: {0}.", variable);
+        }
+        
+        private static string EscapeValue(string value)
+        {
+            return value
+                    .Replace("{", "{{").Replace("}", "}}")
+                    .Replace("\r", "%0D")
+                    .Replace("\n", "%0A");
         }
     }
 }
