@@ -14,7 +14,9 @@ namespace SemanticReleaseNotesParser.BuildServers
 
         public bool CanApplyToCurrentContext()
         {
-            return _environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true";
+            var ghaEnvVar = _environment.GetEnvironmentVariable("GITHUB_ACTIONS");
+            Logger.Debug($"GITHUB_ACTIONS: {ghaEnvVar}");
+            return ghaEnvVar == "true";
         }
 
         public void SetEnvironmentVariable(string variable, string value)
