@@ -58,7 +58,7 @@ Parameters:
  Please read [this](./CONTRIBUTING.md).
 
 # Release
-1. Generates release notes with https://github.com/GitTools/GitReleaseNotes and fix it to look like a semantic release notes.
+1. Generates release notes with  https://github.com/StefH/GitHubReleaseNotes: `GitHubReleaseNotes.exe --path . --output ReleaseNotes.md --exclude-labels dependencies --version 0.1.1` and fix it to look like a semantic release notes.
 2. Create and push a new tag based on the template: `v[x].[y].[y]` => `v0.1.0`
 
 Icon: [Article](https://thenounproject.com/term/article/16591/) designed by [Stefan Parnarov](https://thenounproject.com/sapi/) from The Noun Project.
