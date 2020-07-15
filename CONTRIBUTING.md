@@ -12,8 +12,7 @@ Once you're familiar with Git and GitHub, clone the repository and run the Seman
 
 ## Discussing ideas 
 
-* [Gitter Chatroom](https://gitter.im/laedit/SemanticReleaseNotesParser)
-* [GitHub Issues](https://github.com/laedit/SemanticReleaseNotesParser/issues)
+Please pick an [existing issue](https://github.com/laedit/SemanticReleaseNotesParser/issues), or [create one](https://github.com/laedit/SemanticReleaseNotesParser/issues/new) in order to discuss it before you go full ahead.
 
 ## Coding conventions
 
@@ -26,5 +25,10 @@ We have an [editorconfig](http://EditorConfig.org) [file](./.editorconfig) if yo
 Don't forget to add some tests for your functionality in the tests suit.  
 You can see the result either:
 - in Visual Studio or other IDE supporting xUnit2
-- on [AppVeyor](https://ci.appveyor.com/project/laedit/SemanticReleaseNotesParser) and [Travis](https://travis-ci.org/laedit/SemanticReleaseNotesParser) after the PR is submitted
-- run build.bat or build.sh
+- on [GitHubAction](https://github.com/laedit/SemanticReleaseNotesParser/actions) after the PR is submitted
+- run [local-build.ps1](./local-build.ps1)  
+  It will:
+  - apply the source format
+  - build the projects
+  - launch the tests
+  - packages all the thing

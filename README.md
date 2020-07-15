@@ -1,8 +1,7 @@
 [![Licence Apache 2](https://img.shields.io/badge/licence-Apache%202-blue.svg)](https://github.com/laedit/vika/blob/master/LICENSE) 
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/6h723a3g2e99r6on?svg=true)](https://ci.appveyor.com/project/laedit/semanticreleasenotesparser) 
-[![Linux Build Status](https://travis-ci.org/laedit/SemanticReleaseNotesParser.svg?branch=master)](https://travis-ci.org/laedit/SemanticReleaseNotesParser)
+[![Build](https://github.com/laedit/SemanticReleaseNotesParser/workflows/Build/badge.svg)](https://github.com/laedit/SemanticReleaseNotesParser/actions?query=workflow%3ABuild)
 [![codecov.io](https://codecov.io/github/laedit/SemanticReleaseNotesParser/coverage.svg?branch=master)](https://codecov.io/github/laedit/SemanticReleaseNotesParser?branch=master)
-[![SourceLink](https://img.shields.io/badge/SourceLink-ready-brightgreen.svg)](https://ctaggart.github.io/SourceLink/index.html)
+[![SourceLink](https://img.shields.io/badge/SourceLink-ready-brightgreen.svg)](https://docs.microsoft.com/en-us/dotnet/standard/library-guidance/sourcelink)
 
 
 ![Project icon](icon.png)
@@ -12,9 +11,17 @@ Parser for [Semantic Release Notes](http://www.semanticreleasenotes.org/) ([fall
 Can be used to parse a semantic release notes and to format it to a markdown or html file or environment variable, for use on build sever.
 
 ## Install
- - [Nuget (core library)](https://www.nuget.org/packages/SemanticReleaseNotesParser.Core/): `Install-Package SemanticReleaseNotesParser.Core`
- - [Chocolatey (command line tool)](https://chocolatey.org/packages/semanticreleasenotesparser/): `choco install semanticreleasenotesparser`
- - [Manual (command line tool)](https://github.com/laedit/SemanticReleaseNotesParser/releases): download the zip
+
+### Application
+ - [Chocolatey (win-x86)](https://chocolatey.org/packages/semanticreleasenotesparser/): `choco install semanticreleasenotesparser`
+ - [Zip (win-x86 & netcore)](https://github.com/laedit/SemanticReleaseNotesParser/releases): download and extract
+
+
+### Dotnet tool
+ - [Nuget](https://www.nuget.org/packages/SemanticReleaseNotesParser/): `dotnet tool install SemanticReleaseNotesParser`
+
+### Library
+ - [Nuget](https://www.nuget.org/packages/SemanticReleaseNotesParser.Core/): `Install-Package SemanticReleaseNotesParser.Core`
 
 ## Usage
 ### CommandLine
@@ -48,19 +55,10 @@ Parameters:
 
 # Contribute
 
-Please pick an existing issue, or create one in order to discuss it before you go full ahead.
+ Please read [this](./CONTRIBUTING.md).
 
-## Build
-Just use [`local-build.ps1`](./local-build.ps1).  
-It will:
- - apply the source format
- - build the projects
- - launch the tests
- - packages all the thing
-
-
-## Release
-1. Generates release notes with https://github.com/StefH/GitHubReleaseNotes or https://github.com/GitTools/GitReleaseNotes [TODO]
+# Release
+1. Generates release notes with https://github.com/GitTools/GitReleaseNotes and fix it to look like a semantic release notes.
 2. Create and push a new tag based on the template: `v[x].[y].[y]` => `v0.1.0`
 
 Icon: [Article](https://thenounproject.com/term/article/16591/) designed by [Stefan Parnarov](https://thenounproject.com/sapi/) from The Noun Project.
