@@ -23,6 +23,11 @@
     <PackageReleaseNotes>https://github.com/laedit/SemanticReleaseNotesParser/releases</PackageReleaseNotes>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+      <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+
   <ItemGroup>
     <EmbeddedResource Include="Resources\DefaultStyle.css" />
     <EmbeddedResource Include="Resources\GroupByCategories.liquid" />
