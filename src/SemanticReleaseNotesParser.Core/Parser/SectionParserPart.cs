@@ -5,7 +5,7 @@ namespace SemanticReleaseNotesParser.Core.Parser
 {
     internal sealed class SectionParserPart : IParserPart
     {
-        private static readonly Regex SectionRegex = new Regex(@"^# ([\w\s*]*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex SectionRegex = new Regex(@"^# ([\w\s.*]*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public bool Parse(string input, ReleaseNotes releaseNotes, string nextInput)
         {
