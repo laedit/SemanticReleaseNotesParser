@@ -33,7 +33,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Mono.Options" Version="6.6.0.161" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.9.0.19135">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.12.0.21095">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
